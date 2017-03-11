@@ -665,14 +665,15 @@ Change widths as necessary
 
   /* Sidebar */
   .sidebar{
-   padding-left: 20px;
-   border-left: 1px solid #f1f1f1;
+   padding-left: 1px;
+   border-left: -10px solid #f1f1f1;
+   width:100%;
  }
  /* COLUMN GRID */
  .g1,.g2,.g3 {display:inline; float: left}
 
  /* 2 COLUMN GRID */
- .g1 {width:48.0%}
+ .g1 {width:50.0%}
  .g2 {width:48.0%}
  .g3 {width:98.0%}
 }

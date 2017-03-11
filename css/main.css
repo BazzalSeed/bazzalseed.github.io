@@ -665,8 +665,8 @@ Change widths as necessary
 
   /* Sidebar */
   .sidebar{
-   padding-left: 1px;
-   border-left: -10px solid #f1f1f1;
+   padding-left: 20px;
+   border-left: 10px solid #f1f1f1;
    width:100%;
  }
  /* COLUMN GRID */
@@ -698,7 +698,7 @@ Change widths as necessary
 }
   /* 3 COLUMN GRID */
   .g1 {width:31.333%}
-  .g2 {width:50%;}
+  .g2 {width:55%;}
   .g3 {width:98.0%}
 }
 

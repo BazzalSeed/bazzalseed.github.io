@@ -45,7 +45,8 @@
   font-size: 350%;
   display: block;
   color: var(--base-color);
-  margin-bottom: 10px;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .clearfix {
@@ -241,6 +242,7 @@ h5 {
   font-size: 16px;
   text-transform: capitalize;
 }
+
 h6 {
   font-size: 60%;
 }
@@ -1248,6 +1250,13 @@ ol {
 /*===========================
         3.ABOUT css
 ===========================*/
+.about-box {
+  border: thick;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0px 3px 25px 0px rgba(10, 55, 90, 0.2);
+  margin-left: 30px;
+}
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .about-area {
     padding-top: 90px;
@@ -1313,7 +1322,7 @@ ol {
 }
 
 .skill-item {
-  margin-top: 66px;
+ margin: 36px 36px 36px 36px;
 }
 
 .skill-item .skill-header {

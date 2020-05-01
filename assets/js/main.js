@@ -153,13 +153,24 @@ $(document).ready(function ($) {
 
     /* Animations on scroll */
     $('.js--wp-1').waypoint(function (direction) {
-        $('.js--wp-1').addClass('animated pulse');
+        if (direction == 'down') {
+            $('.js--wp-1').addClass('animated pulse');
+        }
+        else {
+            $('.js--wp-1').removeClass('animated pulse');
+        }
     }, {
-        offset: '50%'
+        offset: '38%'
     });
 
+
     $('.js--wp-2').waypoint(function (direction) {
-        $('.js--wp-2').addClass('animated tada');
+        if (direction == 'down') {
+            $('.js--wp-2').addClass('animated tada');
+        }
+        else {
+            $('.js--wp-2').removeClass('animated tada');
+        }
     }, {
         offset: '50%'
     });
@@ -177,4 +188,7 @@ $(document).ready(function ($) {
     });
     //=====
 
+    $("[data-link]").click(function () {
+        window.open($(this).attr("data-link"));
+    });
 }(jQuery));

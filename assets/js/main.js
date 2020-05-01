@@ -166,13 +166,12 @@ $(document).ready(function ($) {
 
     $('.js--wp-2').waypoint(function (direction) {
         if (direction == 'down') {
-            $('.js--wp-2').addClass('animated tada');
+            $('.js--wp-2').removeClass('hide')
+            $('.js--wp-2').addClass('animated fadeInDown');
         }
-        else {
-            $('.js--wp-2').removeClass('animated tada');
-        }
+
     }, {
-        offset: '50%'
+        offset: '88%'
     });
 
     $('.js--wp-3').waypoint(function (direction) {
@@ -187,33 +186,52 @@ $(document).ready(function ($) {
     });
 
     $('.js--wp-exp5').waypoint(function (direction) {
-        $('.js--wp-exp5').addClass('animated pulse');
-    }, {
-        offset: '50%'
-    });
-
-    $('.js--wp-exp5').waypoint(function (direction) {
-        $('.js--wp-exp5').addClass('animated pulse');
+        if (direction == 'down') {
+            $('.js--wp-exp5').addClass('animated heartBeat');
+        }
+        else {
+            $('.js--wp-exp5').removeClass('animated heartBeat');
+        }
     }, {
         offset: '50%'
     });
     $('.js--wp-exp4').waypoint(function (direction) {
-        $('.js--wp-exp4').addClass('animated pulse');
+        if (direction == 'down') {
+            $('.js--wp-exp4').addClass('animated heartBeat');
+        }
+        else {
+            $('.js--wp-exp4').removeClass('animated heartBeat');
+        }
     }, {
         offset: '50%'
     });
     $('.js--wp-exp3').waypoint(function (direction) {
-        $('.js--wp-exp3').addClass('animated pulse');
+        if (direction == 'down') {
+            $('.js--wp-exp3').addClass('animated heartBeat');
+        }
+        else {
+            $('.js--wp-exp3').removeClass('animated heartBeat');
+        }
     }, {
         offset: '50%'
     });
     $('.js--wp-exp2').waypoint(function (direction) {
-        $('.js--wp-exp2').addClass('animated pulse');
+        if (direction == 'down') {
+            $('.js--wp-exp2').addClass('animated heartBeat');
+        }
+        else {
+            $('.js--wp-exp2').removeClass('animated heartBeat');
+        }
     }, {
         offset: '50%'
     });
     $('.js--wp-exp1').waypoint(function (direction) {
-        $('.js--wp-exp1').addClass('animated pulse');
+        if (direction == 'down') {
+            $('.js--wp-exp1').addClass('animated heartBeat');
+        }
+        else {
+            $('.js--wp-exp1').removeClass('animated heartBeat');
+        }
     }, {
         offset: '50%'
     });

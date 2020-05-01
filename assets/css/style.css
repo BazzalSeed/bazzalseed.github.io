@@ -44,6 +44,7 @@
 .hide {
   visibility: hidden;
 }
+
 .link-box:hover {
   cursor: pointer;
 }
@@ -1527,12 +1528,31 @@ span.timeline-location-2 {
   background-color: #fff;
   z-index: 1;
 
-
 }
 
 .timeline-image img {
   position: relative;
   z-index: 100;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 991px) {
+  .timeline-image::before {
+    content: "";
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--base-color);
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    z-index: 1;
+
+  }
 }
 
 /*small device style*/
@@ -1573,8 +1593,23 @@ span.timeline-location-2 {
     position: absolute;
     left: 0%;
     top: 60px;
-    visibility: hidden;
+    visibility: visible;
     /* transform: translateX(-50%); */
+  }
+
+  .timeline-image::before {
+    content: "";
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--base-color);
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    z-index: 1;
   }
 
   .timeline-nodes:nth-child(even) .timeline-date {
@@ -1589,6 +1624,29 @@ span.timeline-location-2 {
 
 /*extra small device style */
 @media (max-width: 575px) {
+
+  .timeline-image::before {
+    content: "";
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--base-color);
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    z-index: 1;
+
+  }
+
+  .timeline-image img {
+    width: 50%;
+    height: 50%;
+    margin-left: 25%;
+  }
+
   .timeline::before {
     content: "";
     display: block;
@@ -1600,13 +1658,9 @@ span.timeline-location-2 {
   .timeline-image {
     position: absolute;
     left: -5%;
-    visibility: hidden;
+    visibility: visible;
   }
 
-  .timeline-image::before {
-    width: 60px;
-    height: 60px;
-  }
 }
 
 ul.cv-list {

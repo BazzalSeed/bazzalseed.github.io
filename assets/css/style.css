@@ -55,6 +55,7 @@
   color: var(--base-color);
   margin-top: 16px;
   margin-bottom: 16px;
+  padding-top: 16px;
 }
 
 .clearfix {

@@ -150,8 +150,15 @@ $(document).ready(function ($) {
         }, 1500);
     });
 
-
     /* Animations on scroll */
+
+
+    $('.js--wp-hero').waypoint(function (direction) {
+        $('.js--wp-hero').addClass('animated swing');
+    }, {
+        offset: '99%'
+    });
+
     $('.js--wp-1').waypoint(function (direction) {
         if (direction == 'down') {
             $('.js--wp-1').addClass('animated heartBeat');

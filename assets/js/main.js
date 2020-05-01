@@ -154,10 +154,10 @@ $(document).ready(function ($) {
     /* Animations on scroll */
     $('.js--wp-1').waypoint(function (direction) {
         if (direction == 'down') {
-            $('.js--wp-1').addClass('animated pulse');
+            $('.js--wp-1').addClass('animated heartBeat');
         }
         else {
-            $('.js--wp-1').removeClass('animated pulse');
+            $('.js--wp-1').removeClass('animated heartBeat');
         }
     }, {
         offset: '38%'

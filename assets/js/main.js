@@ -176,13 +176,44 @@ $(document).ready(function ($) {
     });
 
     $('.js--wp-3').waypoint(function (direction) {
-        $('.js--wp-3').addClass('animated swing');
+        if (direction == 'down') {
+            $('.js--wp-3').addClass('animated pulse');
+        }
+        else {
+            $('.js--wp-3').removeClass('animated pulse');
+        }
     }, {
         offset: '50%'
     });
 
-    $('.js--wp-4').waypoint(function (direction) {
-        $('.js--wp-4').addClass('animated pulse');
+    $('.js--wp-exp5').waypoint(function (direction) {
+        $('.js--wp-exp5').addClass('animated pulse');
+    }, {
+        offset: '50%'
+    });
+
+    $('.js--wp-exp5').waypoint(function (direction) {
+        $('.js--wp-exp5').addClass('animated pulse');
+    }, {
+        offset: '50%'
+    });
+    $('.js--wp-exp4').waypoint(function (direction) {
+        $('.js--wp-exp4').addClass('animated pulse');
+    }, {
+        offset: '50%'
+    });
+    $('.js--wp-exp3').waypoint(function (direction) {
+        $('.js--wp-exp3').addClass('animated pulse');
+    }, {
+        offset: '50%'
+    });
+    $('.js--wp-exp2').waypoint(function (direction) {
+        $('.js--wp-exp2').addClass('animated pulse');
+    }, {
+        offset: '50%'
+    });
+    $('.js--wp-exp1').waypoint(function (direction) {
+        $('.js--wp-exp1').addClass('animated pulse');
     }, {
         offset: '50%'
     });

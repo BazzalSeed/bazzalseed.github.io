@@ -187,50 +187,50 @@ $(document).ready(function ($) {
 
     $('.js--wp-exp5').waypoint(function (direction) {
         if (direction == 'down') {
-            $('.js--wp-exp5').addClass('animated heartBeat');
+            $('.js--wp-exp5').addClass('animated pulse');
         }
         else {
-            $('.js--wp-exp5').removeClass('animated heartBeat');
+            $('.js--wp-exp5').removeClass('animated pulse');
         }
     }, {
         offset: '50%'
     });
     $('.js--wp-exp4').waypoint(function (direction) {
         if (direction == 'down') {
-            $('.js--wp-exp4').addClass('animated heartBeat');
+            $('.js--wp-exp4').addClass('animated pulse');
         }
         else {
-            $('.js--wp-exp4').removeClass('animated heartBeat');
+            $('.js--wp-exp4').removeClass('animated pulse');
         }
     }, {
         offset: '50%'
     });
     $('.js--wp-exp3').waypoint(function (direction) {
         if (direction == 'down') {
-            $('.js--wp-exp3').addClass('animated heartBeat');
+            $('.js--wp-exp3').addClass('animated pulse');
         }
         else {
-            $('.js--wp-exp3').removeClass('animated heartBeat');
+            $('.js--wp-exp3').removeClass('animated pulse');
         }
     }, {
         offset: '50%'
     });
     $('.js--wp-exp2').waypoint(function (direction) {
         if (direction == 'down') {
-            $('.js--wp-exp2').addClass('animated heartBeat');
+            $('.js--wp-exp2').addClass('animated pulse');
         }
         else {
-            $('.js--wp-exp2').removeClass('animated heartBeat');
+            $('.js--wp-exp2').removeClass('animated pulse');
         }
     }, {
         offset: '50%'
     });
     $('.js--wp-exp1').waypoint(function (direction) {
         if (direction == 'down') {
-            $('.js--wp-exp1').addClass('animated heartBeat');
+            $('.js--wp-exp1').addClass('animated pulse');
         }
         else {
-            $('.js--wp-exp1').removeClass('animated heartBeat');
+            $('.js--wp-exp1').removeClass('animated pulse');
         }
     }, {
         offset: '50%'

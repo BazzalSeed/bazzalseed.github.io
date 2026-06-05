@@ -3,16 +3,17 @@
   type="button"
   aria-label="Toggle color theme"
   class="font-[family-name:var(--mono)] text-[color:var(--accent)] text-sm hover:opacity-70 transition-opacity"
->◐ <span data-toggle-label>dark</span></button>
+><span data-toggle-icon>◐</span> <span data-toggle-label>dark</span></button>
 
 <script>
   const btn = document.getElementById('theme-toggle');
   const root = document.documentElement;
   const label = btn?.querySelector('[data-toggle-label]');
+  const icon = btn?.querySelector('[data-toggle-icon]');
   const render = () => {
     const dark = root.dataset.theme === 'dark';
     if (label) label.textContent = dark ? 'light' : 'dark';
-    if (btn && btn.firstChild) btn.firstChild.textContent = dark ? '◑ ' : '◐ ';
+    if (icon) icon.textContent = dark ? '◑' : '◐';
   };
   btn?.addEventListener('click', () => {
     const next = root.dataset.theme === 'dark' ? 'light' : 'dark';

@@ -2,31 +2,54 @@
 import { BIO_SLIDES } from '../lib/site';
 const first = BIO_SLIDES[0];
 ---
-<div data-bioslides class="mt-6 min-h-[11rem]">
-  <p data-slide-title class="text-2xl sm:text-3xl font-bold tracking-tight leading-tight" style="color: var(--fg)">{first.title}</p>
-  <p data-slide-desc class="mt-2 text-[0.95rem] leading-relaxed max-w-prose" style="color: var(--muted)">{first.desc}</p>
+<div data-bioslides class="mt-6">
+  <div class="border-l-2 pl-5 min-h-[10rem]" style="border-color: var(--accent)">
+    <p data-slide-title class="text-2xl sm:text-3xl font-bold tracking-tight leading-tight" style="color: var(--fg)">{first.title}</p>
+    <p data-slide-desc class="mt-3 text-[1.02rem] leading-relaxed max-w-prose" style="color: var(--fg)">{first.desc}</p>
+  </div>
+  <div class="flex gap-2 mt-5 pl-5">
+    {BIO_SLIDES.map((_, idx) => (
+      <button
+        type="button"
+        data-dot={idx}
+        aria-label={`Show slide ${idx + 1}`}
+        class="h-2 w-2 rounded-full transition-all duration-300 hover:opacity-80"
+        style="background: var(--rule)"
+      ></button>
+    ))}
+  </div>
 </div>
 
 <script>
   import { BIO_SLIDES } from '../lib/site';
-  const root = document.querySelector('[data-bioslides]');
-  const titleEl = root?.querySelector('[data-slide-title]');
-  const descEl = root?.querySelector('[data-slide-desc]');
+  const root = document.querySelector<HTMLElement>('[data-bioslides]');
+  const titleEl = root?.querySelector<HTMLElement>('[data-slide-title]');
+  const descEl = root?.querySelector<HTMLElement>('[data-slide-desc]');
+  const dots = [...(root?.querySelectorAll<HTMLButtonElement>('[data-dot]') ?? [])];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (root && titleEl && descEl && !reduce && BIO_SLIDES.length > 1) {
+
+  if (root && titleEl && descEl && BIO_SLIDES.length > 1) {
     let i = 0;
-    const render = (n) => {
+    let timer = 0;
+    const paint = (n: number) => {
       const s = BIO_SLIDES[n];
       titleEl.textContent = s.title;
       descEl.textContent = s.desc;
-      root.classList.remove('bioslide-anim');
-      void (root as HTMLElement).offsetWidth; // restart CSS animation
-      root.classList.add('bioslide-anim');
+      dots.forEach((d, idx) => {
+        d.style.background = idx === n ? 'var(--accent)' : 'var(--rule)';
+        d.style.width = idx === n ? '1.5rem' : '0.5rem';
+      });
+      if (!reduce) {
+        root.classList.remove('bioslide-anim');
+        void root.offsetWidth; // restart CSS animation
+        root.classList.add('bioslide-anim');
+      }
     };
-    root.classList.add('bioslide-anim'); // animate first paint
-    setInterval(() => {
-      i = (i + 1) % BIO_SLIDES.length;
-      render(i);
-    }, 8000);
+    const go = (n: number) => { i = (n + BIO_SLIDES.length) % BIO_SLIDES.length; paint(i); };
+    const start = () => { if (!reduce) timer = window.setInterval(() => go(i + 1), 8000); };
+    const reset = () => { window.clearInterval(timer); start(); };
+    dots.forEach((d, idx) => d.addEventListener('click', () => { go(idx); reset(); }));
+    paint(0);
+    start();
   }
 </script>

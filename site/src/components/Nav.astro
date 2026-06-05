@@ -2,7 +2,7 @@
 import { SITE, NAV } from '../lib/site';
 import ThemeToggle from './ThemeToggle.astro';
 ---
-<nav class="flex items-center justify-between pt-6 font-[family-name:var(--mono)] text-sm">
+<nav class="flex items-center justify-between py-4 font-[family-name:var(--mono)] text-sm">
   <a href="/" class="text-[color:var(--fg)] no-underline hover:opacity-70">~/{SITE.wordmark}</a>
   <div class="flex items-center gap-5">
     {NAV.map((item) => (

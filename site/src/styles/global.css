@@ -2,6 +2,7 @@
 
 :root {
   --bg: #faf8f4;
+  --bg-translucent: rgba(250, 248, 244, 0.85);
   --fg: #2b2722;
   --muted: #9c9486;
   --rule: #e6e0d6;
@@ -15,6 +16,7 @@
 
 [data-theme="dark"] {
   --bg: #0d1117;
+  --bg-translucent: rgba(13, 17, 23, 0.85);
   --fg: #c9d1d9;
   --muted: #8b949e;
   --rule: #21262d;

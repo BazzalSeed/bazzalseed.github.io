@@ -19,8 +19,12 @@ const { title, description } = Astro.props;
     </script>
   </head>
   <body>
+    <header class="sticky top-0 z-50 border-b border-[color:var(--rule)] backdrop-blur" style="background: var(--bg-translucent)">
+      <div class="mx-auto max-w-2xl px-6">
+        <Nav />
+      </div>
+    </header>
     <div class="mx-auto max-w-2xl px-6 pb-12">
-      <Nav />
       <main>
         <slot />
       </main>

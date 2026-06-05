@@ -85,6 +85,15 @@ summary::-webkit-details-marker { display: none; }
 details[open] .chev { transform: rotate(90deg); }
 @media (prefers-reduced-motion: reduce) { .chev { transition: none; } }
 
+/* Borderless brand logos — theme-aware so dark marks stay visible on dark bg */
+.logo-doordash { color: #ff3008; }
+.logo-meta { color: #0467df; }
+.logo-klaviyo { color: #15172b; }
+.logo-surveymini { color: #003595; }
+[data-theme="dark"] .logo-meta { color: #4599ff; }
+[data-theme="dark"] .logo-klaviyo { color: #ffffff; }
+[data-theme="dark"] .logo-surveymini { color: #6aa8e0; }
+
 /* Experience: only the title highlights when a role is expanded */
 .role-title { transition: color 0.15s ease; }
 details.role[open] .role-title { color: var(--accent); }

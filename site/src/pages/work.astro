@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import WorkTimeline from '../components/WorkTimeline.astro';
+---
+<Base title="Work" description="Seed Zeng's work history and education.">
+  <section class="mt-14">
+    <p class="font-[family-name:var(--mono)] text-sm mb-2" style="color: var(--accent)">$ cat work.log</p>
+    <div class="flex items-baseline justify-between gap-3">
+      <h1 class="text-3xl font-bold tracking-tight mt-0 mb-6">Work</h1>
+      <a href="https://www.linkedin.com/in/seedzeng/" target="_blank" rel="noopener noreferrer"
+         class="font-[family-name:var(--mono)] text-sm no-underline hover:opacity-70" style="color: var(--link)">résumé ↗</a>
+    </div>
+    <WorkTimeline />
+  </section>
+</Base>

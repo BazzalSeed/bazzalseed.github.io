@@ -1,0 +1,45 @@
+---
+type Role = { title: string; org: string; period: string; notes?: string[] };
+const roles: Role[] = [
+  { title: 'Senior Staff Software Engineer', org: 'DoorDash', period: 'Jan 2026 — present',
+    notes: ['Lead the Storage / core online datastore org (streaming is one of several teams).'] },
+  { title: 'Staff Software Engineer', org: 'DoorDash', period: 'Jul 2022 — Dec 2025',
+    notes: ['Scaled the Cassandra fleet for efficiency and performance.'] },
+  { title: 'Lead Software Engineer', org: 'Meta', period: 'Aug 2020 — Oct 2022',
+    notes: ['Tech lead for consistency monitoring of large distributed systems.'] },
+  { title: 'Senior Software Engineer', org: 'Klaviyo', period: 'May 2019 — Aug 2020',
+    notes: ['Built Abacus 2.0; scaled ingestion 500 → 150k events/s (~300×).'] },
+  { title: 'Software Engineer (early engineer)', org: 'Klaviyo', period: 'Apr 2017 — Jul 2019',
+    notes: ["Built Abacus 1.0 (Apache Flink) and Klaviyo’s first Kafka microservice."] },
+  { title: 'Backend Software Engineer', org: 'SurveyMini (acq. SMG)', period: 'Jul 2016 — Mar 2017' },
+];
+const education = [
+  { title: 'B.S. Computer Science, Summa Cum Laude', org: 'Washington University in St. Louis', period: '2014 — 2016' },
+  { title: 'B.S. Physics, Summa Cum Laude', org: 'Denison University', period: '2011 — 2014' },
+];
+---
+<div>
+  {roles.map((r) => (
+    <div class="py-4 border-b border-[color:var(--rule)]">
+      <div class="flex items-baseline justify-between gap-3">
+        <h3 class="text-base font-semibold m-0">{r.title} · <span style="color: var(--link)">{r.org}</span></h3>
+        <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap" style="color: var(--muted)">{r.period}</span>
+      </div>
+      {r.notes && (
+        <ul class="list-none p-0 mt-2 mb-0">
+          {r.notes.map((n) => (
+            <li class="text-sm leading-relaxed" style="color: var(--fg)">— {n}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  ))}
+
+  <h2 class="font-[family-name:var(--mono)] text-xs mt-10 mb-1" style="color: var(--muted)">$ ls education/</h2>
+  {education.map((e) => (
+    <div class="py-3 border-b border-[color:var(--rule)] flex items-baseline justify-between gap-3">
+      <span class="text-sm">{e.title} · <span style="color: var(--link)">{e.org}</span></span>
+      <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap" style="color: var(--muted)">{e.period}</span>
+    </div>
+  ))}
+</div>

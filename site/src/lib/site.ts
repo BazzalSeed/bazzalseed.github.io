@@ -8,9 +8,9 @@ export const SITE = {
 };
 
 export const NAV = [
-  { href: '/work', label: 'work' },
-  { href: '/writing', label: 'writing' },
-  { href: '/life', label: 'life' },
+  { href: '/#work', label: 'work' },
+  { href: '/#writing', label: 'writing' },
+  { href: '/#life', label: 'life' },
 ];
 
 export const BIO_LINES = [

@@ -8,28 +8,27 @@ import { SITE } from '../lib/site';
 ---
 <Base>
   <section class="mt-14">
-    <p class="font-[family-name:var(--mono)] text-sm text-[color:var(--accent)] mb-2">$ whoami</p>
     <h1 class="text-4xl font-bold tracking-tight m-0">{SITE.name}</h1>
-    <p class="text-base font-medium mt-1 mb-0" style="color: var(--link)">{SITE.headline}</p>
+    <p class="text-base font-medium mt-2 mb-0" style="color: var(--link)">{SITE.headline}</p>
     <p class="font-[family-name:var(--mono)] text-sm mt-1 mb-4" style="color: var(--muted)">{SITE.meta}</p>
     <Typewriter />
   </section>
 
-  <section id="work" class="mt-20 scroll-mt-20">
-    <h2 class="font-[family-name:var(--mono)] text-sm mb-5" style="color: var(--accent)">$ cat work.log</h2>
+  <section id="work" class="mt-20 scroll-mt-16">
+    <h2 class="font-[family-name:var(--mono)] text-xs uppercase tracking-[0.18em] mb-5" style="color: var(--accent)">Experience</h2>
     <WorkTimeline />
   </section>
 
-  <section id="writing" class="mt-20 scroll-mt-20">
+  <section id="writing" class="mt-20 scroll-mt-16">
     <div class="flex items-baseline justify-between mb-5">
-      <h2 class="font-[family-name:var(--mono)] text-sm m-0" style="color: var(--accent)">$ ls writing/</h2>
+      <h2 class="font-[family-name:var(--mono)] text-xs uppercase tracking-[0.18em] m-0" style="color: var(--accent)">Writing</h2>
       <a href="/rss.xml" class="font-[family-name:var(--mono)] text-xs no-underline hover:opacity-70" style="color: var(--muted)">rss →</a>
     </div>
     <WritingList />
   </section>
 
-  <section id="life" class="mt-20 scroll-mt-20">
-    <h2 class="font-[family-name:var(--mono)] text-sm mb-5" style="color: var(--accent)">$ open ~/life</h2>
+  <section id="life" class="mt-20 scroll-mt-16">
+    <h2 class="font-[family-name:var(--mono)] text-xs uppercase tracking-[0.18em] mb-5" style="color: var(--accent)">Life</h2>
     <LifeGallery />
   </section>
 </Base>

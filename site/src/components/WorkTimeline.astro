@@ -23,7 +23,7 @@ const education: Education[] = [
   {roles.map((r) => (
     <div class="py-4 border-b border-[color:var(--rule)]">
       <div class="flex items-baseline justify-between gap-3">
-        <h2 class="text-base font-semibold m-0">{r.title} · <span style="color: var(--link)">{r.org}</span></h2>
+        <h2 class="text-base font-semibold m-0">{r.title} · <span style="color: var(--muted)">{r.org}</span></h2>
         <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap" style="color: var(--muted)">{r.period}</span>
       </div>
       {r.notes && (
@@ -36,10 +36,10 @@ const education: Education[] = [
     </div>
   ))}
 
-  <h2 class="font-[family-name:var(--mono)] text-xs mt-10 mb-1" style="color: var(--muted)">$ ls education/</h2>
+  <h2 class="font-[family-name:var(--mono)] text-xs uppercase tracking-[0.18em] mt-12 mb-3" style="color: var(--accent)">Education</h2>
   {education.map((e) => (
     <div class="py-3 border-b border-[color:var(--rule)] flex items-baseline justify-between gap-3">
-      <span class="text-sm">{e.title} · <span style="color: var(--link)">{e.org}</span></span>
+      <span class="text-sm">{e.title} · <span style="color: var(--muted)">{e.org}</span></span>
       <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap" style="color: var(--muted)">{e.period}</span>
     </div>
   ))}

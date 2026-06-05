@@ -19,7 +19,7 @@
   --muted: #8b949e;
   --rule: #21262d;
   --accent: #3fb950;
-  --link: #58a6ff;
+  --link: #3fb950;
   --post: #3fb950;
   color-scheme: dark;
 }
@@ -61,4 +61,8 @@ a { color: var(--link); }
 @keyframes blink { 50% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
   .term-cursor { animation: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
 }

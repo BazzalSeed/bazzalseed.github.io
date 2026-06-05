@@ -78,6 +78,9 @@ a { color: var(--link); }
   to { opacity: 1; transform: none; filter: blur(0); }
 }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes bioprogress { from { width: 0; } to { width: 100%; } }
+[data-bioslides]:hover [data-progress],
+[data-bioslides]:focus-within [data-progress] { animation-play-state: paused; }
 
 summary { list-style: none; }
 summary::-webkit-details-marker { display: none; }

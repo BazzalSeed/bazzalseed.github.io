@@ -1,12 +1,12 @@
 ---
-// Web3Forms: free, no backend. Create a key at https://web3forms.com with
-// seedzpy@gmail.com as the destination, then paste it below.
-const ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+// Reuses the existing Formspree form from the old site (delivers to
+// cdzengpeiyun@gmail.com). To change the destination, swap the endpoint below.
+const ENDPOINT = 'https://formspree.io/f/xknqwvlo';
 ---
-<form data-contact-form class="grid gap-3 max-w-lg">
-  <input type="hidden" name="access_key" value={ACCESS_KEY} />
-  <input type="hidden" name="subject" value="New message from seedzeng.com" />
-  <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+<form data-contact-form data-endpoint={ENDPOINT} class="grid gap-3 max-w-lg">
+  <input type="hidden" name="_subject" value="New message from seedzeng.com" />
+  <!-- honeypot: bots fill this, humans don't -->
+  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" style="display:none" />
 
   <input type="text" name="name" required placeholder="your name"
     class="w-full rounded-lg px-3 py-2.5 text-sm" />
@@ -29,22 +29,22 @@ const ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (status) status.textContent = 'sending…';
-    const payload = Object.fromEntries(new FormData(form).entries());
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
+      const res = await fetch(form.dataset.endpoint!, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(payload),
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
       });
-      const json = await res.json();
-      if (json.success) {
+      if (res.ok) {
         form.reset();
         if (status) status.textContent = 'thanks — message sent ✓';
       } else {
-        if (status) status.textContent = 'hmm, that failed. email me directly?';
+        const json = await res.json().catch(() => null);
+        const msg = json?.errors?.[0]?.message ?? 'that failed — email me directly?';
+        if (status) status.textContent = msg;
       }
     } catch {
-      if (status) status.textContent = 'network error. email me directly?';
+      if (status) status.textContent = 'network error — email me directly?';
     }
   });
 </script>

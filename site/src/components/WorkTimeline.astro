@@ -8,6 +8,7 @@ const roles: Role[] = [
     summary: "I own the technical direction of DoorDash's Storage org and lead the team rebuilding our core data infrastructure.",
     notes: [
       'Lead a 40-engineer team across the core initiatives redefining the storage layer.',
+      'Grow staff and senior engineers through mentorship, design reviews, and career development.',
       'Own the online datastore platform every product team at DoorDash builds on.',
       'Accountable for the reliability, performance, and long-term architecture behind millions of orders a day.',
     ],
@@ -17,6 +18,7 @@ const roles: Role[] = [
     summary: "Made DoorDash's core storage faster and cheaper as the business scaled globally.",
     notes: [
       'Drove fleet-wide efficiency and performance gains across the Cassandra deployment (“Cassandra Unleashed”).',
+      'Mentored engineers and raised the technical bar across the team.',
       'Scaled core storage infrastructure to keep pace with global growth.',
     ],
   },
@@ -67,8 +69,8 @@ const education: Education[] = [
 ---
 <div>
   {roles.map((r) => (
-    <details open={r.current} class="border-b border-[color:var(--rule)]">
-      <summary class="flex items-center gap-3 cursor-pointer py-4 select-none">
+    <details open={r.current} class="role rounded-lg border-l-2 border-transparent pl-3 -ml-3">
+      <summary class="flex items-center gap-3 cursor-pointer py-4 select-none rounded-lg">
         <span class="shrink-0 w-8 flex justify-center items-center" style={`color: var(${r.current ? '--accent' : '--muted'})`}>
           <CompanyLogo company={r.logo} />
         </span>
@@ -87,7 +89,7 @@ const education: Education[] = [
         <p class="text-[0.95rem] leading-relaxed" style="color: var(--fg)">{r.summary}</p>
         <ul class="list-none p-0 mt-2.5 m-0 space-y-1.5">
           {r.notes.map((n) => (
-            <li class="text-sm leading-relaxed flex gap-2" style="color: var(--muted)">
+            <li class="text-sm leading-relaxed flex gap-2" style="color: var(--fg)">
               <span aria-hidden="true" style="color: var(--accent)">–</span><span>{n}</span>
             </li>
           ))}
@@ -98,7 +100,7 @@ const education: Education[] = [
 
   <h2 class="font-[family-name:var(--mono)] text-xs uppercase tracking-[0.18em] mt-12 mb-4" style="color: var(--accent)">Education</h2>
   {education.map((e) => (
-    <div class="py-3 border-b border-[color:var(--rule)]">
+    <div class="py-3">
       <div class="flex items-baseline justify-between gap-3">
         <span class="text-sm font-medium">{e.title} · <span style="color: var(--muted)">{e.org}</span></span>
         <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap" style="color: var(--muted)">{e.period}</span>

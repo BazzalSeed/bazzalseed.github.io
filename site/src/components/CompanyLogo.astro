@@ -1,12 +1,6 @@
 ---
-import { Image } from 'astro:assets';
-import surveyminiLogo from '../assets/surveymini.png';
-
 interface Props { company: string; size?: number }
 const { company, size = 20 } = Astro.props;
-
-const RASTER: Record<string, ImageMetadata> = { surveymini: surveyminiLogo };
-const raster = RASTER[company];
 
 const ICONS: Record<string, { vb: string; d: string }> = {
   doordash: {
@@ -19,7 +13,7 @@ const ICONS: Record<string, { vb: string; d: string }> = {
   },
   klaviyo: { vb: '0 0 266 178', d: 'M266 178H0V0h266l-55.835 89z' },
 };
-const LETTERS: Record<string, string> = { surveymini: 'S' };
+const LETTERS: Record<string, string> = {};
 
 const icon = ICONS[company];
 let w = size;
@@ -35,8 +29,11 @@ const letter = LETTERS[company] ?? '•';
   <svg width={w} height={h} viewBox={icon.vb} fill="currentColor" aria-hidden="true" role="img">
     <path d={icon.d} />
   </svg>
-) : raster ? (
-  <Image src={raster} alt="" width={size * 2} height={size * 2} class="rounded-[4px]" style={`width:${size}px;height:${size}px;object-fit:contain`} />
+) : company === 'surveymini' ? (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" role="img">
+    <rect x="3" y="3" width="18" height="18" rx="4.5"></rect>
+    <path d="M7.5 12.5l3 3 6-6.5"></path>
+  </svg>
 ) : (
   <span
     aria-hidden="true"

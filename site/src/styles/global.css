@@ -84,3 +84,15 @@ summary::-webkit-details-marker { display: none; }
 .chev { display: inline-block; transition: transform 0.2s ease; }
 details[open] .chev { transform: rotate(90deg); }
 @media (prefers-reduced-motion: reduce) { .chev { transition: none; } }
+
+/* Experience rows: no dividers — hover + open-state highlight instead */
+details.role { transition: background-color 0.15s ease, border-color 0.15s ease; }
+details.role > summary { transition: background-color 0.15s ease; }
+details.role > summary:hover { background: color-mix(in srgb, var(--fg) 5%, transparent); }
+details.role[open] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  details.role, details.role > summary { transition: none; }
+}

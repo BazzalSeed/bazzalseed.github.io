@@ -13,6 +13,7 @@ const writing = defineCollection({
     tags: z.array(z.string()).default([]),
   }).refine((d) => !d.external || !!d.url, {
     message: 'external entries require a url',
+    path: ['url'],
   }),
 });
 

@@ -24,4 +24,8 @@ describe('writing helpers', () => {
   it('entryHref returns local route for local entries', () => {
     expect(entryHref(mk('my-post', '2024-01-01', false))).toBe('/writing/my-post');
   });
+
+  it('entryHref throws for external entries missing a url', () => {
+    expect(() => entryHref(mk('broken', '2024-01-01', true))).toThrow(/missing url/);
+  });
 });

@@ -15,7 +15,8 @@ const entries = limit ? all.slice(0, limit) : all;
       <li class="flex items-baseline justify-between gap-3 py-2 border-b border-[color:var(--rule)]">
         <a
           href={href}
-          class="text-[color:var(--fg)] no-underline hover:opacity-70"
+          class="no-underline hover:opacity-70"
+          style="color: var(--fg)"
           {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
         >
           <span class="font-[family-name:var(--mono)] text-xs opacity-60 mr-3">{year}</span>{e.data.title}

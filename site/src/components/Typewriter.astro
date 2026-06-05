@@ -11,7 +11,7 @@ import { BIO_LINES } from '../lib/site';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (el && !reduce && BIO_LINES.length > 1) {
     let line = 0;
-    let ch = BIO_LINES[0].length;
+    let ch = BIO_LINES[0].length - 1;
     let deleting = false;
     const tick = () => {
       const text = BIO_LINES[line];

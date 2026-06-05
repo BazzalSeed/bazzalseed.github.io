@@ -1,5 +1,6 @@
 ---
 type Role = { title: string; org: string; period: string; notes?: string[] };
+type Education = { title: string; org: string; period: string };
 const roles: Role[] = [
   { title: 'Senior Staff Software Engineer', org: 'DoorDash', period: 'Jan 2026 — present',
     notes: ['Lead the Storage / core online datastore org (streaming is one of several teams).'] },
@@ -13,7 +14,7 @@ const roles: Role[] = [
     notes: ["Built Abacus 1.0 (Apache Flink) and Klaviyo’s first Kafka microservice."] },
   { title: 'Backend Software Engineer', org: 'SurveyMini (acq. SMG)', period: 'Jul 2016 — Mar 2017' },
 ];
-const education = [
+const education: Education[] = [
   { title: 'B.S. Computer Science, Summa Cum Laude', org: 'Washington University in St. Louis', period: '2014 — 2016' },
   { title: 'B.S. Physics, Summa Cum Laude', org: 'Denison University', period: '2011 — 2014' },
 ];
@@ -22,7 +23,7 @@ const education = [
   {roles.map((r) => (
     <div class="py-4 border-b border-[color:var(--rule)]">
       <div class="flex items-baseline justify-between gap-3">
-        <h3 class="text-base font-semibold m-0">{r.title} · <span style="color: var(--link)">{r.org}</span></h3>
+        <h2 class="text-base font-semibold m-0">{r.title} · <span style="color: var(--link)">{r.org}</span></h2>
         <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap" style="color: var(--muted)">{r.period}</span>
       </div>
       {r.notes && (

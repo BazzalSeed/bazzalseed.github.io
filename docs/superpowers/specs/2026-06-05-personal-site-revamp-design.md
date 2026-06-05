@@ -66,7 +66,8 @@ Four nav items: **work / writing / life** + theme toggle. Everything else cut.
   light), name, headline `Senior Staff Software Engineer @ DoorDash`, meta line
   `ex-Meta · ex-Klaviyo · angel investor · Boston`, one-line bio, social links.
   Below: the 3 most recent Writing entries.
-- **Work** — role timeline sourced from CV (see Content). Résumé PDF link.
+- **Work** — role timeline sourced from CV (see Content). "Résumé" link points to
+  LinkedIn (https://www.linkedin.com/in/seedzeng/) for now; swap to a hosted PDF later.
 - **Writing** — **one unified reverse-chronological feed**. Local Markdown/MDX
   posts render on-site; external articles show a `source ↗` tag and link out.
   Includes RSS feed and syntax highlighting for code blocks.
@@ -98,14 +99,16 @@ Four nav items: **work / writing / life** + theme toggle. Everything else cut.
 
 ### Work timeline (from CV)
 - DoorDash — Senior Staff Software Engineer (Jan 2026–present); Staff Software
-  Engineer (Jul 2022–Dec 2025).
+  Engineer (Jul 2022–Dec 2025). **Leads the Storage / core online datastore org**
+  (streaming is one of several teams under him).
 - Meta — Lead Software Engineer (Aug 2020–Oct 2022).
-- Klaviyo — Senior Software Engineer (May 2019–Aug 2020); Software Engineer
-  (Apr 2017–Jul 2019). Highlights: Abacus 1.0/2.0, scaled ingestion 500 → 150k
-  events/s.
+- Klaviyo — **early engineer**; Senior Software Engineer (May 2019–Aug 2020);
+  Software Engineer (Apr 2017–Jul 2019). Highlights: Abacus 1.0/2.0, scaled
+  ingestion 500 → 150k events/s (~300×).
 - SurveyMini (acq. SMG) — Backend Software Engineer (Jul 2016–Mar 2017).
 - Education: WashU (CS, Summa Cum Laude); Denison (Physics, Summa Cum Laude).
-- Résumé PDF (replace the stale 2020 Google Drive link with a current résumé).
+- "Résumé" → link to LinkedIn (https://www.linkedin.com/in/seedzeng/) for now;
+  replace with a current hosted PDF later. Drop the stale 2020 Google Drive link.
 
 ### Writing — external entries (seed the unified feed)
 - Cassandra Unleashed — How We Enhanced Cassandra Fleet's Efficiency and
@@ -127,9 +130,11 @@ Four nav items: **work / writing / life** + theme toggle. Everything else cut.
 ### Life
 - Migrate + compress existing photos from `assets/images/life/`.
 
-### Bio (draft — confirm wording during build)
-> "I build and scale the streaming backends that move billions of events a day.
-> On the side, I angel-invest in early-stage startups."
+### Bio (final)
+> "Engineering leader for DoorDash's core online datastores — the storage layer
+> the whole business runs on. Early engineer at Klaviyo (scaled the pipeline
+> ~300×). Physics + CS background: scientist's curiosity, engineer's execution.
+> Angel investor in early-stage startups."
 
 ## Architecture / Project Structure (Astro)
 

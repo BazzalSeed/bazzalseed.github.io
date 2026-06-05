@@ -6,12 +6,11 @@ type Role = { title: string; org: string; logo: string; period: string; current?
 const roles: Role[] = [
   {
     title: 'Senior Staff Software Engineer', org: 'DoorDash', logo: 'doordash', period: 'Jan 2026 — present', current: true,
-    summary: "I own the technical direction of DoorDash's Storage org and lead the team rebuilding our core data infrastructure.",
+    summary: "I lead the team and own the technical direction for DoorDash's Storage org — the data infrastructure the whole company runs on.",
     notes: [
-      'Lead a 40-engineer team across the core initiatives redefining the storage layer.',
-      'Grow staff and senior engineers through mentorship, design reviews, and career development.',
-      'Own the online datastore platform every product team at DoorDash builds on.',
-      'Accountable for the reliability, performance, and long-term architecture behind millions of orders a day.',
+      'Lead and grow a 40-engineer organization — mentoring and developing staff and senior engineers into the next layer of technical leaders.',
+      'Set vision and roadmap for the core initiatives redefining the storage layer, partnering across product and infra teams.',
+      'Own the online datastore platform every product team builds on — accountable for reliability, performance, and long-term architecture behind millions of orders a day.',
     ],
   },
   {
@@ -86,7 +85,7 @@ const education: Education[] = [
         <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap" style="color: var(--muted)">{r.period}</span>
         <span class="chev font-[family-name:var(--mono)] text-sm ml-1" style="color: var(--muted)" aria-hidden="true">›</span>
       </summary>
-      <div class="pb-5 pl-11">
+      <div class="pb-5 pl-[52px]">
         <p class="text-[0.95rem] leading-relaxed" style="color: var(--fg)">{r.summary}</p>
         <ul class="list-none p-0 mt-2.5 m-0 space-y-1.5">
           {r.notes.map((n) => (

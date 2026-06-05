@@ -1,6 +1,6 @@
 ---
 interface Props { company: string; size?: number }
-const { company, size = 20 } = Astro.props;
+const { company, size = 26 } = Astro.props;
 
 const ICONS: Record<string, { vb: string; d: string }> = {
   doordash: {
@@ -27,7 +27,7 @@ if (icon) {
   h = size;
 }
 ---
-<span class={`logo-${company} inline-flex items-center justify-center shrink-0`} style="width:30px">
+<span class={`logo-${company} inline-flex items-center justify-center shrink-0`} style="width:40px">
   {icon ? (
     <svg width={w} height={h} viewBox={icon.vb} fill="currentColor" aria-hidden="true" role="img">
       <path d={icon.d} />

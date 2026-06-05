@@ -92,10 +92,9 @@ details[open] .chev { transform: rotate(90deg); }
 /* Borderless brand logos — theme-aware so dark marks stay visible on dark bg */
 .logo-doordash { color: #ff3008; }
 .logo-meta { color: #0467df; }
-.logo-klaviyo { color: #15172b; }
+.logo-klaviyo { color: #f0604a; }
 .logo-surveymini { color: #003595; }
 [data-theme="dark"] .logo-meta { color: #4599ff; }
-[data-theme="dark"] .logo-klaviyo { color: #ffffff; }
 [data-theme="dark"] .logo-surveymini { color: #6aa8e0; }
 
 /* Experience: title highlights when expanded; whole row hints accent on hover (clickable cue) */

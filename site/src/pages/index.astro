@@ -31,7 +31,10 @@ import profile from '../assets/profile.png';
 
   <section id="writing" class="mt-20 scroll-mt-16">
     <SectionLabel name="writing" class="mb-5" />
-    <WritingList />
+    <WritingList limit={4} />
+    <p class="mt-5 font-[family-name:var(--mono)] text-sm">
+      <a href="/writing" class="no-underline hover:opacity-70" style="color: var(--accent)">view all writing →</a>
+    </p>
   </section>
 
   <section id="life" class="mt-20 scroll-mt-16">

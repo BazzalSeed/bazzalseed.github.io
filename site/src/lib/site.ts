@@ -16,7 +16,7 @@ export const NAV = [
 export const BIO_SLIDES = [
   {
     title: 'Lead at scale',
-    desc: "Senior Staff Engineer at DoorDash, leading the team behind our core online datastores — the storage millions of orders depend on every day. I own the reliability, performance, and technical direction of that infrastructure.",
+    desc: "Senior Staff Engineer at DoorDash, leading the team behind our core online datastores — the storage millions of orders depend on every day. I own the reliability and direction of that infrastructure, and the growth of the engineers behind it.",
   },
   {
     title: '0 to 100',

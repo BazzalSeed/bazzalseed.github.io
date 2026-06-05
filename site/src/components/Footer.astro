@@ -1,0 +1,12 @@
+---
+import { SOCIALS, SITE } from '../lib/site';
+const year = new Date().getFullYear();
+---
+<footer class="mt-24 pt-6 border-t border-[color:var(--rule)] font-[family-name:var(--mono)] text-sm text-[color:var(--muted)] flex flex-wrap items-center justify-between gap-3">
+  <div class="flex gap-4">
+    {SOCIALS.map((s) => (
+      <a href={s.href} class="text-[color:var(--link)] no-underline hover:opacity-70">{s.label}</a>
+    ))}
+  </div>
+  <span>© {year} {SITE.name}</span>
+</footer>

@@ -10,6 +10,7 @@
   --post: #b04a2f;
   --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color-scheme: light;
 }
 
 [data-theme="dark"] {
@@ -20,9 +21,8 @@
   --accent: #3fb950;
   --link: #58a6ff;
   --post: #3fb950;
+  color-scheme: dark;
 }
-
-html { color-scheme: light dark; }
 body {
   background: var(--bg);
   color: var(--fg);

@@ -69,7 +69,7 @@ const education: Education[] = [
 ---
 <div>
   {roles.map((r) => (
-    <details open={r.current} class="role border-b border-[color:var(--rule)]">
+    <details open={r.current} class="role">
       <summary class="flex items-center gap-3 cursor-pointer py-4 select-none">
         <CompanyLogo company={r.logo} />
         <span class="flex-1 min-w-0">

@@ -81,8 +81,10 @@ a { color: var(--link); }
 
 summary { list-style: none; }
 summary::-webkit-details-marker { display: none; }
-.writing-more[open] .more-closed { display: none; }
-.writing-more:not([open]) .more-open { display: none; }
+[data-writing]:not([data-expanded]) .writing-extra { display: none; }
+[data-writing] .more-open { display: none; }
+[data-writing][data-expanded] .more-open { display: inline; }
+[data-writing][data-expanded] .more-closed { display: none; }
 .chev { display: inline-block; transition: transform 0.2s ease, color 0.15s ease; }
 details[open] .chev { transform: rotate(90deg); }
 @media (prefers-reduced-motion: reduce) { .chev { transition: none; } }

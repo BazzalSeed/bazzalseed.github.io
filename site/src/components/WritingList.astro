@@ -5,20 +5,32 @@ import WritingRow from './WritingRow.astro';
 interface Props { limit?: number }
 const { limit } = Astro.props;
 const all = sortEntries(await getCollection('writing'));
-const visible = limit ? all.slice(0, limit) : all;
-const rest = limit ? all.slice(limit) : [];
+const hasMore = limit != null && all.length > limit;
 ---
-<ul class="list-none p-0 m-0">
-  {visible.map((e) => <WritingRow entry={e} />)}
-</ul>
-{rest.length > 0 && (
-  <details class="writing-more">
-    <summary class="cursor-pointer select-none font-[family-name:var(--mono)] text-sm py-3 hover:opacity-70" style="color: var(--accent)">
+<div data-writing>
+  <ul class="list-none p-0 m-0">
+    {all.map((e, i) => <WritingRow entry={e} class={hasMore && i >= (limit as number) ? 'writing-extra' : ''} />)}
+  </ul>
+  {hasMore && (
+    <button
+      type="button"
+      data-writing-toggle
+      aria-expanded="false"
+      class="cursor-pointer font-[family-name:var(--mono)] text-sm py-3 mt-1 bg-transparent border-0 p-0 hover:opacity-70"
+      style="color: var(--accent)"
+    >
       <span class="more-closed">view all writing ({all.length}) →</span>
       <span class="more-open">show less ↑</span>
-    </summary>
-    <ul class="list-none p-0 m-0">
-      {rest.map((e) => <WritingRow entry={e} />)}
-    </ul>
-  </details>
-)}
+    </button>
+  )}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-writing]').forEach((root) => {
+    const btn = root.querySelector<HTMLButtonElement>('[data-writing-toggle]');
+    btn?.addEventListener('click', () => {
+      const expanded = root.toggleAttribute('data-expanded');
+      btn.setAttribute('aria-expanded', String(expanded));
+    });
+  });
+</script>

@@ -1,13 +1,13 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { entryHref } from '../lib/writing';
-interface Props { entry: CollectionEntry<'writing'> }
-const { entry } = Astro.props;
+interface Props { entry: CollectionEntry<'writing'>; class?: string }
+const { entry, class: cls = '' } = Astro.props;
 const href = entryHref(entry);
 const year = entry.data.date.getFullYear();
 const external = entry.data.external;
 ---
-<li class="flex items-baseline justify-between gap-3 py-2 border-b border-[color:var(--rule)]">
+<li class={`flex items-baseline justify-between gap-3 py-2 border-b border-[color:var(--rule)] ${cls}`}>
   <a
     href={href}
     class="no-underline hover:opacity-70"

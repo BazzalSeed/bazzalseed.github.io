@@ -3,7 +3,6 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import WorkTimeline from '../components/WorkTimeline.astro';
 import WritingList from '../components/WritingList.astro';
-import LifeGallery from '../components/LifeGallery.astro';
 import BioSlides from '../components/BioSlides.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import SectionLabel from '../components/SectionLabel.astro';
@@ -34,9 +33,21 @@ import profile from '../assets/profile.png';
     <WritingList limit={4} />
   </section>
 
-  <section id="life" class="mt-20 scroll-mt-16">
-    <SectionLabel name="life" class="mb-5" />
-    <LifeGallery />
+  <section id="podcast" class="mt-20 scroll-mt-16">
+    <SectionLabel name="podcast" class="mb-3" />
+    <p class="text-[0.95rem] leading-relaxed max-w-prose mb-5" style="color: var(--muted)">
+      <span style="color: var(--fg)">Superposition</span> — examining the world from multiple perspectives, with Seed &amp; Hansen.
+    </p>
+    <iframe
+      title="Superposition podcast"
+      loading="lazy"
+      src="https://www.podbean.com/player-v2/?i=5vxnc-b09f80-pbblog-playlist&share=1&download=1&rtl=1&fonts=Arial&skin=f6f6f6&font-color=auto&order=episodic&limit=10&filter=all&ss=a713390a017602015775e868a2cf26b0&btn-skin=3267a3&size=358"
+      height="358"
+      width="100%"
+      scrolling="no"
+      allowfullscreen
+      style="border:1px solid var(--rule); border-radius:10px; min-width: min(100%, 430px);"
+    ></iframe>
   </section>
 
   <section id="contact" class="mt-20 scroll-mt-16">

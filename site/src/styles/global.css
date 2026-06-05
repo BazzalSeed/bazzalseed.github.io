@@ -81,6 +81,8 @@ a { color: var(--link); }
 
 summary { list-style: none; }
 summary::-webkit-details-marker { display: none; }
+.writing-more[open] .more-closed { display: none; }
+.writing-more:not([open]) .more-open { display: none; }
 .chev { display: inline-block; transition: transform 0.2s ease, color 0.15s ease; }
 details[open] .chev { transform: rotate(90deg); }
 @media (prefers-reduced-motion: reduce) { .chev { transition: none; } }

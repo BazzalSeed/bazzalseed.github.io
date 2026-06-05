@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { entryHref } from '../lib/writing';
+interface Props { entry: CollectionEntry<'writing'> }
+const { entry } = Astro.props;
+const href = entryHref(entry);
+const year = entry.data.date.getFullYear();
+const external = entry.data.external;
+---
+<li class="flex items-baseline justify-between gap-3 py-2 border-b border-[color:var(--rule)]">
+  <a
+    href={href}
+    class="no-underline hover:opacity-70"
+    style="color: var(--fg)"
+    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+  >
+    <span class="font-[family-name:var(--mono)] text-xs opacity-60 mr-3">{year}</span>{entry.data.title}
+  </a>
+  <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap"
+        style={`color: var(${external ? '--link' : '--post'})`}>
+    {external ? `${entry.data.source ?? 'link'} ↗` : '● post'}
+  </span>
+</li>

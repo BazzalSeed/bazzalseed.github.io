@@ -10,6 +10,7 @@ export const NAV = [
   { href: '/#work', label: 'work' },
   { href: '/#writing', label: 'writing' },
   { href: '/#life', label: 'life' },
+  { href: '/#contact', label: 'contact' },
 ];
 
 export const BIO_LINES = [
@@ -24,6 +25,7 @@ export const BIO_LINES = [
 export const SOCIALS = [
   { href: 'https://github.com/bazzalseed', label: 'github' },
   { href: 'https://www.linkedin.com/in/seedzeng/', label: 'linkedin' },
+  { href: 'https://msng.link/o/?https%3A%2F%2Fu.wechat.com%2FIJpz5PPVrUvkobKywt13XgA=wc', label: 'wechat' },
   { href: 'https://medium.com/@seed.zeng', label: 'medium' },
   { href: 'mailto:cdzengpeiyun@gmail.com', label: 'email' },
 ];

@@ -1,16 +1,27 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import WorkTimeline from '../components/WorkTimeline.astro';
 import WritingList from '../components/WritingList.astro';
 import LifeGallery from '../components/LifeGallery.astro';
 import Typewriter from '../components/Typewriter.astro';
+import SocialLinks from '../components/SocialLinks.astro';
 import { SITE } from '../lib/site';
+import profile from '../assets/profile.png';
 ---
 <Base>
   <section class="mt-14">
+    <Image
+      src={profile}
+      alt="Illustrated portrait of Seed Zeng"
+      width={192}
+      height={192}
+      class="w-24 h-24 rounded-full object-cover mb-5 border border-[color:var(--rule)]"
+    />
     <h1 class="text-4xl font-bold tracking-tight m-0">{SITE.name}</h1>
     <p class="text-base font-medium mt-2 mb-3" style="color: var(--link)">{SITE.headline}</p>
     <Typewriter />
+    <SocialLinks class="mt-5" />
   </section>
 
   <section id="work" class="mt-20 scroll-mt-16">
@@ -29,5 +40,16 @@ import { SITE } from '../lib/site';
   <section id="life" class="mt-20 scroll-mt-16">
     <h2 class="font-[family-name:var(--mono)] text-xs uppercase tracking-[0.18em] mb-5" style="color: var(--accent)">Life</h2>
     <LifeGallery />
+  </section>
+
+  <section id="contact" class="mt-20 scroll-mt-16">
+    <h2 class="font-[family-name:var(--mono)] text-xs uppercase tracking-[0.18em] mb-5" style="color: var(--accent)">Get in touch</h2>
+    <p class="text-[0.95rem] leading-relaxed mb-4" style="color: var(--fg)">Like what you see here? I'm more awesome in person.</p>
+    <a
+      href="mailto:cdzengpeiyun@gmail.com"
+      class="inline-block font-[family-name:var(--mono)] text-sm no-underline rounded px-4 py-2 hover:opacity-70"
+      style="border: 1px solid var(--accent); color: var(--accent)"
+    >cdzengpeiyun@gmail.com →</a>
+    <SocialLinks class="mt-5" />
   </section>
 </Base>

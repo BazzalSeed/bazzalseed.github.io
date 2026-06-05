@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
+import WorkTimeline from '../components/WorkTimeline.astro';
 import WritingList from '../components/WritingList.astro';
+import LifeGallery from '../components/LifeGallery.astro';
 import Typewriter from '../components/Typewriter.astro';
 import { SITE } from '../lib/site';
 ---
@@ -13,11 +15,21 @@ import { SITE } from '../lib/site';
     <Typewriter />
   </section>
 
-  <section class="mt-10">
-    <p class="font-[family-name:var(--mono)] text-xs mb-3" style="color: var(--muted)">$ ls writing/ --recent</p>
-    <WritingList limit={4} />
-    <p class="mt-4 font-[family-name:var(--mono)] text-sm">
-      <a href="/writing" style="color: var(--link)" class="no-underline hover:opacity-70">all writing →</a>
-    </p>
+  <section id="work" class="mt-20 scroll-mt-20">
+    <h2 class="font-[family-name:var(--mono)] text-sm mb-5" style="color: var(--accent)">$ cat work.log</h2>
+    <WorkTimeline />
+  </section>
+
+  <section id="writing" class="mt-20 scroll-mt-20">
+    <div class="flex items-baseline justify-between mb-5">
+      <h2 class="font-[family-name:var(--mono)] text-sm m-0" style="color: var(--accent)">$ ls writing/</h2>
+      <a href="/rss.xml" class="font-[family-name:var(--mono)] text-xs no-underline hover:opacity-70" style="color: var(--muted)">rss →</a>
+    </div>
+    <WritingList />
+  </section>
+
+  <section id="life" class="mt-20 scroll-mt-20">
+    <h2 class="font-[family-name:var(--mono)] text-sm mb-5" style="color: var(--accent)">$ open ~/life</h2>
+    <LifeGallery />
   </section>
 </Base>

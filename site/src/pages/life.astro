@@ -1,31 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
-import { Image } from 'astro:assets';
-
-const images = import.meta.glob<{ default: ImageMetadata }>(
-  '../assets/life/*.{jpg,jpeg,png}',
-  { eager: true }
-);
-const photos = Object.entries(images).map(([path, mod]) => ({
-  src: mod.default,
-  alt: path.split('/').pop()!.replace(/\.[a-z]+$/, '').replace(/[-_]/g, ' '),
-}));
+import LifeGallery from '../components/LifeGallery.astro';
 ---
 <Base title="Life" description="A few photos from life outside the terminal.">
   <section class="mt-14">
     <p class="font-[family-name:var(--mono)] text-sm mb-2" style="color: var(--accent)">$ open ~/life</p>
     <h1 class="text-3xl font-bold tracking-tight mt-0 mb-6">Life</h1>
-    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-      {photos.map((p) => (
-        <Image
-          src={p.src}
-          alt={p.alt}
-          widths={[300, 600]}
-          sizes="(max-width: 640px) 50vw, 200px"
-          loading="lazy"
-          class="w-full h-40 object-cover rounded-lg border border-[color:var(--rule)]"
-        />
-      ))}
-    </div>
+    <LifeGallery />
   </section>
 </Base>

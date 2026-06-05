@@ -1,6 +1,12 @@
 ---
+import { Image } from 'astro:assets';
+import surveyminiLogo from '../assets/surveymini.png';
+
 interface Props { company: string; size?: number }
 const { company, size = 20 } = Astro.props;
+
+const RASTER: Record<string, ImageMetadata> = { surveymini: surveyminiLogo };
+const raster = RASTER[company];
 
 const ICONS: Record<string, { vb: string; d: string }> = {
   doordash: {
@@ -29,6 +35,8 @@ const letter = LETTERS[company] ?? '•';
   <svg width={w} height={h} viewBox={icon.vb} fill="currentColor" aria-hidden="true" role="img">
     <path d={icon.d} />
   </svg>
+) : raster ? (
+  <Image src={raster} alt="" width={size * 2} height={size * 2} class="rounded-[4px]" style={`width:${size}px;height:${size}px;object-fit:contain`} />
 ) : (
   <span
     aria-hidden="true"

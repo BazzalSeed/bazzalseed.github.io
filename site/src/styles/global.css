@@ -51,3 +51,14 @@ a { color: var(--link); }
   border-left: 3px solid var(--accent); margin: 0 0 1rem;
   padding-left: 1rem; color: var(--muted);
 }
+
+.term-cursor {
+  display: inline-block;
+  margin-left: 1px;
+  color: var(--accent);
+  animation: blink 1.2s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .term-cursor { animation: none; }
+}

@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import WritingList from '../components/WritingList.astro';
+import Typewriter from '../components/Typewriter.astro';
 import { SITE } from '../lib/site';
 ---
 <Base>
@@ -9,7 +10,7 @@ import { SITE } from '../lib/site';
     <h1 class="text-4xl font-bold tracking-tight m-0">{SITE.name}</h1>
     <p class="text-base font-medium mt-1 mb-0" style="color: var(--link)">{SITE.headline}</p>
     <p class="font-[family-name:var(--mono)] text-sm mt-1 mb-4" style="color: var(--muted)">{SITE.meta}</p>
-    <p class="text-[0.95rem] leading-relaxed max-w-prose" style="color: var(--fg)">{SITE.bio}</p>
+    <Typewriter />
   </section>
 
   <section class="mt-10">

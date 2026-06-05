@@ -1,6 +1,6 @@
 export const SITE = {
   name: 'Seed Zeng',
-  wordmark: 'seed zeng',
+  wordmark: 'seedzeng',
   url: 'https://seedzeng.com',
   headline: 'Senior Staff Software Engineer @ DoorDash',
   meta: 'ex-Meta · ex-Klaviyo · angel investor · Boston',
@@ -11,6 +11,14 @@ export const NAV = [
   { href: '/work', label: 'work' },
   { href: '/writing', label: 'writing' },
   { href: '/life', label: 'life' },
+];
+
+export const BIO_LINES = [
+  "I lead the team behind DoorDash's core online datastores.",
+  'Early engineer at Klaviyo — I scaled the pipeline ~300×.',
+  'Physicist turned systems engineer.',
+  'I make data move — fast, and without drama.',
+  'Angel investor in early-stage startups.',
 ];
 
 export const SOCIALS = [

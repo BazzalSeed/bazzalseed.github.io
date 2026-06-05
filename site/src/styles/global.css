@@ -85,8 +85,7 @@ summary::-webkit-details-marker { display: none; }
 details[open] .chev { transform: rotate(90deg); }
 @media (prefers-reduced-motion: reduce) { .chev { transition: none; } }
 
-/* Experience: only the title highlights when a role is expanded; logo stays neutral */
-.role-logo { color: var(--muted); }
+/* Experience: only the title highlights when a role is expanded */
 .role-title { transition: color 0.15s ease; }
 details.role[open] .role-title { color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .role-title { transition: none; } }

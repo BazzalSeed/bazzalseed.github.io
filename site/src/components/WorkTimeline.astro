@@ -71,9 +71,7 @@ const education: Education[] = [
   {roles.map((r) => (
     <details open={r.current} class="role border-b border-[color:var(--rule)]">
       <summary class="flex items-center gap-3 cursor-pointer py-4 select-none">
-        <span class="role-logo shrink-0 w-8 flex justify-center items-center">
-          <CompanyLogo company={r.logo} />
-        </span>
+        <CompanyLogo company={r.logo} />
         <span class="flex-1 min-w-0">
           <span class="role-title text-base font-semibold">{r.title}</span>
           <span class="text-sm" style="color: var(--muted)"> · {r.org}</span>

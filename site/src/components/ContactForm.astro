@@ -1,0 +1,50 @@
+---
+// Web3Forms: free, no backend. Create a key at https://web3forms.com with
+// seedzpy@gmail.com as the destination, then paste it below.
+const ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+---
+<form data-contact-form class="grid gap-3 max-w-lg">
+  <input type="hidden" name="access_key" value={ACCESS_KEY} />
+  <input type="hidden" name="subject" value="New message from seedzeng.com" />
+  <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
+  <input type="text" name="name" required placeholder="your name"
+    class="w-full rounded-lg px-3 py-2.5 text-sm" />
+  <input type="email" name="email" required placeholder="your email"
+    class="w-full rounded-lg px-3 py-2.5 text-sm" />
+  <textarea name="message" required rows="4" placeholder="your message"
+    class="w-full rounded-lg px-3 py-2.5 text-sm resize-y"></textarea>
+
+  <div class="flex items-center gap-4">
+    <button type="submit"
+      class="font-[family-name:var(--mono)] text-sm rounded-lg px-4 py-2 hover:opacity-85 transition-opacity"
+      style="background: var(--accent); color: var(--bg)">send →</button>
+    <span data-form-status class="font-[family-name:var(--mono)] text-xs" style="color: var(--muted)" aria-live="polite"></span>
+  </div>
+</form>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  const status = form?.querySelector<HTMLElement>('[data-form-status]');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (status) status.textContent = 'sending…';
+    const payload = Object.fromEntries(new FormData(form).entries());
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json();
+      if (json.success) {
+        form.reset();
+        if (status) status.textContent = 'thanks — message sent ✓';
+      } else {
+        if (status) status.textContent = 'hmm, that failed. email me directly?';
+      }
+    } catch {
+      if (status) status.textContent = 'network error. email me directly?';
+    }
+  });
+</script>

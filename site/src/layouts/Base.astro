@@ -19,11 +19,20 @@ const { title, description } = Astro.props;
     </script>
   </head>
   <body>
-    <header class="sticky top-0 z-50 border-b border-[color:var(--rule)] backdrop-blur" style="background: var(--bg-translucent)">
+    <header data-header class="sticky top-0 z-50">
       <div class="mx-auto max-w-2xl px-6">
         <Nav />
       </div>
     </header>
+    <script is:inline>
+      (function () {
+        var h = document.querySelector('[data-header]');
+        if (!h) return;
+        var sync = function () { h.toggleAttribute('data-scrolled', window.scrollY > 4); };
+        sync();
+        window.addEventListener('scroll', sync, { passive: true });
+      })();
+    </script>
     <div class="mx-auto max-w-2xl px-6 pb-12">
       <main>
         <slot />

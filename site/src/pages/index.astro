@@ -5,6 +5,7 @@ import WorkTimeline from '../components/WorkTimeline.astro';
 import WritingList from '../components/WritingList.astro';
 import BioSlides from '../components/BioSlides.astro';
 import SectionLabel from '../components/SectionLabel.astro';
+import ContactForm from '../components/ContactForm.astro';
 import { SITE } from '../lib/site';
 import profile from '../assets/profile.png';
 ---
@@ -39,19 +40,28 @@ import profile from '../assets/profile.png';
         <h3 class="text-lg font-semibold tracking-tight" style="color: var(--fg)">Venture Vibes</h3>
         <span class="font-[family-name:var(--mono)] text-[0.6rem] uppercase tracking-wider px-2 py-0.5 rounded-full" style="color: var(--muted); border: 1px solid var(--rule)">on a break</span>
       </div>
-      <p class="text-[0.95rem] leading-relaxed max-w-prose mt-3" style="color: var(--muted)">
+      <p class="text-[0.95rem] leading-relaxed max-w-prose mt-3 mb-5" style="color: var(--muted)">
         Conversations with founders on the craft and chaos of building startups. New episodes are paused for now while I'm on a break.
       </p>
+      <iframe
+        title="Venture Vibes podcast"
+        loading="lazy"
+        src="https://www.podbean.com/player-v2/?i=5vxnc-b09f80-pbblog-playlist&share=1&download=1&rtl=1&fonts=Arial&skin=f6f6f6&font-color=auto&order=episodic&limit=10&filter=all&ss=a713390a017602015775e868a2cf26b0&btn-skin=3267a3&size=300"
+        height="300"
+        width="100%"
+        allowfullscreen
+        class="rounded-lg block"
+        style="border:1px solid var(--rule); min-width: min(100%, 430px);"
+      ></iframe>
     </div>
   </section>
 
   <section id="contact" class="mt-20 scroll-mt-16">
     <SectionLabel name="contact" title="Get in touch" class="mb-5" />
-    <p class="text-[0.95rem] leading-relaxed mb-4" style="color: var(--fg)">Like what you see here? I'm more awesome in person.</p>
-    <a
-      href="mailto:cdzengpeiyun@gmail.com"
-      class="inline-block font-[family-name:var(--mono)] text-sm no-underline rounded px-4 py-2 hover:opacity-70"
-      style="border: 1px solid var(--accent); color: var(--accent)"
-    >cdzengpeiyun@gmail.com →</a>
+    <p class="text-[0.95rem] leading-relaxed mb-5 max-w-prose" style="color: var(--fg)">Like what you see here? Drop me a line — I'm more awesome in person.</p>
+    <ContactForm />
+    <p class="mt-4 font-[family-name:var(--mono)] text-xs" style="color: var(--muted)">
+      or email me directly: <a href="mailto:seedzpy@gmail.com" class="no-underline hover:opacity-70" style="color: var(--link)">seedzpy@gmail.com</a>
+    </p>
   </section>
 </Base>

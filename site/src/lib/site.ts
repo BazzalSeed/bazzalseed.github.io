@@ -37,5 +37,5 @@ export const SOCIALS = [
   { href: 'https://www.linkedin.com/in/seedzeng/', label: 'linkedin' },
   { href: 'https://msng.link/o/?https%3A%2F%2Fu.wechat.com%2FIJpz5PPVrUvkobKywt13XgA=wc', label: 'wechat' },
   { href: 'https://medium.com/@seed.zeng', label: 'medium' },
-  { href: 'mailto:cdzengpeiyun@gmail.com', label: 'email' },
+  { href: 'mailto:seedzpy@gmail.com', label: 'email' },
 ];

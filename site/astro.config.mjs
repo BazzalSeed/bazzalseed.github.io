@@ -14,4 +14,8 @@ export default defineConfig({
   },
 
   integrations: [sitemap()],
+
+  redirects: {
+    '/writing': '/#writing',
+  },
 });

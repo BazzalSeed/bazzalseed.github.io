@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import { sortEntries, entryHref } from '../lib/writing';
+interface Props { limit?: number; }
+const { limit } = Astro.props;
+const all = sortEntries(await getCollection('writing'));
+const entries = limit ? all.slice(0, limit) : all;
+---
+<ul class="list-none p-0 m-0">
+  {entries.map((e) => {
+    const href = entryHref(e);
+    const year = e.data.date.getFullYear();
+    const external = e.data.external;
+    return (
+      <li class="flex items-baseline justify-between gap-3 py-2 border-b border-[color:var(--rule)]">
+        <a
+          href={href}
+          class="text-[color:var(--fg)] no-underline hover:opacity-70"
+          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        >
+          <span class="font-[family-name:var(--mono)] text-xs opacity-60 mr-3">{year}</span>{e.data.title}
+        </a>
+        <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap"
+              style={`color: var(${external ? '--link' : '--post'})`}>
+          {external ? `${e.data.source ?? 'link'} ↗` : '● post'}
+        </span>
+      </li>
+    );
+  })}
+</ul>

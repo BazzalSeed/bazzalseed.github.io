@@ -1,6 +1,22 @@
 ---
 import Base from '../layouts/Base.astro';
+import WritingList from '../components/WritingList.astro';
+import { SITE } from '../lib/site';
 ---
 <Base>
-  <p class="mt-10 font-[family-name:var(--mono)]">$ layout ok</p>
+  <section class="mt-14">
+    <p class="font-[family-name:var(--mono)] text-sm text-[color:var(--accent)] mb-2">$ whoami</p>
+    <h1 class="text-4xl font-bold tracking-tight m-0">{SITE.name}</h1>
+    <p class="text-base font-medium mt-1 mb-0" style="color: var(--link)">{SITE.headline}</p>
+    <p class="font-[family-name:var(--mono)] text-sm mt-1 mb-4" style="color: var(--muted)">{SITE.meta}</p>
+    <p class="text-[0.95rem] leading-relaxed max-w-prose" style="color: var(--fg)">{SITE.bio}</p>
+  </section>
+
+  <section class="mt-10">
+    <p class="font-[family-name:var(--mono)] text-xs mb-3" style="color: var(--muted)">$ ls writing/ --recent</p>
+    <WritingList limit={4} />
+    <p class="mt-4 font-[family-name:var(--mono)] text-sm">
+      <a href="/writing" style="color: var(--link)" class="no-underline hover:opacity-70">all writing →</a>
+    </p>
+  </section>
 </Base>

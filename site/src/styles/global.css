@@ -81,7 +81,7 @@ a { color: var(--link); }
 
 summary { list-style: none; }
 summary::-webkit-details-marker { display: none; }
-.chev { display: inline-block; transition: transform 0.2s ease; }
+.chev { display: inline-block; transition: transform 0.2s ease, color 0.15s ease; }
 details[open] .chev { transform: rotate(90deg); }
 @media (prefers-reduced-motion: reduce) { .chev { transition: none; } }
 
@@ -94,7 +94,10 @@ details[open] .chev { transform: rotate(90deg); }
 [data-theme="dark"] .logo-klaviyo { color: #ffffff; }
 [data-theme="dark"] .logo-surveymini { color: #6aa8e0; }
 
-/* Experience: only the title highlights when a role is expanded */
+/* Experience: title highlights when expanded; whole row hints accent on hover (clickable cue) */
 .role-title { transition: color 0.15s ease; }
-details.role[open] .role-title { color: var(--accent); }
+details.role[open] .role-title,
+details.role[open] .chev { color: var(--accent); }
+details.role > summary:hover .role-title,
+details.role > summary:hover .chev { color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .role-title { transition: none; } }

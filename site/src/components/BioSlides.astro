@@ -1,0 +1,32 @@
+---
+import { BIO_SLIDES } from '../lib/site';
+const first = BIO_SLIDES[0];
+---
+<div data-bioslides class="mt-6 min-h-[8.5rem]">
+  <p data-slide-title class="text-2xl sm:text-[1.7rem] font-bold tracking-tight leading-tight" style="color: var(--fg)">{first.title}</p>
+  <p data-slide-desc class="mt-2 text-[0.95rem] leading-relaxed max-w-prose" style="color: var(--muted)">{first.desc}</p>
+</div>
+
+<script>
+  import { BIO_SLIDES } from '../lib/site';
+  const root = document.querySelector('[data-bioslides]');
+  const titleEl = root?.querySelector('[data-slide-title]');
+  const descEl = root?.querySelector('[data-slide-desc]');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (root && titleEl && descEl && !reduce && BIO_SLIDES.length > 1) {
+    let i = 0;
+    const render = (n) => {
+      const s = BIO_SLIDES[n];
+      titleEl.textContent = s.title;
+      descEl.textContent = s.desc;
+      root.classList.remove('bioslide-anim');
+      void (root as HTMLElement).offsetWidth; // restart CSS animation
+      root.classList.add('bioslide-anim');
+    };
+    root.classList.add('bioslide-anim'); // animate first paint
+    setInterval(() => {
+      i = (i + 1) % BIO_SLIDES.length;
+      render(i);
+    }, 6000);
+  }
+</script>

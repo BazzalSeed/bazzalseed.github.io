@@ -13,11 +13,23 @@ export const NAV = [
   { href: '/#contact', label: 'contact' },
 ];
 
-export const BIO_LINES = [
-  'I build the data systems products run on.',
-  'I make data fast, consistent, and always on.',
-  'I scale backends that move billions of events a day.',
-  'From physics to petabytes.',
+export const BIO_SLIDES = [
+  {
+    title: 'I lead at scale',
+    desc: "I run the team behind DoorDash's core online datastores — the storage the whole business depends on.",
+  },
+  {
+    title: 'Startup to hyperscale',
+    desc: 'Early engineer at Klaviyo (scaled ingestion ~300× to 150k events/sec), tech lead at Meta, now Senior Staff at DoorDash.',
+  },
+  {
+    title: 'I love startups',
+    desc: 'As an angel investor I back early-stage founders — and dig into the hard problems right alongside them.',
+  },
+  {
+    title: 'Physicist by training',
+    desc: 'Physics + CS, both Summa Cum Laude. I treat infrastructure like experiments: measure, hypothesize, repeat.',
+  },
 ];
 
 export const SOCIALS = [

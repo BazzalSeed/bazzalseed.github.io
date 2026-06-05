@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 import WorkTimeline from '../components/WorkTimeline.astro';
 import WritingList from '../components/WritingList.astro';
 import LifeGallery from '../components/LifeGallery.astro';
-import Typewriter from '../components/Typewriter.astro';
+import BioSlides from '../components/BioSlides.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import { SITE } from '../lib/site';
 import profile from '../assets/profile.png';
@@ -20,7 +20,7 @@ import profile from '../assets/profile.png';
     />
     <h1 class="text-4xl font-bold tracking-tight m-0">{SITE.name}</h1>
     <p class="text-base font-medium mt-2 mb-3" style="color: var(--link)">{SITE.headline}</p>
-    <Typewriter />
+    <BioSlides />
   </section>
 
   <section id="work" class="mt-20 scroll-mt-16">

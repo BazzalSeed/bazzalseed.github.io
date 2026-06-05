@@ -69,6 +69,12 @@ a { color: var(--link); }
   html { scroll-behavior: smooth; }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .bioslide-anim [data-slide-title] { animation: slideUp 0.5s ease both; }
+  .bioslide-anim [data-slide-desc] { animation: slideUp 0.5s ease 0.12s both; }
+}
+@keyframes slideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
 summary { list-style: none; }
 summary::-webkit-details-marker { display: none; }
 .chev { display: inline-block; transition: transform 0.2s ease; }

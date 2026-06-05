@@ -68,3 +68,9 @@ a { color: var(--link); }
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
 }
+
+summary { list-style: none; }
+summary::-webkit-details-marker { display: none; }
+.chev { display: inline-block; transition: transform 0.2s ease; }
+details[open] .chev { transform: rotate(90deg); }
+@media (prefers-reduced-motion: reduce) { .chev { transition: none; } }

@@ -4,25 +4,28 @@ import CompanyLogo from './CompanyLogo.astro';
 type Role = { title: string; org: string; logo: string; period: string; current?: boolean; notes?: string[] };
 const roles: Role[] = [
   { title: 'Senior Staff Software Engineer', org: 'DoorDash', logo: 'doordash', period: 'Jan 2026 — present', current: true,
-    notes: ['Lead the Storage / core online datastore org — streaming is one of several teams under me.'] },
+    notes: ['Lead the org behind DoorDash’s core online datastores; streaming is one of several teams I own.'] },
   { title: 'Staff Software Engineer', org: 'DoorDash', logo: 'doordash', period: 'Jul 2022 — Dec 2025',
-    notes: ['Scaled the Cassandra fleet for efficiency and performance across the company.'] },
+    notes: ['Drove efficiency and performance improvements across DoorDash’s Cassandra fleet.'] },
   { title: 'Lead Software Engineer', org: 'Meta', logo: 'meta', period: 'Aug 2020 — Oct 2022',
-    notes: ['Tech lead for consistency monitoring of large distributed systems.'] },
+    notes: ['Tech lead for systems detecting data inconsistencies across large distributed services; mentored engineers.'] },
   { title: 'Senior Software Engineer', org: 'Klaviyo', logo: 'klaviyo', period: 'May 2019 — Aug 2020',
-    notes: ['Built Abacus 2.0; scaled ingestion 500 → 150k events/s (~300×).'] },
+    notes: [
+      'Built Abacus 2.0, a ground-up rewrite of Klaviyo’s ingestion — ~10× faster than its predecessor.',
+      'Scaled the pipeline from 500 to 150,000 events/sec (3M DB writes/sec) — ~300×.',
+    ] },
   { title: 'Software Engineer · early engineer', org: 'Klaviyo', logo: 'klaviyo', period: 'Apr 2017 — Jul 2019',
-    notes: ['Built Abacus 1.0 on Apache Flink and Klaviyo’s first Kafka microservice.'] },
+    notes: ['Built Abacus 1.0 on Apache Flink (1.5B events on Cyber Monday) and Klaviyo’s first Kafka microservice.'] },
   { title: 'Backend Software Engineer', org: 'SurveyMini (acq. SMG)', logo: 'surveymini', period: 'Jul 2016 — Mar 2017',
-    notes: ['Built survey branching logic and scaled the AWS analytics backend.'] },
+    notes: ['Built survey branching logic and led a Postgres → DynamoDB migration with AWS scalability work.'] },
 ];
 
 type Education = { title: string; org: string; period: string; honors: string[] };
 const education: Education[] = [
   { title: 'B.S. Computer Science', org: 'Washington University in St. Louis', period: '2014 — 2016',
-    honors: ['Summa Cum Laude', 'Tau Beta Pi', 'Brown Fellowship'] },
+    honors: ['GPA 3.98', 'Summa Cum Laude', 'Tau Beta Pi', 'Brown Fellowship'] },
   { title: 'B.S. Physics', org: 'Denison University', period: '2011 — 2014',
-    honors: ['Summa Cum Laude', 'Sigma Pi Sigma', 'Sigma Xi'] },
+    honors: ['GPA 3.90', 'Summa Cum Laude', 'Sigma Pi Sigma', 'Sigma Xi'] },
 ];
 ---
 <div>

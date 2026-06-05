@@ -1,0 +1,7 @@
+---
+interface Props { name: string; verb?: string; class?: string }
+const { name, verb = 'ls', class: cls = '' } = Astro.props;
+---
+<h2 class={`font-[family-name:var(--mono)] text-xs tracking-wide ${cls}`}>
+  <span style="color: var(--accent)">$</span> <span style="color: var(--muted)">{verb}</span> <span style="color: var(--fg)">{name}</span>
+</h2>

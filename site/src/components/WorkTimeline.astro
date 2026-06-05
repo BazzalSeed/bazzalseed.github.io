@@ -1,5 +1,6 @@
 ---
 import CompanyLogo from './CompanyLogo.astro';
+import SectionLabel from './SectionLabel.astro';
 
 type Role = { title: string; org: string; logo: string; period: string; current?: boolean; summary: string; notes: string[] };
 const roles: Role[] = [
@@ -98,7 +99,7 @@ const education: Education[] = [
     </details>
   ))}
 
-  <h2 class="font-[family-name:var(--mono)] text-xs uppercase tracking-[0.18em] mt-12 mb-4" style="color: var(--accent)">Education</h2>
+  <SectionLabel name="education" class="mt-12 mb-4" />
   {education.map((e) => (
     <div class="py-3">
       <div class="flex items-baseline justify-between gap-3">

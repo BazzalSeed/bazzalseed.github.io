@@ -16,19 +16,19 @@ export const NAV = [
 export const BIO_SLIDES = [
   {
     title: 'I lead at scale',
-    desc: "I run DoorDash's core online datastores — the storage the whole business is built on.",
+    desc: "Senior Staff Engineer at DoorDash, leading the org behind our core online datastores — the storage backbone millions of orders ride on every day. I turn the gnarliest distributed-systems problems into infrastructure that just works, and grow the engineers who own it.",
   },
   {
-    title: 'Seed to scale',
-    desc: 'Early engineer at Klaviyo (~300× the data pipeline), tech lead at Meta, now Senior Staff at DoorDash.',
+    title: '0 to 100',
+    desc: "I've built at both extremes. As an early engineer at Klaviyo I scaled the data pipeline ~300× (500 → 150k events/sec), helping lay the foundation for a multi-billion-dollar IPO — then went big as a tech lead at Meta, and now Senior Staff at DoorDash.",
   },
   {
-    title: 'All-in on startups',
-    desc: 'I angel-invest in early-stage founders and dig into their hardest technical bets.',
+    title: 'I bet on founders',
+    desc: "I never left the startup world. I angel-invest in early-stage founders and host a podcast where I sit down with builders to unpack the hard parts of starting up — staying close to the people taking the biggest swings keeps me hungry.",
   },
   {
-    title: 'Physicist at heart',
-    desc: 'Physics + CS, both Summa Cum Laude. I lead like a scientist: measure, hypothesize, iterate.',
+    title: 'Think like a physicist',
+    desc: "Before code I did physics — Summa Cum Laude, with a CS degree to match. The training stuck: I treat systems like experiments — form a hypothesis, measure relentlessly, and let the data win the argument.",
   },
 ];
 

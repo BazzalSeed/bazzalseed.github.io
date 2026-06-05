@@ -85,9 +85,8 @@ summary::-webkit-details-marker { display: none; }
 details[open] .chev { transform: rotate(90deg); }
 @media (prefers-reduced-motion: reduce) { .chev { transition: none; } }
 
-/* Experience: title + logo turn accent when a role is expanded */
+/* Experience: only the title highlights when a role is expanded; logo stays neutral */
 .role-logo { color: var(--muted); }
-.role-title, .role-logo { transition: color 0.15s ease; }
-details.role[open] .role-title,
-details.role[open] .role-logo { color: var(--accent); }
-@media (prefers-reduced-motion: reduce) { .role-title, .role-logo { transition: none; } }
+.role-title { transition: color 0.15s ease; }
+details.role[open] .role-title { color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .role-title { transition: none; } }

@@ -1,7 +1,11 @@
 ---
-interface Props { name: string; verb?: string; class?: string }
-const { name, verb = 'ls', class: cls = '' } = Astro.props;
+interface Props { name: string; verb?: string; title?: string; class?: string }
+const { name, verb = 'ls', title, class: cls = '' } = Astro.props;
+const heading = title ?? name.charAt(0).toUpperCase() + name.slice(1);
 ---
-<h2 class={`font-[family-name:var(--mono)] text-xs tracking-wide ${cls}`}>
-  <span style="color: var(--accent)">$</span> <span style="color: var(--muted)">{verb}</span> <span style="color: var(--fg)">{name}</span>
-</h2>
+<div class={cls}>
+  <h2 class="text-lg font-semibold tracking-tight" style="color: var(--fg)">{heading}</h2>
+  <p class="font-[family-name:var(--mono)] text-[0.7rem] mt-0.5" aria-hidden="true">
+    <span style="color: var(--accent)">$</span> <span style="color: var(--muted)">{verb} {name}</span>
+  </p>
+</div>

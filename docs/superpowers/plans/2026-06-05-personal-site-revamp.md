@@ -12,72 +12,89 @@
 
 **Working branch:** `site-revamp` (already created).
 
+**Isolation (IMPORTANT — do not break the current site):** The entire new site is
+built inside a new `site/` subdirectory. The existing root files (`index.html`,
+`assets/`, `CNAME`) are **left completely untouched** so the current site keeps
+serving on GitHub Pages / seedzeng.com throughout development. The new site is
+verified locally and on a Vercel **preview** URL first. Only after that passes do
+we cut the domain over to Vercel (Task 11) and finally remove the old root files
+(Task 13 — "devour the old site"). Nothing about the live site changes until then.
+
+**Working directory & paths:**
+- **All build/test/npm commands run from inside `site/`.** Commands are written as
+  if the current directory is `site/` (e.g. `npm run build`).
+- **All source paths in tasks are relative to `site/`** (e.g. `src/pages/index.astro`
+  means `site/src/pages/index.astro`).
+- **Exceptions** (repo-root-relative): everything under `docs/`, and all `git`
+  commands (git operates on the whole repo regardless of cwd).
+
 ---
 
 ## File Structure
 
+Root stays as-is (legacy site untouched). Everything new lives under `site/`:
+
 ```
-package.json                 # scripts + deps
-astro.config.mjs             # Astro config (site URL, integrations)
-tsconfig.json                # TS config (Astro strict)
-vitest.config.ts             # Vitest config
-tailwind via @tailwindcss/vite (configured by `astro add tailwind`)
-src/
-  styles/global.css          # Tailwind import + theme tokens + base + prose
-  content.config.ts          # writing collection schema (Astro 5 glob loader)
-  lib/
-    writing.ts               # pure helpers: sortEntries(), entryHref(), isLocal()
-    site.ts                  # site constants: name, socials, nav, bio, headline
-  components/
-    BaseHead.astro           # <head> meta/SEO
-    Nav.astro                # wordmark + links + ThemeToggle
-    ThemeToggle.astro        # light/dark button
-    Footer.astro             # social links
-    WritingList.astro        # renders feed (limit optional)
-    WorkTimeline.astro       # role timeline
-  layouts/
-    Base.astro               # html shell, no-flash theme script, Nav, Footer
-    Post.astro               # blog post layout (prose)
-  content/writing/           # one .md per entry (external = frontmatter only)
-  assets/life/               # life photos (optimized via astro:assets)
-  pages/
-    index.astro              # Home
-    work.astro               # Work
-    writing/index.astro      # Writing feed
-    writing/[...id].astro     # local post pages
-    life.astro               # Life gallery
-    404.astro                # not found
-    rss.xml.ts               # RSS feed
-test/
-  writing.test.ts            # Vitest unit tests for lib/writing.ts
-public/
-  favicon.svg
-legacy/                      # old site moved here in Task 1 (deleted in Task 13)
-license.txt                  # kept
+index.html, assets/, CNAME       # LEGACY — untouched until Task 13
+license.txt, .gitignore, docs/   # kept
+site/                            # NEW Astro project (Vercel "Root Directory" = site)
+  package.json                   # scripts + deps
+  astro.config.mjs               # Astro config (site URL, integrations)
+  tsconfig.json                  # TS config (Astro strict)
+  vitest.config.ts               # Vitest config
+  .gitignore                     # node_modules/, dist/, .astro/
+  src/
+    styles/global.css            # Tailwind import + theme tokens + base + prose
+    content.config.ts            # writing collection schema (Astro 5 glob loader)
+    lib/
+      writing.ts                 # pure helpers: sortEntries(), entryHref(), isLocal()
+      site.ts                    # site constants: name, socials, nav, bio, headline
+    components/
+      BaseHead.astro             # <head> meta/SEO
+      Nav.astro                  # wordmark + links + ThemeToggle
+      ThemeToggle.astro          # light/dark button
+      Footer.astro               # social links
+      WritingList.astro          # renders feed (limit optional)
+      WorkTimeline.astro         # role timeline
+    layouts/
+      Base.astro                 # html shell, no-flash theme script, Nav, Footer
+      Post.astro                 # blog post layout (prose)
+    content/writing/             # one .md per entry (external = frontmatter only)
+    assets/life/                 # life photos (optimized via astro:assets)
+    pages/
+      index.astro                # Home
+      work.astro                 # Work
+      writing/index.astro        # Writing feed
+      writing/[...id].astro       # local post pages
+      life.astro                 # Life gallery
+      404.astro                  # not found
+      rss.xml.ts                 # RSS feed
+  test/
+    writing.test.ts              # Vitest unit tests for lib/writing.ts
+  public/
+    favicon.svg
 ```
 
 ---
 
-## Task 1: Scaffold Astro + Tailwind, archive the old site
+## Task 1: Scaffold Astro + Tailwind in an isolated `site/` directory
 
 **Files:**
-- Create: `package.json`, `astro.config.mjs`, `tsconfig.json`, `src/pages/index.astro` (temp), `src/styles/global.css`
-- Move: all current root site files into `legacy/`
+- Create: `site/package.json`, `site/astro.config.mjs`, `site/tsconfig.json`, `site/.gitignore`, `site/src/pages/index.astro` (temp), `site/src/styles/global.css`
+- **Do NOT touch** root `index.html`, `assets/`, or `CNAME` — the current site must keep working.
 
-- [ ] **Step 1: Archive the old site** so nothing is lost and the root is clean for Astro.
+- [ ] **Step 1: Create the isolated project directory.** The old site at the repo root stays exactly as-is and keeps serving live.
 
 ```bash
-mkdir -p legacy
-git mv index.html legacy/index.html
-git mv assets legacy/assets
-git mv CNAME legacy/CNAME        # GitHub Pages artifact; Vercel sets domains in dashboard
-# keep: license.txt, .gitignore, .vscode, docs/
-ls
+mkdir -p site
+cd site
 ```
+> From here on, all `npm`/`astro`/`npx` commands in the plan run from inside `site/`.
+> All `src/...`, `test/...`, `public/...` paths are under `site/`.
 
-- [ ] **Step 2: Initialize a minimal Astro project in place.**
+- [ ] **Step 2: Initialize a minimal Astro project.**
 
-Create `package.json`:
+Create `site/package.json`:
 
 ```json
 {
@@ -193,9 +210,9 @@ Expected: build completes, `dist/index.html` is produced, exit code 0.
 
 Run (optional manual): `npm run dev` then open the printed localhost URL — page shows `$ scaffold ok`. Ctrl-C to stop.
 
-- [ ] **Step 7: Add build artifacts to `.gitignore`.**
+- [ ] **Step 7: Add build artifacts to a project-local gitignore.**
 
-Append to `.gitignore`:
+Create `site/.gitignore`:
 
 ```
 node_modules/
@@ -203,11 +220,11 @@ dist/
 .astro/
 ```
 
-- [ ] **Step 8: Commit.**
+- [ ] **Step 8: Commit.** (run from anywhere in the repo — git is repo-root-relative)
 
 ```bash
-git add -A
-git commit -m "chore: scaffold Astro + Tailwind, archive legacy site"
+git add site
+git commit -m "chore: scaffold isolated Astro + Tailwind site (root legacy untouched)"
 ```
 
 ---
@@ -973,11 +990,12 @@ git commit -m "feat: work page with role timeline + education"
 **Files:**
 - Create: `src/assets/life/*` (copied from legacy), `src/pages/life.astro`
 
-- [ ] **Step 1: Copy the life photos into `src/assets`** so `astro:assets` can optimize them.
+- [ ] **Step 1: Copy the life photos into `src/assets`** so `astro:assets` can optimize them. Source is the untouched root `assets/` (from inside `site/`, that's `../assets`).
 
 ```bash
+# run from inside site/
 mkdir -p src/assets/life
-cp legacy/assets/images/life/*.jpg src/assets/life/
+cp ../assets/images/life/*.jpg src/assets/life/
 ls src/assets/life
 ```
 Expected: 9 jpgs (bad_blood, beidao, ca1, epicure, gongbao, paris1, qinguan, yosemite, zhutong).
@@ -1152,16 +1170,23 @@ Stop the dev server (Ctrl-C). No commit (verification only). Fix any issues foun
 git push -u origin site-revamp
 ```
 
-- [ ] **Step 2: Create the Vercel project from the repo.**
+- [ ] **Step 2: Create the Vercel project pointed at the `site/` subdirectory.**
+
+Run these from inside `site/` so Vercel treats it as the project root:
 
 ```bash
+# from inside site/
 npx vercel@latest login        # if not already logged in (interactive — user runs via `! ` if needed)
-npx vercel@latest link         # link this repo to a new/existing Vercel project
-npx vercel@latest --prod=false # first preview deploy to get a *.vercel.app URL
+npx vercel@latest link         # link to a new Vercel project
+npx vercel@latest --prod=false # first preview deploy -> *.vercel.app URL
 ```
 Expected: a preview URL is printed. Open it; confirm the site renders identically to local.
 
-> Astro static is auto-detected by Vercel (build `astro build`, output `dist`). No adapter needed.
+> Because we deploy from inside `site/`, that becomes Vercel's **Root Directory**
+> automatically. If linking from the repo root instead, set Project → Settings →
+> **Root Directory = `site`** in the Vercel dashboard.
+> Astro static is auto-detected (build `astro build`, output `dist`). No adapter needed.
+> The current site (GitHub Pages / seedzeng.com) is still untouched and live at this point.
 
 - [ ] **Step 3: Re-test the preview URL from China** (proves the new lightweight site before DNS cutover).
 
@@ -1240,24 +1265,35 @@ git commit -m "docs: record post-launch China measurements"
 
 ---
 
-## Task 13: Remove the legacy site
+## Task 13: Devour the old site
 
 **Files:**
-- Delete: `legacy/`
+- Delete (repo root): `index.html`, `assets/`, `CNAME`
 
-- [ ] **Step 1: Confirm the new site is live and correct** (Task 11 Step 7 passed, Task 10 walkthrough clean). Only then remove the archive.
+> **Gate:** Do this ONLY after the new site is confirmed live on seedzeng.com via
+> Vercel (Task 11 Step 7 passed), the local walkthrough is clean (Task 10), and the
+> China numbers are recorded (Task 12). Until this task, the old site is still in
+> the tree and recoverable.
+
+- [ ] **Step 1: Remove the legacy root site.** (Git history retains it; the live
+domain now serves the Vercel `site/` build, so these files are dead weight.)
 
 ```bash
-git rm -r legacy
-git commit -m "chore: remove legacy site after successful migration"
+git rm index.html CNAME
+git rm -r assets
+git commit -m "chore: remove legacy site after successful migration to Astro"
 ```
 
-- [ ] **Step 2: Final full verification.**
+- [ ] **Step 2: Confirm GitHub Pages is disabled** (done in Task 11 Step 6) so the
+repo no longer attempts to serve the deleted root site. Verify Settings → Pages
+shows no active deployment.
+
+- [ ] **Step 3: Final full verification** (from inside `site/`).
 
 Run: `npm run build && npm run check && npm test`
 Expected: all green.
 
-- [ ] **Step 3: Merge the branch** (use the finishing-a-development-branch skill to choose merge/PR).
+- [ ] **Step 4: Merge the branch** (use the finishing-a-development-branch skill to choose merge/PR).
 
 ---
 

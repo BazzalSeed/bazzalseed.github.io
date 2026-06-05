@@ -31,3 +31,23 @@ body {
 }
 a { color: var(--link); }
 ::selection { background: var(--accent); color: var(--bg); }
+
+.prose { color: var(--fg); line-height: 1.7; }
+.prose h2 { font-size: 1.4rem; font-weight: 700; margin: 2rem 0 0.5rem; }
+.prose h3 { font-size: 1.15rem; font-weight: 700; margin: 1.5rem 0 0.5rem; }
+.prose p { margin: 0 0 1rem; }
+.prose a { color: var(--link); }
+.prose ul, .prose ol { margin: 0 0 1rem 1.25rem; }
+.prose code {
+  font-family: var(--mono); font-size: 0.85em;
+  background: var(--rule); padding: 0.15em 0.35em; border-radius: 4px;
+}
+.prose pre {
+  font-family: var(--mono); font-size: 0.85rem; overflow-x: auto;
+  padding: 1rem; border-radius: 8px; border: 1px solid var(--rule);
+}
+.prose pre code { background: none; padding: 0; }
+.prose blockquote {
+  border-left: 3px solid var(--accent); margin: 0 0 1rem;
+  padding-left: 1rem; color: var(--muted);
+}

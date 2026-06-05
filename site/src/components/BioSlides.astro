@@ -3,7 +3,7 @@ import { BIO_SLIDES } from '../lib/site';
 const first = BIO_SLIDES[0];
 ---
 <div data-bioslides class="mt-6 min-h-[8.5rem]">
-  <p data-slide-title class="text-2xl sm:text-[1.7rem] font-bold tracking-tight leading-tight" style="color: var(--fg)">{first.title}</p>
+  <p data-slide-title class="text-2xl sm:text-3xl font-bold tracking-tight leading-tight" style="color: var(--fg)">{first.title}</p>
   <p data-slide-desc class="mt-2 text-[0.95rem] leading-relaxed max-w-prose" style="color: var(--muted)">{first.desc}</p>
 </div>
 
@@ -27,6 +27,6 @@ const first = BIO_SLIDES[0];
     setInterval(() => {
       i = (i + 1) % BIO_SLIDES.length;
       render(i);
-    }, 6000);
+    }, 8000);
   }
 </script>

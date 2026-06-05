@@ -16,19 +16,19 @@ export const NAV = [
 export const BIO_SLIDES = [
   {
     title: 'I lead at scale',
-    desc: "I run the team behind DoorDash's core online datastores — the storage the whole business depends on.",
+    desc: "I run DoorDash's core online datastores — the storage the whole business is built on.",
   },
   {
-    title: 'Startup to hyperscale',
-    desc: 'Early engineer at Klaviyo (scaled ingestion ~300× to 150k events/sec), tech lead at Meta, now Senior Staff at DoorDash.',
+    title: 'Seed to scale',
+    desc: 'Early engineer at Klaviyo (~300× the data pipeline), tech lead at Meta, now Senior Staff at DoorDash.',
   },
   {
-    title: 'I love startups',
-    desc: 'As an angel investor I back early-stage founders — and dig into the hard problems right alongside them.',
+    title: 'All-in on startups',
+    desc: 'I angel-invest in early-stage founders and dig into their hardest technical bets.',
   },
   {
-    title: 'Physicist by training',
-    desc: 'Physics + CS, both Summa Cum Laude. I treat infrastructure like experiments: measure, hypothesize, repeat.',
+    title: 'Physicist at heart',
+    desc: 'Physics + CS, both Summa Cum Laude. I lead like a scientist: measure, hypothesize, iterate.',
   },
 ];
 

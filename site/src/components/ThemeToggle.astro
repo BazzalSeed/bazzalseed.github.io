@@ -22,4 +22,11 @@
     render();
   });
   render();
+
+  // Follow OS theme changes unless the user has set a manual preference.
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (localStorage.getItem('theme')) return; // manual choice wins
+    root.dataset.theme = e.matches ? 'dark' : 'light';
+    render();
+  });
 </script>

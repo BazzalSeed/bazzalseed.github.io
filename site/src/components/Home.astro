@@ -1,0 +1,73 @@
+---
+import { Image } from 'astro:assets';
+import WorkTimeline from './WorkTimeline.astro';
+import WritingList from './WritingList.astro';
+import BioSlides from './BioSlides.astro';
+import SectionLabel from './SectionLabel.astro';
+import ContactForm from './ContactForm.astro';
+import AsciiName from './AsciiName.astro';
+import { SITE } from '../lib/site';
+import { getContent } from '../i18n/content';
+import { t } from '../i18n/ui';
+import { type Locale, DEFAULT_LOCALE, isLocale } from '../i18n/config';
+import profile from '../assets/profile.png';
+const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale as Locale) : DEFAULT_LOCALE;
+const content = getContent(lang);
+---
+<section class="mt-14">
+  <Image
+    src={profile}
+    alt="Illustrated portrait of Seed Zeng"
+    width={192}
+    height={192}
+    class="w-24 h-24 rounded-full object-cover mb-5 border border-[color:var(--rule)]"
+  />
+  <AsciiName name={SITE.name} />
+  <p class="font-[family-name:var(--mono)] text-[0.7rem] mt-1" aria-hidden="true">
+    <span style="color: var(--accent)">$</span> <span style="color: var(--muted)">whoami</span>
+  </p>
+  <p class="text-base font-medium mt-2 mb-3" style="color: var(--link)">{content.headline}</p>
+  <BioSlides />
+</section>
+
+<section id="work" class="mt-20 scroll-mt-16">
+  <SectionLabel name="experience" title={t(lang, 'section.experience')} class="mb-5" />
+  <WorkTimeline />
+</section>
+
+<section id="writing" class="mt-20 scroll-mt-16">
+  <SectionLabel name="writing" title={t(lang, 'section.writing')} class="mb-5" />
+  <WritingList limit={4} />
+</section>
+
+<section id="podcast" class="mt-20 scroll-mt-16">
+  <SectionLabel name="podcast" title={t(lang, 'section.podcast')} class="mb-5" />
+  <div class="rounded-xl border border-[color:var(--rule)] p-5 sm:p-6">
+    <div class="flex items-center gap-3 flex-wrap">
+      <h3 class="text-lg font-semibold tracking-tight" style="color: var(--fg)">Venture Vibes</h3>
+      <span class="font-[family-name:var(--mono)] text-[0.6rem] uppercase tracking-wider px-2 py-0.5 rounded-full" style="color: var(--muted); border: 1px solid var(--rule)">{t(lang, 'podcast.break')}</span>
+    </div>
+    <p class="text-[0.95rem] leading-relaxed max-w-prose mt-3 mb-5" style="color: var(--muted)">
+      {content.podcastDesc}
+    </p>
+    <iframe
+      title="Venture Vibes podcast"
+      loading="lazy"
+      src="https://www.podbean.com/player-v2/?i=5vxnc-b09f80-pbblog-playlist&share=1&download=1&rtl=1&fonts=Arial&skin=f6f6f6&font-color=auto&order=episodic&limit=10&filter=all&ss=a713390a017602015775e868a2cf26b0&btn-skin=3267a3&size=300"
+      height="300"
+      width="100%"
+      allowfullscreen
+      class="rounded-lg block"
+      style="border:1px solid var(--rule); min-width: min(100%, 430px);"
+    ></iframe>
+  </div>
+</section>
+
+<section id="contact" class="mt-20 scroll-mt-16">
+  <SectionLabel name="contact" title={t(lang, 'section.contact')} class="mb-5" />
+  <p class="text-[0.95rem] leading-relaxed mb-5 max-w-prose" style="color: var(--fg)">{content.contactTagline}</p>
+  <ContactForm />
+  <p class="mt-4 font-[family-name:var(--mono)] text-xs" style="color: var(--muted)">
+    {t(lang, 'contact.direct')} <a href="mailto:seedzpy@gmail.com" class="no-underline hover:opacity-70" style="color: var(--link)">seedzpy@gmail.com</a>
+  </p>
+</section>

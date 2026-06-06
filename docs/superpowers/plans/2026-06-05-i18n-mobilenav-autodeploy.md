@@ -429,12 +429,12 @@ export type SiteContent = {
 };
 
 const en: SiteContent = {
-  headline: 'Engineering Leader | Angel Investor',
+  headline: 'AI × Infrastructure | Engineering Leader | Angel Investor',
   bioSlides: [
-    { title: 'Lead at scale', desc: "I lead the team and own the technical direction for DoorDash's Storage org — the data infrastructure the whole company runs on." },
-    { title: '0 to 100', desc: "I've operated at both ends of the spectrum — early-stage startup to hyperscale. As an early engineer at Klaviyo I scaled the data pipeline ~300×, to 150,000 events/sec, through the company's rise to a multi-billion-dollar IPO. Since then, tech lead at Meta and now Senior Staff at DoorDash." },
-    { title: 'Bet on founders', desc: 'I stay close to the startup world — I angel-invest in early-stage founders and host a podcast where I talk with builders about the hard parts of starting up.' },
-    { title: 'Think like a physicist', desc: 'I came to software from physics. That background shapes how I work — I approach hard problems methodically: hypothesis, measurement, and decisions grounded in data.' },
+    { title: 'Building Critical Infrastructure', desc: "As a Senior Staff Engineer at DoorDash, I lead the architecture and evolution of the company's core storage platforms. From distributed databases to large-scale data infrastructure, my work powers the systems millions of customers rely on every day. Beyond technology, I focus on growing engineers and building high-performing teams." },
+    { title: 'From Startup to Global Scale', desc: "I've spent my career across both startups and hyperscale technology companies. At Klaviyo, I helped scale the core data platform by hundreds of times and witnessed the company's journey to IPO. I later led large-scale distributed systems initiatives at Meta and now drive infrastructure strategy at DoorDash." },
+    { title: 'Backing the Next Generation of Founders', desc: 'Outside of engineering, I stay deeply connected to the startup ecosystem. As an angel investor, I back ambitious founders at the earliest stages and enjoy helping them navigate technology, product, and company building challenges.' },
+    { title: 'First-Principles Thinking', desc: 'My journey into technology started with physics. That training shaped how I approach complex problems: start with first principles, validate assumptions with data, and iterate relentlessly toward better solutions. Whether in engineering, investing, or leadership, I believe clear thinking compounds over time.' },
   ],
   roles: [
     { title: 'Senior Staff Software Engineer', org: 'DoorDash', logo: 'doordash', period: 'Jan 2026 — present', current: true,
@@ -492,12 +492,12 @@ const en: SiteContent = {
 };
 
 const zh: SiteContent = {
-  headline: '工程负责人 | 天使投资人',
+  headline: 'AI × 基础设施 | 技术领导者 | 天使投资人',
   bioSlides: [
-    { title: '规模化带队', desc: '我带领团队并负责 DoorDash 存储部门的技术方向——支撑整个公司运转的数据基础设施。' },
-    { title: '从 0 到 100', desc: '我在创业早期和超大规模两端都深耕过。作为 Klaviyo 的早期工程师，我把数据管道扩展了约 300 倍，达到每秒 15 万事件，伴随公司成长为数十亿美元的上市公司。之后在 Meta 担任技术负责人，如今是 DoorDash 的高级资深工程师。' },
-    { title: '押注创业者', desc: '我始终贴近创业圈——做早期创业者的天使投资人，并主持一档播客，和创业者聊创业中最难的部分。' },
-    { title: '像物理学家一样思考', desc: '我从物理转向软件。这段背景塑造了我的工作方式——用方法论解决难题：提出假设、测量验证、让数据决定结论。' },
+    { title: '打造关键基础设施', desc: '作为 DoorDash 高级首席工程师，我负责公司核心存储平台的架构演进与技术方向。从分布式数据库到大规模数据基础设施，我所构建的系统每天支撑着数百万用户的关键业务。除了技术建设，我同样专注于培养优秀工程师并打造高绩效团队。' },
+    { title: '从创业公司到全球规模', desc: '我的职业生涯横跨创业公司与全球化科技企业。在 Klaviyo，我参与构建并扩展核心数据平台，支撑业务实现数百倍增长，并见证公司成功上市。随后在 Meta 负责大规模分布式系统建设，如今在 DoorDash 推动核心基础设施的发展与演进。' },
+    { title: '支持下一代创业者', desc: '除了工程工作之外，我也长期活跃于创业生态。作为天使投资人，我投资并支持早期创业者，帮助他们在技术、产品和组织建设等方面不断成长。' },
+    { title: '第一性原理思维', desc: '我的职业起点是物理学。这样的训练塑造了我的思维方式：从第一性原理出发，用数据验证假设，通过持续迭代寻找更优解。无论是在工程、投资还是领导力领域，我都相信清晰而严谨的思考能够在长期创造复利价值。' },
   ],
   roles: [
     { title: '高级资深软件工程师', org: 'DoorDash', logo: 'doordash', period: '2026年1月 — 至今', current: true,
@@ -759,62 +759,71 @@ If the GitHub Actions secret (`VERCEL_TOKEN`) is set (Task 4 Step 2), the push a
 
 ---
 
-## Task 13: Typography & fonts
+## Task 13: Typography — System B (mono headers + Inter body)
 
-> Local-dev. Iterative — this sets up a refined font + type scale; we tune sizes/leading live afterward.
+> Local-dev. **DECIDED** in the type-lab: **System B** — mono headers + sans body — using **JetBrains Mono + Inter**, both self-hosted (China-safe). CJK uses **system fonts** (PingFang/YaHei), zero download.
 
-**Files:** Modify `site/package.json` (dep), `site/src/layouts/Base.astro` (font import), `site/src/styles/global.css` (--mono token + scale)
+**Files:** Modify `site/package.json` (deps), `site/src/layouts/Base.astro` (font imports), `site/src/styles/global.css` (tokens + System-B assignments), `site/src/components/BioSlides.astro` (slide-title → mono)
 
-- [ ] **Step 1: Self-host a refined monospace.** From `site/`:
+- [ ] **Step 1: Self-host both fonts.** From `site/`:
 
 ```bash
-npm i @fontsource-variable/jetbrains-mono
+npm i @fontsource-variable/jetbrains-mono @fontsource-variable/inter
 ```
-Self-hosted → served from our own origin → no external request → China-safe. (Swap-later alternatives: `@fontsource-variable/geist-mono`, `@fontsource/commit-mono`.)
+Self-hosted → served from our own origin → no external request → China-safe.
 
-- [ ] **Step 2: Import the font.** In `site/src/layouts/Base.astro` frontmatter, add at the top (with the other imports):
+- [ ] **Step 2: Import the fonts.** In `site/src/layouts/Base.astro` frontmatter, add at the top (with the other imports):
 
 ```ts
 import '@fontsource-variable/jetbrains-mono';
+import '@fontsource-variable/inter';
 ```
 
-- [ ] **Step 3: Point `--mono` at it.** In `site/src/styles/global.css`, change the `--mono` line inside `:root`:
+- [ ] **Step 3: Set the font tokens.** In `site/src/styles/global.css`, set/define inside `:root` (the `--mono` line likely already exists — replace it; add the other two):
 
 ```css
   --mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --cjk: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
 ```
 
-- [ ] **Step 4: Refine the type scale.** In `global.css`, add to the `body` rule and headings:
+- [ ] **Step 4: Apply System B — Inter body, mono headers, CJK on zh.** In `global.css`, set the body to the reading font and put headline-level type in mono (nav, `$` prompts, periods, tags, section labels already use `var(--mono)`):
 
 ```css
-body { line-height: 1.6; letter-spacing: -0.003em; }
-h1, h2, h3 { letter-spacing: -0.02em; }
+body { font-family: var(--sans); line-height: 1.6; letter-spacing: -0.003em; }
+html[lang^='zh'] body { font-family: var(--cjk); }
+h1, h2, h3, .role-title { font-family: var(--mono); letter-spacing: -0.02em; }
 ```
+Then give the bio-slide title mono: in `site/src/components/BioSlides.astro`, add `font-[family-name:var(--mono)]` to the slide-title element's class. (Reading copy — desc, bullets, notes — stays Inter.)
 
-- [ ] **Step 5: Verify + commit.** `cd site && npm run check` → 0 errors; `npm run build` succeeds and emits a `dist/_astro/*.woff2`. Mono elements (nav, `$` prompts, periods, tags) render in JetBrains Mono.
+- [ ] **Step 5: Verify + commit.** `cd site && npm run check` → 0 errors; `npm run build` succeeds and emits `dist/_astro/*.woff2` for both families. Headers/nav/labels/slide-titles render JetBrains Mono; paragraphs render Inter; a zh page renders body copy in the system CJK font.
 
 ```bash
-git add site/package.json site/package-lock.json site/src/layouts/Base.astro site/src/styles/global.css
-git commit -m "feat: self-hosted JetBrains Mono + refined type scale"
+git add site/package.json site/package-lock.json site/src/layouts/Base.astro site/src/styles/global.css site/src/components/BioSlides.astro
+git commit -m "feat: System B typography — JetBrains Mono headers + Inter body (self-hosted), CJK system font"
 ```
 
-> Iterate-later (not in this task): try `Inter` for body (`@fontsource-variable/inter`), tune per-section sizes/leading, adjust the bio-slide title size. Decide live with the user.
+> Iterate-later (not in this task): tune per-section sizes/leading and the bio-slide title size live with the user.
 
 ---
 
-## Task 14: ASCII-art name in the hero
+## Task 14: ASCII-art name in the hero (ANSI Shadow, bold)
 
-> Local-dev. Programmer-flavored hero name (à la Claude Code's banner), with a plain-text fallback for mobile + screen readers/SEO.
+> Local-dev. **DECIDED:** **ANSI Shadow**, bold, **theme-aware accent color** (terminal green in dark, coral in light), desktop-only, with a plain-text `<h1>` fallback for mobile + screen readers/SEO. (à la Claude Code's banner.)
 
 **Files:** Create `site/src/data/ascii-name.txt`, `site/src/components/AsciiName.astro`; Modify `site/src/components/Home.astro`
 
-- [ ] **Step 1: Generate the ASCII to a file** (avoids all template-literal escaping). From `site/`:
+- [ ] **Step 1: Write the approved ANSI Shadow art to a file** (exact art — avoids figlet-font availability + escaping). Create `site/src/data/ascii-name.txt` with EXACTLY these 6 lines:
 
-```bash
-mkdir -p src/data
-npx figlet -f Standard seedzeng > src/data/ascii-name.txt
-cat src/data/ascii-name.txt   # eyeball it; try -f Slant / -f Small for other styles
 ```
+███████╗███████╗███████╗██████╗ ███████╗███████╗███╗   ██╗ ██████╗ 
+██╔════╝██╔════╝██╔════╝██╔══██╗╚══███╔╝██╔════╝████╗  ██║██╔════╝ 
+███████╗█████╗  █████╗  ██║  ██║  ███╔╝ █████╗  ██╔██╗ ██║██║  ███╗
+╚════██║██╔══╝  ██╔══╝  ██║  ██║ ███╔╝  ██╔══╝  ██║╚██╗██║██║   ██║
+███████║███████╗███████╗██████╔╝███████╗███████╗██║ ╚████║╚██████╔╝
+╚══════╝╚══════╝╚══════╝╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═══╝ ╚═════╝ 
+```
+(To regenerate later: `npx figlet -f "ANSI Shadow" seedzeng`.)
 
 - [ ] **Step 2: Create the component** (imports the art raw, so no escaping). Create `site/src/components/AsciiName.astro`:
 
@@ -824,12 +833,13 @@ import ascii from '../data/ascii-name.txt?raw';
 interface Props { name: string }
 const { name } = Astro.props;
 ---
-<!-- Decorative ASCII on desktop; the real name stays for screen readers + SEO -->
+<!-- Bold ANSI-Shadow banner on desktop; the real name stays for screen readers + SEO -->
 <h1 class="text-4xl font-bold tracking-tight m-0 sm:sr-only">{name}</h1>
 <pre aria-hidden="true"
-     class="hidden sm:block m-0 font-[family-name:var(--mono)] text-[0.6rem] leading-[1.15] overflow-x-auto"
+     class="hidden sm:block m-0 font-[family-name:var(--mono)] font-bold leading-[1.05] overflow-hidden text-[clamp(0.5rem,2.1vw,0.82rem)]"
      style="color: var(--accent)">{ascii}</pre>
 ```
+> Color uses `var(--accent)` → terminal green in dark, coral in light. `clamp()` keeps the 66-col banner inside `max-w-2xl` at every desktop width.
 
 - [ ] **Step 3: Use it in the hero.** In `site/src/components/Home.astro`, add `import AsciiName from './AsciiName.astro';` and replace the hero name line (`<h1 …>{SITE.name}</h1>` or the localized name) with:
 
@@ -838,14 +848,14 @@ const { name } = Astro.props;
 ```
 (The ASCII spells the `seedzeng` handle — identical in both locales; the `<h1>` text stays localized.)
 
-- [ ] **Step 4: Verify + commit.** `cd site && npm run check` → 0 errors. Desktop shows the ASCII banner; ≤640px shows the plain styled name; the `<h1>` name remains in the DOM for a11y/SEO.
+- [ ] **Step 4: Verify + commit.** `cd site && npm run check` → 0 errors. Desktop shows the green/coral banner; ≤640px shows the plain styled name; the `<h1>` remains in the DOM for a11y/SEO; the banner causes no horizontal scroll at 768–1280px.
 
 ```bash
 git add site/src/data/ascii-name.txt site/src/components/AsciiName.astro site/src/components/Home.astro
-git commit -m "feat: ASCII-art hero name (desktop) with responsive + a11y fallback"
+git commit -m "feat: ANSI Shadow ASCII hero name (theme-aware, desktop) + a11y fallback"
 ```
 
-> If the banner feels too wide/loud, tune `text-[0.6rem]` or pick a smaller figlet font; we'll iterate live.
+> If it ever feels heavy in light mode, dial the `clamp()` max down or reduce the weight — iterate live.
 
 ---
 

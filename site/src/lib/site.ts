@@ -2,8 +2,8 @@ export const SITE = {
   name: 'Seed Zeng',
   wordmark: 'seedzeng',
   url: 'https://seedzeng.com',
-  headline: 'Engineering Leader | Angel Investor',
-  bio: "Engineering leader for DoorDash's core online datastores — the storage layer the whole business runs on. Early engineer at Klaviyo (scaled the pipeline ~300×). Physics + CS background: scientist's curiosity, engineer's execution. Angel investor in early-stage startups.",
+  headline: 'AI × Infrastructure | Engineering Leader | Angel Investor',
+  bio: "Engineering leader behind DoorDash's core storage and distributed systems platforms, powering the infrastructure that supports millions of orders every day. Former Tech Lead at Meta and early engineer at Klaviyo, where I helped scale the company's data platform through hypergrowth and IPO. With a background in both Physics and Computer Science, I combine first-principles thinking with pragmatic execution. Passionate about AI, infrastructure, and backing the next generation of founders.",
 };
 
 export const NAV = [
@@ -15,20 +15,20 @@ export const NAV = [
 
 export const BIO_SLIDES = [
   {
-    title: 'Lead at scale',
-    desc: "Senior Staff Engineer at DoorDash, leading the team behind our core online datastores — the storage millions of orders depend on every day. I own the reliability and direction of that infrastructure, and the growth of the engineers behind it.",
+    title: 'Building Critical Infrastructure',
+    desc: "As a Senior Staff Engineer at DoorDash, I lead the architecture and evolution of the company's core storage platforms. From distributed databases to large-scale data infrastructure, my work powers the systems millions of customers rely on every day. Beyond technology, I focus on growing engineers and building high-performing teams.",
   },
   {
-    title: '0 to 100',
-    desc: "I've operated at both ends of the spectrum — early-stage startup to hyperscale. As an early engineer at Klaviyo I scaled the data pipeline ~300×, to 150,000 events/sec, through the company's rise to a multi-billion-dollar IPO. Since then, tech lead at Meta and now Senior Staff at DoorDash.",
+    title: 'From Startup to Global Scale',
+    desc: "I've spent my career across both startups and hyperscale technology companies. At Klaviyo, I helped scale the core data platform by hundreds of times and witnessed the company's journey to IPO. I later led large-scale distributed systems initiatives at Meta and now drive infrastructure strategy at DoorDash.",
   },
   {
-    title: 'Bet on founders',
-    desc: "I stay close to the startup world — I angel-invest in early-stage founders and host a podcast where I talk with builders about the hard parts of starting up.",
+    title: 'Backing the Next Generation of Founders',
+    desc: "Outside of engineering, I stay deeply connected to the startup ecosystem. As an angel investor, I back ambitious founders at the earliest stages and enjoy helping them navigate technology, product, and company building challenges.",
   },
   {
-    title: 'Think like a physicist',
-    desc: "I came to software from physics. That background shapes how I work — I approach hard problems methodically: hypothesis, measurement, and decisions grounded in data.",
+    title: 'First-Principles Thinking',
+    desc: "My journey into technology started with physics. That training shaped how I approach complex problems: start with first principles, validate assumptions with data, and iterate relentlessly toward better solutions. Whether in engineering, investing, or leadership, I believe clear thinking compounds over time.",
   },
 ];
 

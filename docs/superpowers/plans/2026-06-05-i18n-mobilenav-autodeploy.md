@@ -481,7 +481,7 @@ const en: SiteContent = {
   ],
   education: [
     { title: 'B.S. Computer Science', org: 'Washington University in St. Louis', period: '2014 — 2016',
-      honors: ['GPA 3.98', 'Summa Cum Laude', 'Tau Beta Pi', 'Brown Fellowship'],
+      honors: ['GPA 3.97', 'Summa Cum Laude', 'Tau Beta Pi', 'Brown Fellowship'],
       note: 'Teaching assistant for Advanced Algorithms, Web Development, and iOS Development.' },
     { title: 'B.S. Physics', org: 'Denison University', period: '2011 — 2014',
       honors: ['GPA 3.90', 'Summa Cum Laude', 'Sigma Pi Sigma', 'Sigma Xi'],
@@ -544,7 +544,7 @@ const zh: SiteContent = {
   ],
   education: [
     { title: '计算机科学学士', org: '圣路易斯华盛顿大学', period: '2014 — 2016',
-      honors: ['GPA 3.98', '最优等毕业', 'Tau Beta Pi', 'Brown Fellowship'],
+      honors: ['GPA 3.97', '最优等毕业', 'Tau Beta Pi', 'Brown Fellowship'],
       note: '担任《高级算法》《Web 开发》《iOS 开发》课程的助教。' },
     { title: '物理学学士', org: 'Denison University', period: '2011 — 2014',
       honors: ['GPA 3.90', '最优等毕业', 'Sigma Pi Sigma', 'Sigma Xi'],

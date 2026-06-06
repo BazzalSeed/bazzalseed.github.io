@@ -3,11 +3,41 @@ import { SITE, NAV } from '../lib/site';
 import ThemeToggle from './ThemeToggle.astro';
 ---
 <nav class="flex items-center justify-between py-4 font-[family-name:var(--mono)] text-sm">
-  <a href="/" class="text-[color:var(--fg)] no-underline hover:opacity-70">~/{SITE.wordmark}<span class="term-cursor" aria-hidden="true">▮</span></a>
+  <a href="/" class="text-[color:var(--fg)] no-underline hover:opacity-70 shrink-0">~/{SITE.wordmark}<span class="term-cursor" aria-hidden="true">▮</span></a>
+
   <div class="flex items-center gap-5">
-    {NAV.map((item) => (
-      <a href={item.href} class="text-[color:var(--fg)] no-underline hover:opacity-70">{item.label}</a>
-    ))}
+    <!-- desktop links -->
+    <div class="hidden sm:flex items-center gap-5">
+      {NAV.map((item) => (
+        <a href={item.href} class="text-[color:var(--fg)] no-underline hover:opacity-70">{item.label}</a>
+      ))}
+    </div>
     <ThemeToggle />
+    <!-- mobile hamburger -->
+    <button id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false"
+      class="sm:hidden inline-flex flex-col justify-center gap-[5px] w-6 h-6" style="color: var(--fg)">
+      <span class="block h-0.5 w-6 bg-current rounded"></span>
+      <span class="block h-0.5 w-6 bg-current rounded"></span>
+      <span class="block h-0.5 w-6 bg-current rounded"></span>
+    </button>
   </div>
 </nav>
+
+<!-- mobile dropdown panel -->
+<div id="nav-menu" class="sm:hidden hidden flex-col gap-1 pb-3 font-[family-name:var(--mono)] text-sm">
+  {NAV.map((item) => (
+    <a href={item.href} class="block py-2 no-underline hover:opacity-70" style="color: var(--fg)" data-nav-link>{item.label}</a>
+  ))}
+</div>
+
+<script>
+  const btn = document.getElementById('nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  const close = () => { menu?.classList.add('hidden'); menu?.classList.remove('flex'); btn?.setAttribute('aria-expanded', 'false'); };
+  btn?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('hidden') === false;
+    menu?.classList.toggle('flex', open);
+    btn.setAttribute('aria-expanded', String(open));
+  });
+  document.querySelectorAll('[data-nav-link]').forEach((a) => a.addEventListener('click', close));
+</script>

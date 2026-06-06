@@ -1,124 +1,36 @@
 ---
-interface Props { name: string; text?: string }
-const { name, text = 'SEEDZENG' } = Astro.props;
+import asciiArt from '../data/ascii-name.txt?raw';
+interface Props { name: string }
+const { name } = Astro.props;
 ---
-<!-- Particle name: dots scatter in and reassemble into the wordmark. Real name kept for a11y/SEO. -->
+<!-- Crisp ANSI-Shadow wordmark that "prints in" left→right. Real name kept for a11y/SEO. -->
 <h1 class="sr-only">{name}</h1>
-<div
-  data-dotname
-  data-text={text}
+<pre
+  data-ascii
   aria-hidden="true"
-  title="click to re-form"
-  class="dotname cursor-pointer select-none min-h-[96px] sm:min-h-[120px] 2xl:min-h-0"
->
-  <canvas data-dotname-canvas class="block max-w-full"></canvas>
-</div>
+  title="hover to replay"
+  class="ascii-reveal m-0 font-[family-name:var(--mono)] font-bold leading-[1.05] overflow-hidden cursor-pointer select-none text-[clamp(0.4rem,2.05vw,0.82rem)]"
+  style="color: var(--accent)"
+>{asciiArt}</pre>
+
+<style>
+  .ascii-reveal { animation: ascii-wipe 1.05s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  @keyframes ascii-wipe {
+    from { clip-path: inset(0 100% 0 0); opacity: 0.85; }
+    to   { clip-path: inset(0 0 0 0);   opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ascii-reveal { animation: none; clip-path: none; }
+  }
+</style>
 
 <script>
-  const wrap = document.querySelector<HTMLElement>('[data-dotname]');
-  const canvas = wrap?.querySelector<HTMLCanvasElement>('[data-dotname-canvas]');
-  const ctx = canvas?.getContext('2d');
-
-  if (wrap && canvas && ctx) {
-    const text = wrap.dataset.text || 'SEEDZENG';
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    type Dot = { x: number; y: number; tx: number; ty: number };
-    let dots: Dot[] = [];
-    let cssW = 0, cssH = 0;
-    let raf = 0;
-
-    const accent = () =>
-      getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#3fb950';
-
-    function build() {
-      const avail = wrap.clientWidth || canvas.parentElement?.clientWidth || 600;
-      // font size so the word fills the available width (capped)
-      const fontSize = Math.max(54, Math.min(190, avail / (text.length * 0.6)));
-      const gap = Math.max(3, Math.round(fontSize / 30)); // dot spacing — denser = more readable
-      const radius = Math.max(1.1, gap * 0.44);
-      const off = document.createElement('canvas');
-      const octx = off.getContext('2d')!;
-      const font = `800 ${fontSize}px 'Inter Variable', system-ui, sans-serif`;
-      octx.font = font;
-      const tw = Math.ceil(octx.measureText(text).width);
-      cssW = tw;
-      cssH = Math.ceil(fontSize * 1.25);
-      off.width = cssW; off.height = cssH;
-      octx.font = font;
-      octx.textBaseline = 'middle';
-      octx.fillStyle = '#fff';
-      octx.fillText(text, 0, cssH / 2);
-      const data = octx.getImageData(0, 0, cssW, cssH).data;
-
-      const targets: { x: number; y: number }[] = [];
-      for (let y = 0; y < cssH; y += gap) {
-        for (let x = 0; x < cssW; x += gap) {
-          if (data[(y * cssW + x) * 4 + 3] > 128) targets.push({ x, y });
-        }
-      }
-
-      canvas.width = cssW * dpr; canvas.height = cssH * dpr;
-      canvas.style.width = cssW + 'px'; canvas.style.height = cssH + 'px';
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      (canvas as any)._r = radius;
-
-      dots = targets.map((t) => ({
-        tx: t.x, ty: t.y,
-        x: reduce ? t.x : Math.random() * cssW,
-        y: reduce ? t.y : Math.random() * cssH,
-      }));
-    }
-
-    function frame() {
-      ctx.clearRect(0, 0, cssW, cssH);
-      ctx.fillStyle = accent();
-      const r = (canvas as any)._r || 1.8;
-      let moving = false;
-      for (const d of dots) {
-        d.x += (d.tx - d.x) * 0.11;
-        d.y += (d.ty - d.y) * 0.11;
-        if (Math.abs(d.tx - d.x) > 0.4 || Math.abs(d.ty - d.y) > 0.4) moving = true;
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      if (moving) raf = requestAnimationFrame(frame);
-    }
-
-    function settle() {
-      ctx.clearRect(0, 0, cssW, cssH);
-      ctx.fillStyle = accent();
-      const r = (canvas as any)._r || 1.8;
-      for (const d of dots) {
-        ctx.beginPath();
-        ctx.arc(d.tx, d.ty, r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function start() {
-      cancelAnimationFrame(raf);
-      if (reduce) { settle(); return; }
-      raf = requestAnimationFrame(frame);
-    }
-
-    function burst() {
-      if (reduce) return;
-      for (const d of dots) { d.x = Math.random() * cssW; d.y = Math.random() * cssH; }
-      start();
-    }
-
-    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { build(); start(); });
-    wrap.addEventListener('click', burst);
-
-    let rt = 0;
-    window.addEventListener('resize', () => {
-      clearTimeout(rt);
-      rt = window.setTimeout(() => { build(); start(); }, 180);
+  const el = document.querySelector<HTMLElement>('[data-ascii]');
+  if (el && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.addEventListener('mouseenter', () => {
+      el.style.animation = 'none';
+      void el.offsetWidth; // force reflow so the animation can restart
+      el.style.animation = '';
     });
-    // recolor when theme flips while static
-    new MutationObserver(() => { if (!raf || dots.every((d) => Math.abs(d.tx - d.x) < 0.5)) settle(); })
-      .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   }
 </script>

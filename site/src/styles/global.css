@@ -9,8 +9,9 @@
   --accent: #b04a2f;
   --link: #b04a2f;
   --post: #b04a2f;
-  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
-  --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: 'JetBrains Mono Variable', ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --sans: 'Inter Variable', system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --cjk: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
   color-scheme: light;
 }
 
@@ -29,8 +30,13 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--sans);
+  line-height: 1.6;
+  letter-spacing: -0.003em;
   -webkit-font-smoothing: antialiased;
 }
+html[lang^='zh'] body { font-family: var(--cjk); }
+/* System B: headline-level type in mono, reading copy in Inter */
+h1, h2, h3, .role-title { font-family: var(--mono); letter-spacing: -0.02em; }
 a { color: var(--link); }
 ::selection { background: var(--accent); color: var(--bg); }
 

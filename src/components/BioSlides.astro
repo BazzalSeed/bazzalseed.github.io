@@ -6,8 +6,8 @@ const BIO_SLIDES = getContent(lang).bioSlides;
 const first = BIO_SLIDES[0];
 ---
 <div data-bioslides data-slides={JSON.stringify(BIO_SLIDES)} class="mt-6">
-  <div class="min-h-[10rem]">
-    <div class="relative pl-5">
+  <div data-slide-box class="min-h-[10rem]">
+    <div data-slide-content class="relative pl-5">
       <span aria-hidden="true" class="absolute left-0 top-0 bottom-0 w-[2px] rounded-full" style="background: var(--rule)"></span>
       <span data-progress aria-hidden="true" class="absolute left-0 top-0 w-[2px] rounded-full" style="background: var(--accent); height: 0%"></span>
       <p data-slide-title class="font-[family-name:var(--mono)] text-2xl sm:text-3xl font-bold tracking-tight leading-tight" style="color: var(--fg)">{first.title}</p>
@@ -42,6 +42,8 @@ const first = BIO_SLIDES[0];
   const fill = root?.querySelector<HTMLElement>('[data-progress]');
   const prevBtn = root?.querySelector<HTMLButtonElement>('[data-prev]');
   const nextBtn = root?.querySelector<HTMLButtonElement>('[data-next]');
+  const box = root?.querySelector<HTMLElement>('[data-slide-box]');
+  const content = root?.querySelector<HTMLElement>('[data-slide-content]');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (root && titleEl && descEl && BIO_SLIDES.length > 1) {
@@ -123,21 +125,52 @@ const first = BIO_SLIDES[0];
       fillResume(r);
     };
 
-    root.addEventListener('mouseenter', pause);
-    root.addEventListener('mouseleave', resume);
-    root.addEventListener('focusin', pause);
-    root.addEventListener('focusout', resume);
+    // Pause-on-hover only on hover-capable (desktop) devices — touch fakes
+    // mouse events and would get stuck paused / stutter.
+    if (matchMedia('(hover: hover)').matches) {
+      root.addEventListener('mouseenter', pause);
+      root.addEventListener('mouseleave', resume);
+      root.addEventListener('focusin', pause);
+      root.addEventListener('focusout', resume);
+    }
     dots.forEach((d, idx) => d.addEventListener('click', () => go(idx)));
     prevBtn?.addEventListener('click', () => go(i - 1));
     nextBtn?.addEventListener('click', () => go(i + 1));
 
-    paint(0);
-    if (reduce) {
-      if (fill) fill.style.height = '100%';
-    } else {
-      const d0 = durationFor(BIO_SLIDES[0].desc);
-      arm(d0);
-      fillTo(d0);
-    }
+    // Lock the slide box to the tallest slide's height (at the current width) so
+    // auto-rotation never reflows the page (no stutter, esp. on mobile).
+    const fitHeight = () => {
+      if (!box || !content) return;
+      const cur = i;
+      box.style.height = 'auto';
+      let max = 0;
+      for (let n = 0; n < len; n++) {
+        titleEl.textContent = BIO_SLIDES[n].title;
+        descEl.textContent = BIO_SLIDES[n].desc;
+        if (content.offsetHeight > max) max = content.offsetHeight;
+      }
+      titleEl.textContent = BIO_SLIDES[cur].title;
+      descEl.textContent = BIO_SLIDES[cur].desc;
+      box.style.height = `${max}px`;
+    };
+
+    const startAll = () => {
+      paint(0);
+      fitHeight();
+      if (reduce) {
+        if (fill) fill.style.height = '100%';
+      } else {
+        const d0 = durationFor(BIO_SLIDES[0].desc);
+        arm(d0);
+        fillTo(d0);
+      }
+    };
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(startAll);
+
+    let resizeT = 0;
+    window.addEventListener('resize', () => {
+      window.clearTimeout(resizeT);
+      resizeT = window.setTimeout(fitHeight, 150);
+    });
   }
 </script>

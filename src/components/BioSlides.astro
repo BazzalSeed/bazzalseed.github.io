@@ -21,14 +21,14 @@ const first = BIO_SLIDES[0];
           type="button"
           data-dot={idx}
           aria-label={`Show slide ${idx + 1}`}
-          class="h-2 w-2 rounded-full transition-all duration-300 hover:opacity-80"
+          class="h-2 w-2 rounded-full transition-all duration-300 hover:opacity-80 cursor-pointer"
           style="background: var(--rule)"
         ></button>
       ))}
     </div>
     <div class="flex items-center gap-2.5 ml-1 font-[family-name:var(--mono)] text-base leading-none">
-      <button type="button" data-prev aria-label="Previous slide" class="opacity-50 hover:opacity-100 transition-opacity" style="color: var(--accent)">‹</button>
-      <button type="button" data-next aria-label="Next slide" class="opacity-50 hover:opacity-100 transition-opacity" style="color: var(--accent)">›</button>
+      <button type="button" data-prev aria-label="Previous slide" class="opacity-50 hover:opacity-100 transition-opacity cursor-pointer" style="color: var(--accent)">‹</button>
+      <button type="button" data-next aria-label="Next slide" class="opacity-50 hover:opacity-100 transition-opacity cursor-pointer" style="color: var(--accent)">›</button>
     </div>
   </div>
 </div>

@@ -24,6 +24,25 @@
 
 ---
 
+## Execution order (local-dev first, deploy LAST)
+
+Tasks keep their original numbers as IDs; **run them in this sequence** (deploy is intentionally last so we finish all local-dev before touching production):
+
+1. Task 1 — Responsive mobile nav
+2. Task 2 — Dark mode live-react
+3. Task 3 — Experience expand-all
+4. **Task 13 — Typography & fonts**
+5. **Task 14 — ASCII-art name (hero)**
+6. Task 5 — Enable Astro i18n
+7. Task 6 — i18n config + helpers
+8. Task 7 — UI strings + content modules
+9. Task 8 — Locale-aware components
+10. Task 9 — Shared Home + locale routes
+11. Task 10 — Language toggle
+12. Task 11 — Auto-detect language
+13. Task 4 — Auto-deploy (GitHub Actions)  ← **DEPLOY PHASE**
+14. Task 12 — Final verification + deploy   ← **DEPLOY PHASE**
+
 ## File Structure
 
 ```
@@ -203,6 +222,8 @@ git commit -m "feat: expand/collapse-all control on experience"
 ---
 
 ## Task 4: Auto-deploy via GitHub Actions
+
+> ⚠️ **DEPLOY PHASE — run this near the end** (step 13 in Execution order), after all local-dev tasks.
 
 **Files:** Create `.github/workflows/deploy.yml`
 
@@ -721,6 +742,8 @@ git commit -m "feat: auto-detect language on first visit; honor manual choice"
 
 ## Task 12: Final verification + deploy
 
+> ⚠️ **DEPLOY PHASE — the very last step.**
+
 - [ ] **Step 1: Full check.** `cd site && npm run check && npm test && npm run build` — all green; build emits `/`, `/zh/`, `/404`, `/zh/404`, `/writing/<post>`, `/rss.xml`, `sitemap-index.xml`.
 
 - [ ] **Step 2: Manual walkthrough (dev).** `/` English; toggle `中` → `/zh/` Chinese across hero/experience/education/podcast/contact; theme toggle still works in both; mobile (~375px) hamburger works; "expand all" works.
@@ -736,9 +759,99 @@ If the GitHub Actions secret (`VERCEL_TOKEN`) is set (Task 4 Step 2), the push a
 
 ---
 
+## Task 13: Typography & fonts
+
+> Local-dev. Iterative — this sets up a refined font + type scale; we tune sizes/leading live afterward.
+
+**Files:** Modify `site/package.json` (dep), `site/src/layouts/Base.astro` (font import), `site/src/styles/global.css` (--mono token + scale)
+
+- [ ] **Step 1: Self-host a refined monospace.** From `site/`:
+
+```bash
+npm i @fontsource-variable/jetbrains-mono
+```
+Self-hosted → served from our own origin → no external request → China-safe. (Swap-later alternatives: `@fontsource-variable/geist-mono`, `@fontsource/commit-mono`.)
+
+- [ ] **Step 2: Import the font.** In `site/src/layouts/Base.astro` frontmatter, add at the top (with the other imports):
+
+```ts
+import '@fontsource-variable/jetbrains-mono';
+```
+
+- [ ] **Step 3: Point `--mono` at it.** In `site/src/styles/global.css`, change the `--mono` line inside `:root`:
+
+```css
+  --mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+```
+
+- [ ] **Step 4: Refine the type scale.** In `global.css`, add to the `body` rule and headings:
+
+```css
+body { line-height: 1.6; letter-spacing: -0.003em; }
+h1, h2, h3 { letter-spacing: -0.02em; }
+```
+
+- [ ] **Step 5: Verify + commit.** `cd site && npm run check` → 0 errors; `npm run build` succeeds and emits a `dist/_astro/*.woff2`. Mono elements (nav, `$` prompts, periods, tags) render in JetBrains Mono.
+
+```bash
+git add site/package.json site/package-lock.json site/src/layouts/Base.astro site/src/styles/global.css
+git commit -m "feat: self-hosted JetBrains Mono + refined type scale"
+```
+
+> Iterate-later (not in this task): try `Inter` for body (`@fontsource-variable/inter`), tune per-section sizes/leading, adjust the bio-slide title size. Decide live with the user.
+
+---
+
+## Task 14: ASCII-art name in the hero
+
+> Local-dev. Programmer-flavored hero name (à la Claude Code's banner), with a plain-text fallback for mobile + screen readers/SEO.
+
+**Files:** Create `site/src/data/ascii-name.txt`, `site/src/components/AsciiName.astro`; Modify `site/src/components/Home.astro`
+
+- [ ] **Step 1: Generate the ASCII to a file** (avoids all template-literal escaping). From `site/`:
+
+```bash
+mkdir -p src/data
+npx figlet -f Standard seedzeng > src/data/ascii-name.txt
+cat src/data/ascii-name.txt   # eyeball it; try -f Slant / -f Small for other styles
+```
+
+- [ ] **Step 2: Create the component** (imports the art raw, so no escaping). Create `site/src/components/AsciiName.astro`:
+
+```astro
+---
+import ascii from '../data/ascii-name.txt?raw';
+interface Props { name: string }
+const { name } = Astro.props;
+---
+<!-- Decorative ASCII on desktop; the real name stays for screen readers + SEO -->
+<h1 class="text-4xl font-bold tracking-tight m-0 sm:sr-only">{name}</h1>
+<pre aria-hidden="true"
+     class="hidden sm:block m-0 font-[family-name:var(--mono)] text-[0.6rem] leading-[1.15] overflow-x-auto"
+     style="color: var(--accent)">{ascii}</pre>
+```
+
+- [ ] **Step 3: Use it in the hero.** In `site/src/components/Home.astro`, add `import AsciiName from './AsciiName.astro';` and replace the hero name line (`<h1 …>{SITE.name}</h1>` or the localized name) with:
+
+```astro
+    <AsciiName name={SITE.name} />
+```
+(The ASCII spells the `seedzeng` handle — identical in both locales; the `<h1>` text stays localized.)
+
+- [ ] **Step 4: Verify + commit.** `cd site && npm run check` → 0 errors. Desktop shows the ASCII banner; ≤640px shows the plain styled name; the `<h1>` name remains in the DOM for a11y/SEO.
+
+```bash
+git add site/src/data/ascii-name.txt site/src/components/AsciiName.astro site/src/components/Home.astro
+git commit -m "feat: ASCII-art hero name (desktop) with responsive + a11y fallback"
+```
+
+> If the banner feels too wide/loud, tune `text-[0.6rem]` or pick a smaller figlet font; we'll iterate live.
+
+---
+
 ## Self-Review
 
-**Spec coverage:** mobile nav (T1), dark live-react (T2), expand-all (T3), auto-deploy on merge (T4), Chinese version (T5–T11), language switch (T10), auto-detect + adaptive (T11), dark adaptive (already + T2). ✓
+**Spec coverage:** mobile nav (T1), dark live-react (T2), expand-all (T3), typography & fonts (T13 — exact font/scale chosen from a visual design session first), ASCII-art name (T14), auto-deploy on merge (T4, deploy phase), Chinese version (T5–T11), language switch (T10), auto-detect + adaptive (T11), dark adaptive (already + T2). ✓ Execution order revised so all deploy work runs last.
 
 **Placeholders:** Chinese strings are real drafts (flagged for your review, not TODOs). One explicit DECISION: your Chinese name (kept "Seed Zeng"). Vercel IDs are real values from `site/.vercel/project.json`. No `TODO`/`TBD` in steps.
 

@@ -1,5 +1,5 @@
 <button
-  id="theme-toggle"
+  data-theme-toggle
   type="button"
   aria-label="Toggle light / dark theme"
   title="Toggle light / dark"
@@ -17,16 +17,21 @@
 </button>
 
 <script>
-  const btn = document.getElementById('theme-toggle');
   const root = document.documentElement;
-  btn?.addEventListener('click', () => {
-    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-    root.dataset.theme = next;
-    localStorage.setItem('theme', next);
+  // Bind every toggle instance (top nav + ultra-wide sidebar) — not by id (duplicates).
+  document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      localStorage.setItem('theme', next);
+    });
   });
   // Follow OS theme changes unless the user has set a manual preference.
-  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+  const mq = matchMedia('(prefers-color-scheme: dark)');
+  const onChange = (e: MediaQueryListEvent) => {
     if (localStorage.getItem('theme')) return; // manual choice wins
     root.dataset.theme = e.matches ? 'dark' : 'light';
-  });
+  };
+  if (mq.addEventListener) mq.addEventListener('change', onChange);
+  else (mq as any).addListener(onChange); // older Safari fallback
 </script>

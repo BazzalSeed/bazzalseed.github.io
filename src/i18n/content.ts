@@ -57,8 +57,8 @@ const en: SiteContent = {
         'Built Klaviyo’s first Kafka microservice, now handling billions of events a day.',
         'Maintained core data stores (MySQL, Cassandra, Redis, Memcache) and refactored the legacy pipeline to clean OOP.',
       ] },
-    { title: 'Backend Software Engineer', org: 'SurveyMini (acquired by SMG)', logo: 'surveymini', period: 'Jul 2016 — Mar 2017',
-      summary: 'Backend engineer on survey infrastructure and AWS data systems; SurveyMini was acquired by SMG a few months after I joined.',
+    { title: 'Backend Software Engineer', org: 'SurveyMini (acq. by SMG)', logo: 'surveymini', period: 'Jul 2016 — Mar 2017',
+      summary: 'Backend engineer on survey infrastructure and AWS data systems; I moved on following SurveyMini’s acquisition by SMG.',
       notes: [
         'Built survey-branching logic that adapts each next question to user input.',
         'Improved AWS scalability and led a migration from Postgres to DynamoDB.',
@@ -121,7 +121,7 @@ const zh: SiteContent = {
         '维护核心数据系统，包括 MySQL、Cassandra、Redis、Memcache，并将旧管道重构为更清晰的面向对象架构。',
       ] },
     { title: '后端软件工程师', org: 'SurveyMini（被 SMG 收购）', logo: 'surveymini', period: '2016年7月 — 2017年3月',
-      summary: '负责问卷平台后端、数据系统与 AWS 数据架构建设；入职几个月后，SurveyMini 被 SMG 收购。',
+      summary: '负责问卷平台后端、数据系统与 AWS 数据架构建设；在 SurveyMini 被 SMG 收购后离开。',
       notes: [
         '构建动态问卷分支逻辑，根据用户回答实时决定下一题。',
         '提升 AWS 系统可扩展性，并主导从 Postgres 到 DynamoDB 的迁移。',

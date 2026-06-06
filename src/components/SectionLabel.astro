@@ -4,7 +4,7 @@ const { name, verb = 'ls', title, class: cls = '' } = Astro.props;
 const heading = title ?? name.charAt(0).toUpperCase() + name.slice(1);
 ---
 <div class={cls}>
-  <h2 class="font-[family-name:var(--mono)] text-base font-semibold uppercase tracking-[0.15em]" style="color: var(--fg)">{heading}</h2>
+  <h2 class="font-[family-name:var(--mono)] text-xl font-semibold uppercase tracking-[0.15em]" style="color: var(--fg)">{heading}</h2>
   <p class="font-[family-name:var(--mono)] text-[0.7rem] mt-0.5" aria-hidden="true">
     <span style="color: var(--accent)">$</span> <span style="color: var(--muted)">{verb} {name}</span>
   </p>

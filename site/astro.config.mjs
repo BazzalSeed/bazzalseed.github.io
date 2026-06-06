@@ -9,6 +9,12 @@ export default defineConfig({
   trailingSlash: 'never',
   build: { format: 'file' },
 
+  i18n: {
+    locales: ['en', 'zh'],
+    defaultLocale: 'en',
+    routing: { prefixDefaultLocale: false },
+  },
+
   vite: {
     plugins: [tailwindcss()],
   },

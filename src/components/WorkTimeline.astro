@@ -1,5 +1,6 @@
 ---
 import CompanyLogo from './CompanyLogo.astro';
+import EduLogo from './EduLogo.astro';
 import SectionLabel from './SectionLabel.astro';
 import { getContent } from '../i18n/content';
 import { t } from '../i18n/ui';
@@ -42,20 +43,23 @@ const { roles, education } = getContent(lang);
 
   <SectionLabel name="education" title={t(lang, 'section.education')} class="mt-12 mb-4" />
   {education.map((e) => (
-    <div class="py-3">
-      <div class="flex items-baseline justify-between gap-3">
-        <span class="role-title text-base font-semibold">{e.school}</span>
-        <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap" style="color: var(--muted)">{e.period}</span>
+    <div class="py-3 flex gap-3">
+      <EduLogo logo={e.logo} class="shrink-0 mt-0.5" />
+      <div class="flex-1 min-w-0">
+        <div class="flex items-baseline justify-between gap-3">
+          <span class="role-title text-base font-semibold">{e.school}</span>
+          <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap" style="color: var(--muted)">{e.period}</span>
+        </div>
+        <p class="font-[family-name:var(--mono)] text-xs mt-1" style="color: var(--muted)">{e.degree} · {e.gpa}</p>
+        <p class="text-[0.95rem] leading-relaxed mt-2.5" style="color: var(--fg)">{e.summary}</p>
+        <ul class="list-none p-0 mt-2.5 m-0 space-y-1.5">
+          {e.notes.map((n) => (
+            <li class="text-sm leading-relaxed flex gap-2" style="color: var(--fg)">
+              <span aria-hidden="true" style="color: var(--accent)">–</span><span>{n}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-      <p class="font-[family-name:var(--mono)] text-xs mt-1" style="color: var(--muted)">{e.degree} · {e.gpa}</p>
-      <p class="text-[0.95rem] leading-relaxed mt-2.5" style="color: var(--fg)">{e.summary}</p>
-      <ul class="list-none p-0 mt-2.5 m-0 space-y-1.5">
-        {e.notes.map((n) => (
-          <li class="text-sm leading-relaxed flex gap-2" style="color: var(--fg)">
-            <span aria-hidden="true" style="color: var(--accent)">–</span><span>{n}</span>
-          </li>
-        ))}
-      </ul>
     </div>
   ))}
 </div>

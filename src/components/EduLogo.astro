@@ -1,0 +1,24 @@
+---
+interface Props { logo: string; class?: string }
+const { logo, class: cls = '' } = Astro.props;
+---
+{logo === 'wustl' && (
+  <svg width="36" height="36" viewBox="0 0 32 36" fill="none" aria-hidden="true" class={cls}>
+    <path d="M3 3 H29 V19 C29 27 23.5 32 16 35 C8.5 32 3 27 3 19 Z" fill="#1a6b3a" />
+    <!-- 3 stars across the top -->
+    <circle cx="10" cy="8.2" r="1.05" fill="#fff" />
+    <circle cx="16" cy="7.4" r="1.05" fill="#fff" />
+    <circle cx="22" cy="8.2" r="1.05" fill="#fff" />
+    <!-- red band -->
+    <rect x="3" y="14" width="26" height="6.4" fill="#c41230" />
+    <!-- white open book -->
+    <path d="M8.6 15.7 H15.2 V19 H8.6 Z M16.8 15.7 H23.4 V19 H16.8 Z" fill="#fff" />
+    <rect x="15.4" y="15.3" width="1.2" height="3.9" fill="#c41230" />
+  </svg>
+)}
+{logo === 'denison' && (
+  <svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true" class={cls}>
+    <rect width="36" height="36" rx="2.5" fill="#C8102E" />
+    <text x="18" y="20.2" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="6.2" font-weight="700" letter-spacing="0.4" fill="#fff">DENISON</text>
+  </svg>
+)}

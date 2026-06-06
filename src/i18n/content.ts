@@ -2,7 +2,7 @@ import type { Locale } from './config';
 
 export type Slide = { title: string; desc: string };
 export type Role = { title: string; org: string; logo: string; period: string; current?: boolean; summary: string; notes: string[] };
-export type Education = { school: string; degree: string; gpa: string; period: string; summary: string; notes: string[] };
+export type Education = { school: string; degree: string; gpa: string; logo: string; period: string; summary: string; notes: string[] };
 
 export type SiteContent = {
   headline: string;
@@ -65,14 +65,14 @@ const en: SiteContent = {
       ] },
   ],
   education: [
-    { school: 'Washington University in St. Louis', degree: 'B.S. Computer Science', gpa: 'GPA 3.97', period: '2014 — 2016',
+    { school: 'Washington University in St. Louis', degree: 'B.S. Computer Science', gpa: 'GPA 3.97', logo: 'wustl', period: '2014 — 2016',
       summary: 'Computer science with a focus on algorithms and systems — the groundwork for a career in infrastructure.',
       notes: [
         'Graduated Summa Cum Laude — ranked 9 / 500',
         'Brown Fellowship — full scholarship',
         'Teaching assistant — Advanced Algorithms, Web Development, iOS Development',
       ] },
-    { school: 'Denison University', degree: 'B.A. Physics', gpa: 'Major GPA 3.97', period: '2011 — 2014',
+    { school: 'Denison University', degree: 'B.A. Physics', gpa: 'Major GPA 3.97', logo: 'denison', period: '2011 — 2014',
       summary: 'A physics foundation that still shapes how I reason about hard problems — rigor, measurement, first principles.',
       notes: [
         'Graduated Summa Cum Laude',
@@ -136,14 +136,14 @@ const zh: SiteContent = {
       ] },
   ],
   education: [
-    { school: '圣路易斯华盛顿大学', degree: '计算机科学学士', gpa: 'GPA 3.97', period: '2014 — 2016',
+    { school: '圣路易斯华盛顿大学', degree: '计算机科学学士', gpa: 'GPA 3.97', logo: 'wustl', period: '2014 — 2016',
       summary: '主修计算机科学，专注算法与系统——这也是我深耕 AI Infra 与分布式系统的起点。',
       notes: [
         '以最高荣誉毕业（Summa Cum Laude），年级排名 9 / 500',
         'Brown Fellowship 全额奖学金',
         '担任高级算法、Web 开发与 iOS 开发课程助教',
       ] },
-    { school: '丹尼森大学', degree: '物理学学士', gpa: '专业 GPA 3.97', period: '2011 — 2014',
+    { school: '丹尼森大学', degree: '物理学学士', gpa: '专业 GPA 3.97', logo: 'denison', period: '2011 — 2014',
       summary: '物理学训练至今影响着我解决复杂问题的方式——严谨、量化、回到第一性原理。',
       notes: [
         '以最高荣誉毕业（Summa Cum Laude）',

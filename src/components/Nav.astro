@@ -24,8 +24,11 @@ const NAV = [
         <a href={item.href} class="text-[color:var(--fg)] no-underline hover:opacity-70">{item.label}</a>
       ))}
     </div>
-    <LanguageToggle />
-    <ThemeToggle />
+    <span class="inline-flex items-center gap-2.5 rounded-full border border-[color:var(--rule)] px-3 py-1">
+      <LanguageToggle />
+      <span class="text-[color:var(--muted)] opacity-40 text-xs leading-none" aria-hidden="true">·</span>
+      <ThemeToggle />
+    </span>
     <!-- mobile hamburger -->
     <button id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false"
       class="sm:hidden inline-flex flex-col justify-center gap-[5px] w-6 h-6" style="color: var(--fg)">

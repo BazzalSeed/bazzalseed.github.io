@@ -139,3 +139,7 @@ details.role > summary:hover .chev { color: var(--accent); }
 [data-roles-toggle] .ra-open { display: none; }
 [data-roles-toggle][aria-expanded="true"] .ra-open { display: inline; }
 [data-roles-toggle][aria-expanded="true"] .ra-closed { display: none; }
+
+/* Theme toggle: show the icon of the current mode (sun = light, moon = dark) */
+[data-theme="dark"] .theme-sun { display: none; }
+[data-theme="light"] .theme-moon { display: none; }

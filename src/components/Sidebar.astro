@@ -30,9 +30,10 @@ const NAV = [
       <a href={item.href} class="no-underline hover:opacity-70 w-fit" style="color: var(--fg)">{item.label}</a>
     ))}
   </nav>
-  <div class="flex items-center gap-4">
+  <span class="inline-flex w-fit items-center gap-2.5 rounded-full border border-[color:var(--rule)] px-3 py-1">
     <LanguageToggle />
+    <span class="text-[color:var(--muted)] opacity-40 text-xs leading-none" aria-hidden="true">·</span>
     <ThemeToggle />
-  </div>
+  </span>
   <SocialLinks />
 </div>

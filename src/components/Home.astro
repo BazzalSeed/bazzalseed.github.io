@@ -5,7 +5,7 @@ import WritingList from './WritingList.astro';
 import BioSlides from './BioSlides.astro';
 import SectionLabel from './SectionLabel.astro';
 import ContactForm from './ContactForm.astro';
-import AsciiName from './AsciiName.astro';
+import AsciiDots from './AsciiDots.astro';
 import { SITE } from '../lib/site';
 import { getContent } from '../i18n/content';
 import { t } from '../i18n/ui';
@@ -22,7 +22,7 @@ const content = getContent(lang);
     height={192}
     class="w-24 h-24 rounded-full object-cover mb-5 border border-[color:var(--rule)] 2xl:hidden"
   />
-  <AsciiName name={SITE.name} />
+  <AsciiDots name={SITE.name} />
   <p class="font-[family-name:var(--mono)] text-[0.7rem] mt-1" aria-hidden="true">
     <span style="color: var(--accent)">$</span> <span style="color: var(--muted)">whoami</span>
   </p>

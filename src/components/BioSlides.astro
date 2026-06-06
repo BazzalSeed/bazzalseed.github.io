@@ -26,9 +26,13 @@ const first = BIO_SLIDES[0];
         ></button>
       ))}
     </div>
-    <div class="flex items-center gap-2.5 ml-1 font-[family-name:var(--mono)] text-base leading-none">
-      <button type="button" data-prev aria-label="Previous slide" class="opacity-50 hover:opacity-100 transition-opacity cursor-pointer" style="color: var(--accent)">‹</button>
-      <button type="button" data-next aria-label="Next slide" class="opacity-50 hover:opacity-100 transition-opacity cursor-pointer" style="color: var(--accent)">›</button>
+    <div class="flex items-center gap-2.5 ml-1 font-[family-name:var(--mono)] text-base leading-none" style="color: var(--accent)">
+      <button type="button" data-prev aria-label="Previous slide" class="opacity-50 hover:opacity-100 transition-opacity cursor-pointer">‹</button>
+      <button type="button" data-playpause aria-label="Pause" class="opacity-50 hover:opacity-100 transition-opacity cursor-pointer inline-flex items-center">
+        <svg class="pp-pause" width="10" height="11" viewBox="0 0 8 10" fill="currentColor" aria-hidden="true"><rect width="3" height="10" rx="1"></rect><rect x="5" width="3" height="10" rx="1"></rect></svg>
+        <svg class="pp-play hidden" width="11" height="12" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true"><path d="M1 0.8 L9 6 L1 11.2 Z"></path></svg>
+      </button>
+      <button type="button" data-next aria-label="Next slide" class="opacity-50 hover:opacity-100 transition-opacity cursor-pointer">›</button>
     </div>
   </div>
 </div>
@@ -44,6 +48,7 @@ const first = BIO_SLIDES[0];
   const nextBtn = root?.querySelector<HTMLButtonElement>('[data-next]');
   const box = root?.querySelector<HTMLElement>('[data-slide-box]');
   const content = root?.querySelector<HTMLElement>('[data-slide-content]');
+  const ppBtn = root?.querySelector<HTMLButtonElement>('[data-playpause]');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (root && titleEl && descEl && BIO_SLIDES.length > 1) {
@@ -55,6 +60,7 @@ const first = BIO_SLIDES[0];
     let remaining = 0;
     let startedAt = 0;
     let paused = false;
+    let userPaused = false; // sticky pause from the play/pause button
 
     const paint = (n: number) => {
       const s = BIO_SLIDES[n];
@@ -104,8 +110,15 @@ const first = BIO_SLIDES[0];
 
     const go = (n: number) => {
       i = (n + len) % len;
-      paused = false;
       paint(i);
+      if (userPaused) {
+        // navigate only — stay paused, reset progress to empty
+        window.clearTimeout(timer);
+        remaining = durationFor(BIO_SLIDES[i].desc);
+        if (fill && !reduce) { fill.style.transition = 'none'; fill.style.height = '0%'; void fill.offsetWidth; }
+        return;
+      }
+      paused = false;
       const d = durationFor(BIO_SLIDES[i].desc);
       arm(d);
       fillTo(d);
@@ -127,15 +140,31 @@ const first = BIO_SLIDES[0];
 
     // Pause-on-hover only on hover-capable (desktop) devices — touch fakes
     // mouse events and would get stuck paused / stutter.
+    // Hover-pause only on hover-capable (desktop) devices; the play/pause button
+    // covers touch. A sticky user-pause is never auto-resumed by hover.
     if (matchMedia('(hover: hover)').matches) {
-      root.addEventListener('mouseenter', pause);
-      root.addEventListener('mouseleave', resume);
-      root.addEventListener('focusin', pause);
-      root.addEventListener('focusout', resume);
+      root.addEventListener('mouseenter', () => { if (!userPaused) pause(); });
+      root.addEventListener('mouseleave', () => { if (!userPaused) resume(); });
+      root.addEventListener('focusin', () => { if (!userPaused) pause(); });
+      root.addEventListener('focusout', () => { if (!userPaused) resume(); });
     }
     dots.forEach((d, idx) => d.addEventListener('click', () => go(idx)));
     prevBtn?.addEventListener('click', () => go(i - 1));
     nextBtn?.addEventListener('click', () => go(i + 1));
+
+    const ppPause = ppBtn?.querySelector<SVGElement>('.pp-pause');
+    const ppPlay = ppBtn?.querySelector<SVGElement>('.pp-play');
+    const setPP = () => {
+      if (!ppBtn) return;
+      ppBtn.setAttribute('aria-label', userPaused ? 'Play' : 'Pause');
+      ppPause?.classList.toggle('hidden', userPaused);
+      ppPlay?.classList.toggle('hidden', !userPaused);
+    };
+    ppBtn?.addEventListener('click', () => {
+      userPaused = !userPaused;
+      if (userPaused) pause(); else resume();
+      setPP();
+    });
 
     // Lock the slide box to the tallest slide's height (at the current width) so
     // auto-rotation never reflows the page (no stutter, esp. on mobile).

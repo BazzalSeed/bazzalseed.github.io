@@ -6,7 +6,9 @@ const BIO_SLIDES = getContent(lang).bioSlides;
 const first = BIO_SLIDES[0];
 ---
 <div data-bioslides data-slides={JSON.stringify(BIO_SLIDES)} class="mt-6">
-  <div class="border-l-2 pl-5 min-h-[10rem]" style="border-color: var(--accent)">
+  <div class="relative pl-5 min-h-[10rem]">
+    <span aria-hidden="true" class="absolute left-0 top-0 bottom-0 w-[2px] rounded-full" style="background: var(--rule)"></span>
+    <span data-progress aria-hidden="true" class="absolute left-0 top-0 w-[2px] rounded-full" style="background: var(--accent); height: 0%"></span>
     <p data-slide-title class="font-[family-name:var(--mono)] text-2xl sm:text-3xl font-bold tracking-tight leading-tight" style="color: var(--fg)">{first.title}</p>
     <p data-slide-desc class="mt-3 text-[1.02rem] leading-relaxed max-w-prose" style="color: var(--fg)">{first.desc}</p>
   </div>
@@ -40,6 +42,7 @@ const first = BIO_SLIDES[0];
   const descEl = root?.querySelector<HTMLElement>('[data-slide-desc]');
   const hint = root?.querySelector<HTMLElement>('[data-pause-hint]');
   const dots = [...(root?.querySelectorAll<HTMLButtonElement>('[data-dot]') ?? [])];
+  const fill = root?.querySelector<HTMLElement>('[data-progress]');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (root && titleEl && descEl && BIO_SLIDES.length > 1) {
@@ -73,25 +76,53 @@ const first = BIO_SLIDES[0];
       startedAt = Date.now();
       timer = window.setTimeout(() => go(i + 1), ms);
     };
+    // The left quote line doubles as a progress bar (fills over the slide, freezes on hover).
+    const fillTo = (ms: number) => {
+      if (!fill || reduce) return;
+      fill.style.transition = 'none';
+      fill.style.height = '0%';
+      void fill.offsetWidth; // reflow
+      fill.style.transition = `height ${ms}ms linear`;
+      fill.style.height = '100%';
+    };
+    const fillPause = () => {
+      if (!fill || reduce) return;
+      const ph = fill.parentElement ? parseFloat(getComputedStyle(fill.parentElement).height) : 0;
+      const cur = parseFloat(getComputedStyle(fill).height);
+      fill.style.transition = 'none';
+      fill.style.height = ph ? `${(cur / ph) * 100}%` : '0%';
+      void fill.offsetWidth;
+    };
+    const fillResume = (ms: number) => {
+      if (!fill || reduce) return;
+      fill.style.transition = `height ${ms}ms linear`;
+      fill.style.height = '100%';
+    };
+
     const go = (n: number) => {
       i = (n + len) % len;
       paused = false;
       if (hint) hint.style.opacity = '0';
       paint(i);
-      arm(durationFor(BIO_SLIDES[i].desc));
+      const d = durationFor(BIO_SLIDES[i].desc);
+      arm(d);
+      fillTo(d);
     };
     const pause = () => {
       if (paused || reduce) return;
       paused = true;
       window.clearTimeout(timer);
       remaining -= Date.now() - startedAt; // keep what's left
+      fillPause();
       if (hint) hint.style.opacity = '1';
     };
     const resume = () => {
       if (!paused || reduce) return;
       paused = false;
       if (hint) hint.style.opacity = '0';
-      arm(Math.max(1200, remaining)); // resume where we left off
+      const r = Math.max(1200, remaining);
+      arm(r); // resume where we left off
+      fillResume(r);
     };
 
     root.addEventListener('mouseenter', pause);
@@ -101,6 +132,12 @@ const first = BIO_SLIDES[0];
     dots.forEach((d, idx) => d.addEventListener('click', () => go(idx)));
 
     paint(0);
-    arm(durationFor(BIO_SLIDES[0].desc));
+    if (reduce) {
+      if (fill) fill.style.height = '100%';
+    } else {
+      const d0 = durationFor(BIO_SLIDES[0].desc);
+      arm(d0);
+      fillTo(d0);
+    }
   }
 </script>

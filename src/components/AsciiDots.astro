@@ -3,34 +3,39 @@ import asciiArt from '../data/ascii-name.txt?raw';
 interface Props { name: string }
 const { name } = Astro.props;
 ---
-<!-- Crisp ANSI-Shadow wordmark that "prints in" left→right. Real name kept for a11y/SEO. -->
+<!-- Hero wordmark: crisp ANSI-Shadow art that flickers on like a neon/terminal sign. Real name kept for a11y/SEO. -->
 <h1 class="sr-only">{name}</h1>
 <pre
-  data-ascii
+  data-name
   aria-hidden="true"
   title="click to replay"
-  class="ascii-reveal m-0 font-[family-name:var(--mono)] font-bold leading-[1.05] overflow-hidden cursor-pointer select-none text-[clamp(0.4rem,2.05vw,0.82rem)]"
+  class="m-0 w-fit font-[family-name:var(--mono)] font-bold leading-[1.05] overflow-hidden cursor-pointer select-none text-[clamp(0.4rem,2.05vw,0.82rem)]"
   style="color: var(--accent)"
 >{asciiArt}</pre>
 
 <style>
-  .ascii-reveal { animation: ascii-wipe 1.05s cubic-bezier(0.22, 1, 0.36, 1) both; }
-  @keyframes ascii-wipe {
-    from { clip-path: inset(0 100% 0 0); opacity: 0.85; }
-    to   { clip-path: inset(0 0 0 0);   opacity: 1; }
+  [data-name].play { animation: ascii-flicker 0.9s ease-out both; }
+  /* subtle neon-sign blink: comes on with two gentle stutters, then steady */
+  @keyframes ascii-flicker {
+    0%   { opacity: 0; }
+    14%  { opacity: 1; }
+    20%  { opacity: 0.6; }
+    28%  { opacity: 1; }
+    38%  { opacity: 0.82; }
+    46%  { opacity: 1; }
+    100% { opacity: 1; }
   }
-  @media (prefers-reduced-motion: reduce) {
-    .ascii-reveal { animation: none; clip-path: none; }
-  }
+  @media (prefers-reduced-motion: reduce) { [data-name].play { animation: none; } }
 </style>
 
 <script>
-  const el = document.querySelector<HTMLElement>('[data-ascii]');
+  const el = document.querySelector<HTMLElement>('[data-name]');
   if (el && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.classList.add('play');
     el.addEventListener('click', () => {
-      el.style.animation = 'none';
-      void el.offsetWidth; // force reflow so the animation can restart
-      el.style.animation = '';
+      el.classList.remove('play');
+      void el.offsetWidth; // reflow to restart
+      el.classList.add('play');
     });
   }
 </script>

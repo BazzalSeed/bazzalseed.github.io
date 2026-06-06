@@ -10,7 +10,7 @@ const { roles, education } = getContent(lang);
 <div>
   <button type="button" data-roles-toggle aria-expanded="false"
     class="font-[family-name:var(--mono)] text-xs mb-3 bg-transparent border-0 p-0 hover:opacity-70" style="color: var(--muted)">
-    <span class="ra-closed">expand all ↓</span><span class="ra-open">collapse all ↑</span>
+    <span class="ra-closed">{t(lang, 'roles.expandAll')}</span><span class="ra-open">{t(lang, 'roles.collapseAll')}</span>
   </button>
   {roles.map((r) => (
     <details open={r.current} class="role">
@@ -21,7 +21,7 @@ const { roles, education } = getContent(lang);
           <span class="text-sm" style="color: var(--muted)"> · {r.org}</span>
           {r.current && (
             <span class="ml-2 align-middle font-[family-name:var(--mono)] text-[0.6rem] uppercase tracking-wider px-1.5 py-0.5 rounded"
-                  style="color: var(--accent); border: 1px solid var(--accent)">now</span>
+                  style="color: var(--accent); border: 1px solid var(--accent)">{t(lang, 'roles.now')}</span>
           )}
         </span>
         <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap" style="color: var(--muted)">{r.period}</span>

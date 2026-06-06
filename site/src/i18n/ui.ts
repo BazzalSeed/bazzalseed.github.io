@@ -12,6 +12,7 @@ const UI: Record<Locale, Dict> = {
     'form.send': 'send →', 'form.sending': 'sending…', 'form.sent': 'thanks — message sent ✓',
     'form.error': 'that failed — email me directly?', 'contact.direct': 'or email me directly:',
     'podcast.break': 'on a break',
+    'roles.expandAll': 'expand all ↓', 'roles.collapseAll': 'collapse all ↑', 'roles.now': 'now',
   },
   zh: {
     'nav.work': '经历', 'nav.writing': '文章', 'nav.podcast': '播客', 'nav.contact': '联系',
@@ -22,6 +23,7 @@ const UI: Record<Locale, Dict> = {
     'form.send': '发送 →', 'form.sending': '发送中…', 'form.sent': '已发送，谢谢 ✓',
     'form.error': '发送失败 — 直接发邮件给我？', 'contact.direct': '或直接发邮件：',
     'podcast.break': '暂停更新',
+    'roles.expandAll': '展开全部 ↓', 'roles.collapseAll': '收起全部 ↑', 'roles.now': '现在',
   },
 };
 

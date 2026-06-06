@@ -54,7 +54,7 @@ const first = BIO_SLIDES[0];
   if (root && titleEl && descEl && BIO_SLIDES.length > 1) {
     const len = BIO_SLIDES.length;
     // Longer dwell: ~3s baseline bump on top of a content-length scale.
-    const durationFor = (t: string) => Math.max(9000, Math.min(14000, t.length * 45 + 3000));
+    const durationFor = (t: string) => Math.max(7000, Math.min(12000, t.length * 45 + 1000));
     let i = 0;
     let timer = 0;
     let remaining = 0;

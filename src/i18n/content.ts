@@ -2,7 +2,7 @@ import type { Locale } from './config';
 
 export type Slide = { title: string; desc: string };
 export type Role = { title: string; org: string; logo: string; period: string; current?: boolean; summary: string; notes: string[] };
-export type Education = { title: string; org: string; period: string; honors: string[]; note: string };
+export type Education = { school: string; degree: string; gpa: string; period: string; summary: string; notes: string[] };
 
 export type SiteContent = {
   headline: string;
@@ -65,12 +65,20 @@ const en: SiteContent = {
       ] },
   ],
   education: [
-    { title: 'B.S. Computer Science', org: 'Washington University in St. Louis', period: '2014 — 2016',
-      honors: ['GPA 3.97', 'Summa Cum Laude', 'Tau Beta Pi', 'Brown Fellowship'],
-      note: 'Teaching assistant for Advanced Algorithms, Web Development, and iOS Development.' },
-    { title: 'B.S. Physics', org: 'Denison University', period: '2011 — 2014',
-      honors: ['GPA 3.90', 'Summa Cum Laude', 'Sigma Pi Sigma', 'Sigma Xi'],
-      note: 'Co-authored a paper in Physical Review A and researched laser cooling of negative ions at Lawrence Berkeley National Lab.' },
+    { school: 'Washington University in St. Louis', degree: 'B.S. Computer Science', gpa: 'GPA 3.97', period: '2014 — 2016',
+      summary: 'Computer science with a focus on algorithms and systems — the groundwork for a career in infrastructure.',
+      notes: [
+        'Graduated Summa Cum Laude — ranked 9 / 500',
+        'Brown Fellowship — full scholarship',
+        'Teaching assistant — Advanced Algorithms, Web Development, iOS Development',
+      ] },
+    { school: 'Denison University', degree: 'B.A. Physics', gpa: 'Major GPA 3.97', period: '2011 — 2014',
+      summary: 'A physics foundation that still shapes how I reason about hard problems — rigor, measurement, first principles.',
+      notes: [
+        'Graduated Summa Cum Laude',
+        'Recognized for outstanding contribution to the Physics Department',
+        'Co-authored a paper in Physical Review A; researched laser cooling of negative ions at Lawrence Berkeley National Lab',
+      ] },
   ],
   podcastDesc: "Conversations with founders on the craft and chaos of building startups. New episodes are paused for now while I'm on a break.",
   contactTagline: "Like what you see here? Drop me a line — I'm more awesome in person.",
@@ -128,12 +136,20 @@ const zh: SiteContent = {
       ] },
   ],
   education: [
-    { title: '计算机科学学士', org: '圣路易斯华盛顿大学', period: '2014 — 2016',
-      honors: ['GPA 3.97', '最高荣誉毕业', 'Tau Beta Pi', 'Brown Fellowship'],
-      note: 'GPA 3.97，最高荣誉毕业。曾担任高级算法、Web 开发与 iOS 开发课程助教。' },
-    { title: '物理学学士', org: '丹尼森大学', period: '2011 — 2014',
-      honors: ['GPA 3.90', '最高荣誉毕业', 'Sigma Pi Sigma', 'Sigma Xi'],
-      note: 'GPA 3.90，最高荣誉毕业。曾在劳伦斯伯克利国家实验室从事物理研究，并在《Physical Review A》合著论文。' },
+    { school: '圣路易斯华盛顿大学', degree: '计算机科学学士', gpa: 'GPA 3.97', period: '2014 — 2016',
+      summary: '主修计算机科学，专注算法与系统——这也是我深耕 AI Infra 与分布式系统的起点。',
+      notes: [
+        '以最高荣誉毕业（Summa Cum Laude），年级排名 9 / 500',
+        'Brown Fellowship 全额奖学金',
+        '担任高级算法、Web 开发与 iOS 开发课程助教',
+      ] },
+    { school: '丹尼森大学', degree: '物理学学士', gpa: '专业 GPA 3.97', period: '2011 — 2014',
+      summary: '物理学训练至今影响着我解决复杂问题的方式——严谨、量化、回到第一性原理。',
+      notes: [
+        '以最高荣誉毕业（Summa Cum Laude）',
+        '因对物理系的突出贡献获得认可',
+        '在《Physical Review A》合著论文，并在劳伦斯伯克利国家实验室研究负离子激光冷却',
+      ] },
   ],
   podcastDesc: '和创业者聊创业路上的方法、混乱与真实挑战。目前节目暂停更新，等我休整完再继续。',
   contactTagline: '喜欢这里的内容？来聊聊吧——本人比网页更有意思。',

@@ -44,16 +44,18 @@ const { roles, education } = getContent(lang);
   {education.map((e) => (
     <div class="py-3">
       <div class="flex items-baseline justify-between gap-3">
-        <span class="text-sm font-medium">{e.title} · <span style="color: var(--muted)">{e.org}</span></span>
+        <span class="role-title text-base font-semibold">{e.school}</span>
         <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap" style="color: var(--muted)">{e.period}</span>
       </div>
-      <div class="flex flex-wrap gap-1.5 mt-2">
-        {e.honors.map((h) => (
-          <span class="font-[family-name:var(--mono)] text-[0.65rem] px-2 py-0.5 rounded-full"
-                style="color: var(--accent); border: 1px solid var(--rule)">{h}</span>
+      <p class="font-[family-name:var(--mono)] text-xs mt-1" style="color: var(--muted)">{e.degree} · {e.gpa}</p>
+      <p class="text-[0.95rem] leading-relaxed mt-2.5" style="color: var(--fg)">{e.summary}</p>
+      <ul class="list-none p-0 mt-2.5 m-0 space-y-1.5">
+        {e.notes.map((n) => (
+          <li class="text-sm leading-relaxed flex gap-2" style="color: var(--fg)">
+            <span aria-hidden="true" style="color: var(--accent)">–</span><span>{n}</span>
+          </li>
         ))}
-      </div>
-      <p class="text-sm leading-relaxed mt-2.5" style="color: var(--fg)">{e.note}</p>
+      </ul>
     </div>
   ))}
 </div>

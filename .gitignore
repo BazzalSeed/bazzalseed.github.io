@@ -1,5 +1,12 @@
+# dependencies / build output
+node_modules/
+dist/
+.astro/
+.vercel
+
+# local / tooling
 .DS_Store
 .superpowers/
 .playwright-mcp/
-home-*.png
+/*.png
 .env

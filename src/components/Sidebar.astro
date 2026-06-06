@@ -1,0 +1,38 @@
+---
+import { SITE } from '../lib/site';
+import { Image } from 'astro:assets';
+import profile from '../assets/profile.png';
+import ThemeToggle from './ThemeToggle.astro';
+import LanguageToggle from './LanguageToggle.astro';
+import SocialLinks from './SocialLinks.astro';
+import { t } from '../i18n/ui';
+import { type Locale, DEFAULT_LOCALE, isLocale } from '../i18n/config';
+const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale as Locale) : DEFAULT_LOCALE;
+const base = lang === 'en' ? '' : '/zh';
+const home = lang === 'en' ? '/' : '/zh';
+const NAV = [
+  { href: `${base}/#work`, label: t(lang, 'nav.work') },
+  { href: `${base}/#writing`, label: t(lang, 'nav.writing') },
+  { href: `${base}/#podcast`, label: t(lang, 'nav.podcast') },
+  { href: `${base}/#contact`, label: t(lang, 'nav.contact') },
+];
+---
+<div class="flex flex-col gap-6">
+  <a href={home} class="no-underline w-fit">
+    <Image src={profile} alt="Seed Zeng" width={144} height={144}
+      class="w-16 h-16 rounded-full object-cover border border-[color:var(--rule)]" />
+  </a>
+  <a href={home} class="no-underline font-[family-name:var(--mono)] text-base font-bold text-[color:var(--fg)] hover:opacity-70 w-fit">
+    ~/{SITE.wordmark}<span class="term-cursor" aria-hidden="true">▮</span>
+  </a>
+  <nav class="flex flex-col gap-2.5 font-[family-name:var(--mono)] text-sm">
+    {NAV.map((item) => (
+      <a href={item.href} class="no-underline hover:opacity-70 w-fit" style="color: var(--fg)">{item.label}</a>
+    ))}
+  </nav>
+  <div class="flex items-center gap-4">
+    <LanguageToggle />
+    <ThemeToggle />
+  </div>
+  <SocialLinks />
+</div>

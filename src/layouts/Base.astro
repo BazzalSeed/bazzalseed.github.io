@@ -5,6 +5,7 @@ import '../styles/global.css';
 import BaseHead from '../components/BaseHead.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import Sidebar from '../components/Sidebar.astro';
 import { type Locale, DEFAULT_LOCALE, isLocale } from '../i18n/config';
 interface Props { title?: string; description?: string; }
 const { title, description } = Astro.props;
@@ -37,7 +38,7 @@ const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale 
     </script>
   </head>
   <body>
-    <header data-header class="sticky top-0 z-50">
+    <header data-header class="sticky top-0 z-50 2xl:hidden">
       <div class="mx-auto max-w-2xl px-6">
         <Nav />
       </div>
@@ -51,11 +52,19 @@ const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale 
         window.addEventListener('scroll', sync, { passive: true });
       })();
     </script>
-    <div class="mx-auto max-w-2xl px-6 pb-12">
-      <main>
-        <slot />
-      </main>
-      <Footer />
+    <div class="mx-auto px-6 max-w-2xl 2xl:max-w-6xl 2xl:grid 2xl:grid-cols-[240px_minmax(0,1fr)] 2xl:gap-16">
+      <!-- left rail: ultra-wide only -->
+      <aside class="hidden 2xl:block">
+        <div class="2xl:sticky 2xl:top-0 2xl:max-h-screen 2xl:overflow-y-auto py-12">
+          <Sidebar />
+        </div>
+      </aside>
+      <div class="pb-12 2xl:py-12 2xl:max-w-2xl">
+        <main>
+          <slot />
+        </main>
+        <Footer />
+      </div>
     </div>
   </body>
 </html>

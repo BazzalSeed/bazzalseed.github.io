@@ -8,13 +8,12 @@ import SocialLinks from './SocialLinks.astro';
 import { t } from '../i18n/ui';
 import { type Locale, DEFAULT_LOCALE, isLocale } from '../i18n/config';
 const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale as Locale) : DEFAULT_LOCALE;
-const base = lang === 'en' ? '' : '/zh';
 const home = lang === 'en' ? '/' : '/zh';
 const NAV = [
-  { href: `${base}/#work`, label: t(lang, 'nav.work') },
-  { href: `${base}/#writing`, label: t(lang, 'nav.writing') },
-  { href: `${base}/#podcast`, label: t(lang, 'nav.podcast') },
-  { href: `${base}/#contact`, label: t(lang, 'nav.contact') },
+  { href: `${home}#work`, label: t(lang, 'nav.work') },
+  { href: `${home}#writing`, label: t(lang, 'nav.writing') },
+  { href: `${home}#podcast`, label: t(lang, 'nav.podcast') },
+  { href: `${home}#contact`, label: t(lang, 'nav.contact') },
 ];
 ---
 <div class="flex flex-col gap-6">

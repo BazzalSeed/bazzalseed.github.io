@@ -1,6 +1,7 @@
 ---
 import { SITE } from '../lib/site';
 import ThemeToggle from './ThemeToggle.astro';
+import LanguageToggle from './LanguageToggle.astro';
 import { t } from '../i18n/ui';
 import { type Locale, DEFAULT_LOCALE, isLocale } from '../i18n/config';
 const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale as Locale) : DEFAULT_LOCALE;
@@ -23,6 +24,7 @@ const NAV = [
         <a href={item.href} class="text-[color:var(--fg)] no-underline hover:opacity-70">{item.label}</a>
       ))}
     </div>
+    <LanguageToggle />
     <ThemeToggle />
     <!-- mobile hamburger -->
     <button id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false"

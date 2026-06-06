@@ -1,0 +1,14 @@
+---
+import { type Locale, DEFAULT_LOCALE, isLocale, switchLocalePath } from '../i18n/config';
+const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale as Locale) : DEFAULT_LOCALE;
+const other: Locale = lang === 'en' ? 'zh' : 'en';
+const otherPath = switchLocalePath(Astro.url.pathname, other);
+const label = other === 'zh' ? '中' : 'EN';
+---
+<a href={otherPath} data-lang-switch={other}
+   class="font-[family-name:var(--mono)] text-sm no-underline hover:opacity-70" style="color: var(--accent)"
+   aria-label={other === 'zh' ? 'Switch to Chinese' : 'Switch to English'}>{label}</a>
+<script>
+  document.querySelectorAll('[data-lang-switch]').forEach((el) =>
+    el.addEventListener('click', () => localStorage.setItem('lang', (el as HTMLElement).dataset.langSwitch!)));
+</script>

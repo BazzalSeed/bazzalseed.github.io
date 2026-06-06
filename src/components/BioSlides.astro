@@ -6,11 +6,13 @@ const BIO_SLIDES = getContent(lang).bioSlides;
 const first = BIO_SLIDES[0];
 ---
 <div data-bioslides data-slides={JSON.stringify(BIO_SLIDES)} class="mt-6">
-  <div class="relative pl-5 min-h-[10rem]">
-    <span aria-hidden="true" class="absolute left-0 top-0 bottom-0 w-[2px] rounded-full" style="background: var(--rule)"></span>
-    <span data-progress aria-hidden="true" class="absolute left-0 top-0 w-[2px] rounded-full" style="background: var(--accent); height: 0%"></span>
-    <p data-slide-title class="font-[family-name:var(--mono)] text-2xl sm:text-3xl font-bold tracking-tight leading-tight" style="color: var(--fg)">{first.title}</p>
-    <p data-slide-desc class="mt-3 text-[1.02rem] leading-relaxed max-w-prose" style="color: var(--fg)">{first.desc}</p>
+  <div class="min-h-[10rem]">
+    <div class="relative pl-5">
+      <span aria-hidden="true" class="absolute left-0 top-0 bottom-0 w-[2px] rounded-full" style="background: var(--rule)"></span>
+      <span data-progress aria-hidden="true" class="absolute left-0 top-0 w-[2px] rounded-full" style="background: var(--accent); height: 0%"></span>
+      <p data-slide-title class="font-[family-name:var(--mono)] text-2xl sm:text-3xl font-bold tracking-tight leading-tight" style="color: var(--fg)">{first.title}</p>
+      <p data-slide-desc class="mt-3 text-[1.02rem] leading-relaxed max-w-prose" style="color: var(--fg)">{first.desc}</p>
+    </div>
   </div>
   <div class="flex items-center gap-3 mt-5 pl-5">
     <div class="flex gap-2">
@@ -24,14 +26,10 @@ const first = BIO_SLIDES[0];
         ></button>
       ))}
     </div>
-    <span
-      data-pause-hint
-      aria-hidden="true"
-      class="font-[family-name:var(--mono)] text-[0.65rem] inline-flex items-center gap-1 opacity-0 transition-opacity duration-300"
-      style="color: var(--muted)"
-    >
-      <svg width="9" height="11" viewBox="0 0 8 10" fill="currentColor"><rect width="3" height="10" rx="1"></rect><rect x="5" width="3" height="10" rx="1"></rect></svg>
-    </span>
+    <div class="flex items-center gap-2.5 ml-1 font-[family-name:var(--mono)] text-base leading-none">
+      <button type="button" data-prev aria-label="Previous slide" class="opacity-50 hover:opacity-100 transition-opacity" style="color: var(--accent)">‹</button>
+      <button type="button" data-next aria-label="Next slide" class="opacity-50 hover:opacity-100 transition-opacity" style="color: var(--accent)">›</button>
+    </div>
   </div>
 </div>
 
@@ -40,14 +38,16 @@ const first = BIO_SLIDES[0];
   const BIO_SLIDES = JSON.parse(root?.dataset.slides ?? '[]') as { title: string; desc: string }[];
   const titleEl = root?.querySelector<HTMLElement>('[data-slide-title]');
   const descEl = root?.querySelector<HTMLElement>('[data-slide-desc]');
-  const hint = root?.querySelector<HTMLElement>('[data-pause-hint]');
   const dots = [...(root?.querySelectorAll<HTMLButtonElement>('[data-dot]') ?? [])];
   const fill = root?.querySelector<HTMLElement>('[data-progress]');
+  const prevBtn = root?.querySelector<HTMLButtonElement>('[data-prev]');
+  const nextBtn = root?.querySelector<HTMLButtonElement>('[data-next]');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (root && titleEl && descEl && BIO_SLIDES.length > 1) {
     const len = BIO_SLIDES.length;
-    const durationFor = (t: string) => Math.max(6000, Math.min(11000, t.length * 45));
+    // Longer dwell: ~3s baseline bump on top of a content-length scale.
+    const durationFor = (t: string) => Math.max(9000, Math.min(14000, t.length * 45 + 3000));
     let i = 0;
     let timer = 0;
     let remaining = 0;
@@ -76,12 +76,13 @@ const first = BIO_SLIDES[0];
       startedAt = Date.now();
       timer = window.setTimeout(() => go(i + 1), ms);
     };
+
     // The left quote line doubles as a progress bar (fills over the slide, freezes on hover).
     const fillTo = (ms: number) => {
       if (!fill || reduce) return;
       fill.style.transition = 'none';
       fill.style.height = '0%';
-      void fill.offsetWidth; // reflow
+      void fill.offsetWidth;
       fill.style.transition = `height ${ms}ms linear`;
       fill.style.height = '100%';
     };
@@ -102,7 +103,6 @@ const first = BIO_SLIDES[0];
     const go = (n: number) => {
       i = (n + len) % len;
       paused = false;
-      if (hint) hint.style.opacity = '0';
       paint(i);
       const d = durationFor(BIO_SLIDES[i].desc);
       arm(d);
@@ -112,16 +112,14 @@ const first = BIO_SLIDES[0];
       if (paused || reduce) return;
       paused = true;
       window.clearTimeout(timer);
-      remaining -= Date.now() - startedAt; // keep what's left
+      remaining -= Date.now() - startedAt;
       fillPause();
-      if (hint) hint.style.opacity = '1';
     };
     const resume = () => {
       if (!paused || reduce) return;
       paused = false;
-      if (hint) hint.style.opacity = '0';
       const r = Math.max(1200, remaining);
-      arm(r); // resume where we left off
+      arm(r);
       fillResume(r);
     };
 
@@ -130,6 +128,8 @@ const first = BIO_SLIDES[0];
     root.addEventListener('focusin', pause);
     root.addEventListener('focusout', resume);
     dots.forEach((d, idx) => d.addEventListener('click', () => go(idx)));
+    prevBtn?.addEventListener('click', () => go(i - 1));
+    nextBtn?.addEventListener('click', () => go(i + 1));
 
     paint(0);
     if (reduce) {

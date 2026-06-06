@@ -20,7 +20,7 @@ const { roles, education } = getContent(lang);
           <span class="role-title text-base font-semibold">{r.title}</span>
           <span class="text-sm" style="color: var(--muted)"> · {r.org}</span>
           {r.current && (
-            <span class="ml-2 align-middle font-[family-name:var(--mono)] text-[0.6rem] uppercase tracking-wider px-1.5 py-0.5 rounded"
+            <span class="ml-2 inline-block whitespace-nowrap align-middle font-[family-name:var(--mono)] text-[0.6rem] uppercase tracking-wider px-1.5 py-0.5 rounded"
                   style="color: var(--accent); border: 1px solid var(--accent)">{t(lang, 'roles.now')}</span>
           )}
         </span>

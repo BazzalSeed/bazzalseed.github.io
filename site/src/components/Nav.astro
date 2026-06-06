@@ -1,9 +1,20 @@
 ---
-import { SITE, NAV } from '../lib/site';
+import { SITE } from '../lib/site';
 import ThemeToggle from './ThemeToggle.astro';
+import { t } from '../i18n/ui';
+import { type Locale, DEFAULT_LOCALE, isLocale } from '../i18n/config';
+const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale as Locale) : DEFAULT_LOCALE;
+const base = lang === 'en' ? '' : '/zh';
+const home = lang === 'en' ? '/' : '/zh';
+const NAV = [
+  { href: `${base}/#work`, label: t(lang, 'nav.work') },
+  { href: `${base}/#writing`, label: t(lang, 'nav.writing') },
+  { href: `${base}/#podcast`, label: t(lang, 'nav.podcast') },
+  { href: `${base}/#contact`, label: t(lang, 'nav.contact') },
+];
 ---
 <nav class="flex items-center justify-between py-4 font-[family-name:var(--mono)] text-sm">
-  <a href="/" class="text-[color:var(--fg)] no-underline hover:opacity-70 shrink-0">~/{SITE.wordmark}<span class="term-cursor" aria-hidden="true">▮</span></a>
+  <a href={home} class="text-[color:var(--fg)] no-underline hover:opacity-70 shrink-0">~/{SITE.wordmark}<span class="term-cursor" aria-hidden="true">▮</span></a>
 
   <div class="flex items-center gap-5">
     <!-- desktop links -->

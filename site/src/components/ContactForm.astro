@@ -1,24 +1,29 @@
 ---
 // Reuses the existing Formspree form from the old site (delivers to
 // cdzengpeiyun@gmail.com). To change the destination, swap the endpoint below.
+import { t } from '../i18n/ui';
+import { type Locale, DEFAULT_LOCALE, isLocale } from '../i18n/config';
+const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale as Locale) : DEFAULT_LOCALE;
 const ENDPOINT = 'https://formspree.io/f/xknqwvlo';
 ---
-<form data-contact-form data-endpoint={ENDPOINT} class="grid gap-3 max-w-lg">
+<form data-contact-form data-endpoint={ENDPOINT}
+  data-msg-sending={t(lang, 'form.sending')} data-msg-sent={t(lang, 'form.sent')} data-msg-error={t(lang, 'form.error')}
+  class="grid gap-3 max-w-lg">
   <input type="hidden" name="_subject" value="New message from seedzeng.com" />
   <!-- honeypot: bots fill this, humans don't -->
   <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" style="display:none" />
 
-  <input type="text" name="name" required placeholder="your name"
+  <input type="text" name="name" required placeholder={t(lang, 'form.name')}
     class="w-full rounded-lg px-3 py-2.5 text-sm" />
-  <input type="email" name="email" required placeholder="your email"
+  <input type="email" name="email" required placeholder={t(lang, 'form.email')}
     class="w-full rounded-lg px-3 py-2.5 text-sm" />
-  <textarea name="message" required rows="4" placeholder="your message"
+  <textarea name="message" required rows="4" placeholder={t(lang, 'form.message')}
     class="w-full rounded-lg px-3 py-2.5 text-sm resize-y"></textarea>
 
   <div class="flex items-center gap-4">
     <button type="submit"
       class="font-[family-name:var(--mono)] text-sm rounded-lg px-4 py-2 hover:opacity-85 transition-opacity"
-      style="background: var(--accent); color: var(--bg)">send →</button>
+      style="background: var(--accent); color: var(--bg)">{t(lang, 'form.send')}</button>
     <span data-form-status class="font-[family-name:var(--mono)] text-xs" style="color: var(--muted)" aria-live="polite"></span>
   </div>
 </form>
@@ -28,7 +33,7 @@ const ENDPOINT = 'https://formspree.io/f/xknqwvlo';
   const status = form?.querySelector<HTMLElement>('[data-form-status]');
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (status) status.textContent = 'sending…';
+    if (status) status.textContent = form.dataset.msgSending ?? 'sending…';
     try {
       const res = await fetch(form.dataset.endpoint!, {
         method: 'POST',
@@ -37,14 +42,14 @@ const ENDPOINT = 'https://formspree.io/f/xknqwvlo';
       });
       if (res.ok) {
         form.reset();
-        if (status) status.textContent = 'thanks — message sent ✓';
+        if (status) status.textContent = form.dataset.msgSent ?? 'thanks — message sent ✓';
       } else {
         const json = await res.json().catch(() => null);
-        const msg = json?.errors?.[0]?.message ?? 'that failed — email me directly?';
+        const msg = json?.errors?.[0]?.message ?? form.dataset.msgError ?? 'that failed — email me directly?';
         if (status) status.textContent = msg;
       }
     } catch {
-      if (status) status.textContent = 'network error — email me directly?';
+      if (status) status.textContent = form.dataset.msgError ?? 'network error — email me directly?';
     }
   });
 </script>

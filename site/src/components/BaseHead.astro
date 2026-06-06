@@ -1,7 +1,11 @@
 ---
 import { SITE } from '../lib/site';
+import { getContent } from '../i18n/content';
+import { type Locale, DEFAULT_LOCALE, isLocale } from '../i18n/config';
+const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale as Locale) : DEFAULT_LOCALE;
+const defaultDesc = lang === 'en' ? SITE.bio : getContent(lang).bioSlides[0].desc;
 interface Props { title?: string; description?: string; }
-const { title, description = SITE.bio } = Astro.props;
+const { title, description = defaultDesc } = Astro.props;
 const fullTitle = title ? `${title} — ${SITE.name}` : SITE.name;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL('/og.png', Astro.site).href;

@@ -1,73 +1,11 @@
 ---
 import CompanyLogo from './CompanyLogo.astro';
 import SectionLabel from './SectionLabel.astro';
-
-type Role = { title: string; org: string; logo: string; period: string; current?: boolean; summary: string; notes: string[] };
-const roles: Role[] = [
-  {
-    title: 'Senior Staff Software Engineer', org: 'DoorDash', logo: 'doordash', period: 'Jan 2026 — present', current: true,
-    summary: "I lead the team and own the technical direction for DoorDash's Storage org — the data infrastructure the whole company runs on.",
-    notes: [
-      'Lead and grow a 40-engineer organization — mentoring and developing staff and senior engineers into the next layer of technical leaders.',
-      'Set vision and roadmap for the core initiatives redefining the storage layer, partnering across product and infra teams.',
-      'Own the online datastore platform every product team builds on — accountable for reliability, performance, and long-term architecture behind millions of orders a day.',
-    ],
-  },
-  {
-    title: 'Staff Software Engineer', org: 'DoorDash', logo: 'doordash', period: 'Jul 2022 — Dec 2025',
-    summary: "Made DoorDash's core storage faster and cheaper as the business scaled globally.",
-    notes: [
-      'Drove fleet-wide efficiency and performance gains across the Cassandra deployment (“Cassandra Unleashed”).',
-      'Mentored engineers and raised the technical bar across the team.',
-      'Scaled core storage infrastructure to keep pace with global growth.',
-    ],
-  },
-  {
-    title: 'Lead Software Engineer', org: 'Meta', logo: 'meta', period: 'Aug 2020 — Oct 2022',
-    summary: "Tech-led data-integrity systems for Meta's distributed infrastructure.",
-    notes: [
-      'Built inconsistency-detection services for large distributed systems using novel techniques.',
-      'Scaled complex backend services to absorb major traffic spikes.',
-      'Mentored engineers and helped them grow.',
-    ],
-  },
-  {
-    title: 'Senior Software Engineer', org: 'Klaviyo', logo: 'klaviyo', period: 'May 2019 — Aug 2020',
-    summary: "Re-architected Klaviyo's data ingestion and scaled it ~300×.",
-    notes: [
-      'Built Abacus 2.0 — a full overhaul of the ingestion model, read API, and schema — ~10× faster than its predecessor.',
-      'Scaled the pipeline from 500 to 150,000 events/sec (3M DB writes/sec), built to scale horizontally.',
-      'Wrote the migration service that moved production data onto the new schema.',
-    ],
-  },
-  {
-    title: 'Software Engineer · early engineer', org: 'Klaviyo', logo: 'klaviyo', period: 'Apr 2017 — Jul 2019',
-    summary: "Built the streaming foundations Klaviyo's data platform still runs on.",
-    notes: [
-      'Built Abacus 1.0 on Apache Flink, replacing the legacy ingestion pipeline — 1.5B events on Cyber Monday alone.',
-      'Built Klaviyo’s first Kafka microservice, now handling billions of events a day.',
-      'Maintained core data stores (MySQL, Cassandra, Redis, Memcache) and refactored the legacy pipeline to clean OOP.',
-    ],
-  },
-  {
-    title: 'Backend Software Engineer', org: 'SurveyMini (acq. SMG)', logo: 'surveymini', period: 'Jul 2016 — Mar 2017',
-    summary: 'Backend engineer across survey infrastructure and AWS data systems.',
-    notes: [
-      'Built survey-branching logic that adapts each next question to user input.',
-      'Improved AWS scalability and led a migration from Postgres to DynamoDB.',
-    ],
-  },
-];
-
-type Education = { title: string; org: string; period: string; honors: string[]; note: string };
-const education: Education[] = [
-  { title: 'B.S. Computer Science', org: 'Washington University in St. Louis', period: '2014 — 2016',
-    honors: ['GPA 3.97', 'Summa Cum Laude', 'Tau Beta Pi', 'Brown Fellowship'],
-    note: 'Teaching assistant for Advanced Algorithms, Web Development, and iOS Development.' },
-  { title: 'B.S. Physics', org: 'Denison University', period: '2011 — 2014',
-    honors: ['GPA 3.90', 'Summa Cum Laude', 'Sigma Pi Sigma', 'Sigma Xi'],
-    note: 'Co-authored a paper in Physical Review A and researched laser cooling of negative ions at Lawrence Berkeley National Lab.' },
-];
+import { getContent } from '../i18n/content';
+import { t } from '../i18n/ui';
+import { type Locale, DEFAULT_LOCALE, isLocale } from '../i18n/config';
+const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale as Locale) : DEFAULT_LOCALE;
+const { roles, education } = getContent(lang);
 ---
 <div>
   <button type="button" data-roles-toggle aria-expanded="false"
@@ -102,7 +40,7 @@ const education: Education[] = [
     </details>
   ))}
 
-  <SectionLabel name="education" class="mt-12 mb-4" />
+  <SectionLabel name="education" title={t(lang, 'section.education')} class="mt-12 mb-4" />
   {education.map((e) => (
     <div class="py-3">
       <div class="flex items-baseline justify-between gap-3">

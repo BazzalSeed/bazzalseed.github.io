@@ -128,3 +128,8 @@ details.role[open] .chev { color: var(--accent); }
 details.role > summary:hover .role-title,
 details.role > summary:hover .chev { color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .role-title { transition: none; } }
+
+/* Experience expand/collapse-all control */
+[data-roles-toggle] .ra-open { display: none; }
+[data-roles-toggle][aria-expanded="true"] .ra-open { display: inline; }
+[data-roles-toggle][aria-expanded="true"] .ra-closed { display: none; }

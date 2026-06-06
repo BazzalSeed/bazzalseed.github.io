@@ -70,6 +70,10 @@ const education: Education[] = [
 ];
 ---
 <div>
+  <button type="button" data-roles-toggle aria-expanded="false"
+    class="font-[family-name:var(--mono)] text-xs mb-3 bg-transparent border-0 p-0 hover:opacity-70" style="color: var(--muted)">
+    <span class="ra-closed">expand all ↓</span><span class="ra-open">collapse all ↑</span>
+  </button>
   {roles.map((r) => (
     <details open={r.current} class="role">
       <summary class="flex items-center gap-3 cursor-pointer py-4 select-none">
@@ -115,3 +119,12 @@ const education: Education[] = [
     </div>
   ))}
 </div>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-roles-toggle]');
+  btn?.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') !== 'true';
+    document.querySelectorAll('details.role').forEach((d) => ((d as HTMLDetailsElement).open = open));
+    btn.setAttribute('aria-expanded', String(open));
+  });
+</script>

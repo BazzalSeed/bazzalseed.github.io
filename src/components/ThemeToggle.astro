@@ -17,20 +17,24 @@
 </button>
 
 <script>
-  const root = document.documentElement;
-  // Bind every toggle instance (top nav + ultra-wide sidebar) — not by id (duplicates).
-  // A click is an in-memory override only; it is never persisted, so a reload or
-  // any OS appearance change returns to following macOS.
-  document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
-    btn.addEventListener('click', () => {
+  // Guard against double-binding (e.g. dev HMR re-running this script), which
+  // would stack duplicate listeners and cancel each click out.
+  if (!(window as any).__themeBound) {
+    (window as any).__themeBound = true;
+    const root = document.documentElement;
+    // A click is an in-memory override only; it is never persisted, so a reload
+    // or any OS appearance change returns to following macOS. One delegated
+    // listener covers every toggle instance (top nav + ultra-wide sidebar).
+    document.addEventListener('click', (e) => {
+      if (!(e.target as Element)?.closest('[data-theme-toggle]')) return;
       root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
     });
-  });
-  // OS appearance changes always win (and clear any in-memory override).
-  const mq = matchMedia('(prefers-color-scheme: dark)');
-  const onChange = (e: MediaQueryListEvent) => {
-    root.dataset.theme = e.matches ? 'dark' : 'light';
-  };
-  if (mq.addEventListener) mq.addEventListener('change', onChange);
-  else (mq as any).addListener(onChange); // older Safari fallback
+    // OS appearance changes always win (and clear any in-memory override).
+    const mq = matchMedia('(prefers-color-scheme: dark)');
+    const onChange = (e: MediaQueryListEvent) => {
+      root.dataset.theme = e.matches ? 'dark' : 'light';
+    };
+    if (mq.addEventListener) mq.addEventListener('change', onChange);
+    else (mq as any).addListener(onChange); // older Safari fallback
+  }
 </script>

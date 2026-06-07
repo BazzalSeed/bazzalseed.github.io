@@ -22,16 +22,21 @@ const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale 
         matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     </script>
     <script is:inline>
+      // Language mirrors the theme model: the browser language drives every load
+      // (a zh browser sees /zh, otherwise English). A manual switch is a one-shot
+      // override — consumed on arrival, never persisted — so it shows the chosen
+      // language for that switch, and any refresh re-inherits the system language.
       (function () {
         try {
-          var saved = localStorage.getItem('lang');
+          var override = sessionStorage.getItem('langOverride');
+          if (override) sessionStorage.removeItem('langOverride'); // one-shot: consume immediately
           var path = location.pathname;
           var onZh = path === '/zh' || path.indexOf('/zh/') === 0;
-          if (saved === 'zh' && !onZh) { location.replace('/zh' + (path === '/' ? '' : path)); return; }
-          if (saved === 'en' && onZh) { location.replace(path.replace(/^\/zh/, '') || '/'); return; }
-          if (!saved && path === '/' && (navigator.language || '').toLowerCase().indexOf('zh') === 0) {
-            location.replace('/zh');
-          }
+          if (override === 'en' || override === 'zh') return; // honor the switch; URL is already correct
+          // No override → follow the system language on every load.
+          var sysZh = (navigator.language || '').toLowerCase().indexOf('zh') === 0;
+          if (sysZh && !onZh) { location.replace('/zh' + (path === '/' ? '' : path)); return; }
+          if (!sysZh && onZh) { location.replace(path.replace(/^\/zh/, '') || '/'); return; }
         } catch (e) {}
       })();
     </script>

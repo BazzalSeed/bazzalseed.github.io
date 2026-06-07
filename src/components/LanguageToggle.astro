@@ -9,6 +9,8 @@ const label = other === 'zh' ? '中' : 'EN';
    class="font-[family-name:var(--mono)] text-sm no-underline hover:opacity-70" style="color: var(--accent)"
    aria-label={other === 'zh' ? 'Switch to Chinese' : 'Switch to English'}>{label}</a>
 <script>
+  // Set a one-shot override the detector consumes on the next load, so the
+  // manual switch wins for that navigation but a refresh re-inherits the system.
   document.querySelectorAll('[data-lang-switch]').forEach((el) =>
-    el.addEventListener('click', () => localStorage.setItem('lang', (el as HTMLElement).dataset.langSwitch!)));
+    el.addEventListener('click', () => sessionStorage.setItem('langOverride', (el as HTMLElement).dataset.langSwitch!)));
 </script>

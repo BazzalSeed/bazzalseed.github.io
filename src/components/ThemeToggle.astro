@@ -19,21 +19,16 @@
 <script>
   const root = document.documentElement;
   // Bind every toggle instance (top nav + ultra-wide sidebar) — not by id (duplicates).
-  const systemTheme = () => (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  // A click is an in-memory override only; it is never persisted, so a reload or
+  // any OS appearance change returns to following macOS.
   document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-      root.dataset.theme = next;
-      // Only persist an override when it diverges from the OS. Toggling back to
-      // match the OS clears the override so the site auto-follows again.
-      if (next === systemTheme()) localStorage.removeItem('theme');
-      else localStorage.setItem('theme', next);
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
     });
   });
-  // Follow OS theme changes unless the user has set a manual preference.
+  // OS appearance changes always win (and clear any in-memory override).
   const mq = matchMedia('(prefers-color-scheme: dark)');
   const onChange = (e: MediaQueryListEvent) => {
-    if (localStorage.getItem('theme')) return; // manual choice wins
     root.dataset.theme = e.matches ? 'dark' : 'light';
   };
   if (mq.addEventListener) mq.addEventListener('change', onChange);

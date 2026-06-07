@@ -16,11 +16,10 @@ const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale 
   <head>
     <BaseHead title={title} description={description} />
     <script is:inline>
-      (function () {
-        var t = localStorage.getItem('theme');
-        if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        document.documentElement.dataset.theme = t;
-      })();
+      // Theme follows the OS on every load (no persistence). A manual toggle is
+      // an in-memory override that a reload or OS change discards.
+      document.documentElement.dataset.theme =
+        matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     </script>
     <script is:inline>
       (function () {

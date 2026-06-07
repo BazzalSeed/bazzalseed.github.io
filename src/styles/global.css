@@ -37,6 +37,9 @@ body {
 html[lang^='zh'] body { font-family: var(--cjk); }
 /* System B: headline-level type in mono, reading copy in Inter */
 h1, h2, h3, .role-title { font-family: var(--mono); letter-spacing: -0.02em; }
+/* Item titles (job / school) read better in Inter than monospace, esp. long
+   English titles; section headers (SectionLabel) stay mono. */
+.role-title { font-family: var(--sans); letter-spacing: -0.01em; }
 a { color: var(--link); }
 ::selection { background: var(--accent); color: var(--bg); }
 

@@ -13,7 +13,7 @@ const UI: Record<Locale, Dict> = {
     'form.error': 'that failed — email me directly?', 'contact.direct': 'or email me directly:',
     'podcast.break': 'on a break',
     'roles.expandAll': 'expand all ↓', 'roles.collapseAll': 'collapse all ↑', 'roles.now': 'now',
-    'roles.hint': 'or click a row',
+    'roles.hint': 'or click a row to expand',
   },
   zh: {
     'nav.work': '经历', 'nav.writing': '文章', 'nav.podcast': '播客', 'nav.contact': '联系',

@@ -3,14 +3,14 @@
   type="button"
   aria-label="Toggle light / dark theme"
   title="Toggle light / dark"
-  class="theme-toggle inline-flex items-center text-[color:var(--accent)] hover:opacity-70 transition-opacity"
+  class="theme-toggle inline-flex items-center cursor-pointer text-[color:var(--accent)] hover:opacity-70 transition-opacity"
 >
-  <!-- shown in light mode (current = light) -->
+  <!-- shown in dark mode (click → switch to light) -->
   <svg class="theme-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <circle cx="12" cy="12" r="4" />
     <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
   </svg>
-  <!-- shown in dark mode (current = dark) -->
+  <!-- shown in light mode (click → switch to dark) -->
   <svg class="theme-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
   </svg>
@@ -19,11 +19,15 @@
 <script>
   const root = document.documentElement;
   // Bind every toggle instance (top nav + ultra-wide sidebar) — not by id (duplicates).
+  const systemTheme = () => (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
       root.dataset.theme = next;
-      localStorage.setItem('theme', next);
+      // Only persist an override when it diverges from the OS. Toggling back to
+      // match the OS clears the override so the site auto-follows again.
+      if (next === systemTheme()) localStorage.removeItem('theme');
+      else localStorage.setItem('theme', next);
     });
   });
   // Follow OS theme changes unless the user has set a manual preference.

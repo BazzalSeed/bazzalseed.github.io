@@ -37,7 +37,12 @@ const { name } = Astro.props;
   /* Theme-aware light: a white glint (screen) pops on dark; a deeper saturated
      pulse (multiply) reads better on the light cream background. */
   [data-theme="dark"] .hero-shine { color: #ffffff; mix-blend-mode: screen; }
-  [data-theme="light"] .hero-shine { color: color-mix(in srgb, var(--accent), #000 30%); mix-blend-mode: multiply; }
+  [data-theme="light"] .hero-shine { color: #fff; mix-blend-mode: screen; }
+  /* Light bg: a narrow glossy streak reads as a glint better than a wide wash. */
+  [data-theme="light"] .hero-stage.settled .hero-shine {
+    -webkit-mask-image: linear-gradient(100deg, transparent 45%, #000 50%, transparent 55%);
+    mask-image: linear-gradient(100deg, transparent 45%, #000 50%, transparent 55%);
+  }
 
   @media (prefers-reduced-motion: no-preference) {
     /* Entrance: chromatic glitch that snaps clean. */

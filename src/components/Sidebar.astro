@@ -21,12 +21,12 @@ const NAV = [
     <Image src={profile} alt="Seed Zeng" width={144} height={144}
       class="w-16 h-16 rounded-full object-cover border border-[color:var(--rule)]" />
   </a>
-  <a href={home} class="no-underline font-[family-name:var(--mono)] text-base font-bold text-[color:var(--fg)] hover:opacity-70 w-fit">
+  <a href={home} class="lnk font-[family-name:var(--mono)] text-base font-bold w-fit">
     ~/{SITE.wordmark}<span class="term-cursor" aria-hidden="true">▮</span>
   </a>
   <nav class="flex flex-col gap-2.5 font-[family-name:var(--sans)] font-medium text-sm">
     {NAV.map((item) => (
-      <a href={item.href} class="no-underline hover:opacity-70 w-fit" style="color: var(--fg)">{item.label}</a>
+      <a href={item.href} class="lnk w-fit">{item.label}</a>
     ))}
   </nav>
   <span class="inline-flex w-fit items-center gap-2.5 rounded-full border border-[color:var(--rule)] px-3 py-1">

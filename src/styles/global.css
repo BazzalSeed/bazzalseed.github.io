@@ -135,6 +135,13 @@ details.role > summary:hover .role-title,
 details.role > summary:hover .chev { color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .role-title { transition: none; } }
 
+/* Unified hover language: interactive text links highlight in the accent color
+   on hover (same signal as the experience rows). Icon-only controls keep their
+   subtle opacity affordance. */
+.lnk { color: var(--fg); text-decoration: none; transition: color 0.15s ease; }
+.lnk:hover { color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .lnk { transition: none; } }
+
 /* Experience expand/collapse-all control */
 [data-roles-toggle] .ra-open { display: none; }
 [data-roles-toggle][aria-expanded="true"] .ra-open { display: inline; }

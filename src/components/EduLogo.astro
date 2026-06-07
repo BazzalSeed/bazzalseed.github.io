@@ -3,7 +3,7 @@ interface Props { logo: string; class?: string }
 const { logo, class: cls = '' } = Astro.props;
 ---
 {logo === 'wustl' && (
-  <svg width="36" height="36" viewBox="0 0 32 36" fill="none" aria-hidden="true" class={cls}>
+  <svg width="40" height="40" viewBox="0 0 32 36" fill="none" aria-hidden="true" class={cls}>
     <path d="M3 3 H29 V19 C29 27 23.5 32 16 35 C8.5 32 3 27 3 19 Z" fill="#1a6b3a" />
     <!-- 3 stars across the top -->
     <circle cx="10" cy="8.2" r="1.05" fill="#fff" />
@@ -17,8 +17,8 @@ const { logo, class: cls = '' } = Astro.props;
   </svg>
 )}
 {logo === 'denison' && (
-  <svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true" class={cls}>
-    <rect width="36" height="36" rx="2.5" fill="#C8102E" />
+  <svg width="40" height="40" viewBox="0 0 36 36" aria-hidden="true" class={cls}>
+    <rect width="40" height="40" rx="2.5" fill="#C8102E" />
     <text x="18" y="20.2" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="6.2" font-weight="700" letter-spacing="0.4" fill="#fff">DENISON</text>
   </svg>
 )}

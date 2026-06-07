@@ -14,13 +14,13 @@ const NAV = [
 ];
 ---
 <nav class="flex items-center justify-between py-4 font-[family-name:var(--mono)] text-sm">
-  <a href={home} class="text-[color:var(--fg)] no-underline hover:opacity-70 shrink-0">~/{SITE.wordmark}<span class="term-cursor" aria-hidden="true">▮</span></a>
+  <a href={home} class="lnk shrink-0">~/{SITE.wordmark}<span class="term-cursor" aria-hidden="true">▮</span></a>
 
   <div class="flex items-center gap-5">
     <!-- desktop links -->
     <div class="hidden sm:flex items-center gap-5">
       {NAV.map((item) => (
-        <a href={item.href} class="font-[family-name:var(--sans)] font-medium text-[color:var(--fg)] no-underline hover:opacity-70">{item.label}</a>
+        <a href={item.href} class="lnk font-[family-name:var(--sans)] font-medium">{item.label}</a>
       ))}
     </div>
     <span class="inline-flex items-center gap-2.5 rounded-full border border-[color:var(--rule)] px-3 py-1">
@@ -41,7 +41,7 @@ const NAV = [
 <!-- mobile dropdown panel -->
 <div id="nav-menu" class="sm:hidden hidden flex-col gap-1 pb-3 font-[family-name:var(--mono)] text-sm">
   {NAV.map((item) => (
-    <a href={item.href} class="block py-2 font-[family-name:var(--sans)] font-medium no-underline hover:opacity-70" style="color: var(--fg)" data-nav-link>{item.label}</a>
+    <a href={item.href} class="lnk block py-2 font-[family-name:var(--sans)] font-medium" data-nav-link>{item.label}</a>
   ))}
 </div>
 

@@ -17,7 +17,10 @@ export function localeFromPath(pathname: string): Locale {
  * the root is '/'.
  */
 export function switchLocalePath(pathname: string, target: Locale): string {
-  const parts = pathname.split('/').filter(Boolean);
+  // Normalize the built `build.format: 'file'` paths (e.g. `/zh.html`, `/index.html`)
+  // down to clean segments so the locale prefix is recognized in dev AND in prod.
+  const normalized = pathname.replace(/\.html$/, '').replace(/\/index$/, '');
+  const parts = normalized.split('/').filter(Boolean);
   if (parts[0] && isLocale(parts[0])) parts.shift(); // strip current locale prefix
   const rest = parts.join('/');
   if (target === DEFAULT_LOCALE) return rest ? `/${rest}` : '/';

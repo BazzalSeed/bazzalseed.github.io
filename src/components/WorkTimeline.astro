@@ -15,22 +15,24 @@ const { roles, education } = getContent(lang);
   </button>
   {roles.map((r) => (
     <details open={r.current} class="role">
-      <summary class="flex items-center gap-3 cursor-pointer py-4 select-none">
-        <CompanyLogo company={r.logo} />
-        <span class="flex-1 min-w-0">
-          <span class="role-title text-base font-semibold">{r.title}</span>
-          <span class="text-sm" style="color: var(--muted)"> · {r.org}</span>
-        </span>
-        <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap" style="color: var(--muted)">
-          {r.current
-            ? (<>{r.period.split(' — ')[0]} — <span style="color: var(--accent)">{r.period.split(' — ')[1]}</span></>)
-            : r.period}
-        </span>
-        <span class="chev font-[family-name:var(--mono)] text-sm ml-1" style="color: var(--muted)" aria-hidden="true">›</span>
+      <summary class="cursor-pointer py-4 select-none">
+        <div class="flex items-center gap-3">
+          <CompanyLogo company={r.logo} />
+          <span class="flex-1 min-w-0">
+            <span class="role-title text-base font-semibold">{r.title}</span>
+            <span class="text-sm" style="color: var(--muted)"> · {r.org}</span>
+          </span>
+          <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap" style="color: var(--muted)">
+            {r.current
+              ? (<>{r.period.split(' — ')[0]} — <span style="color: var(--accent)">{r.period.split(' — ')[1]}</span></>)
+              : r.period}
+          </span>
+          <span class="chev font-[family-name:var(--mono)] text-sm ml-1" style="color: var(--muted)" aria-hidden="true">›</span>
+        </div>
+        <p class="text-[0.95rem] leading-relaxed mt-2 pl-[52px]" style="color: var(--fg)">{r.summary}</p>
       </summary>
       <div class="pb-5 pl-[52px]">
-        <p class="text-[0.95rem] leading-relaxed" style="color: var(--fg)">{r.summary}</p>
-        <ul class="list-none p-0 mt-2.5 m-0 space-y-1.5">
+        <ul class="list-none p-0 m-0 space-y-1.5">
           {r.notes.map((n) => (
             <li class="text-sm leading-relaxed flex gap-2" style="color: var(--fg)">
               <span aria-hidden="true" style="color: var(--accent)">–</span><span>{n}</span>
@@ -42,17 +44,20 @@ const { roles, education } = getContent(lang);
   ))}
 
   <SectionLabel name="education" title={t(lang, 'section.education')} class="mt-12 mb-4" />
-  {education.map((e) => (
-    <div class="py-3 flex gap-3">
-      <EduLogo logo={e.logo} class="shrink-0 mt-0.5" />
-      <div class="flex-1 min-w-0">
-        <div class="flex items-baseline justify-between gap-3">
-          <span class="role-title text-base font-semibold">{e.school}</span>
+  {education.map((e, i) => (
+    <details open={i === 0} class="role edu">
+      <summary class="cursor-pointer py-4 select-none">
+        <div class="flex items-center gap-3">
+          <EduLogo logo={e.logo} class="shrink-0" />
+          <span class="role-title text-base font-semibold flex-1 min-w-0">{e.school}</span>
           <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap" style="color: var(--muted)">{e.period}</span>
+          <span class="chev font-[family-name:var(--mono)] text-sm ml-1" style="color: var(--muted)" aria-hidden="true">›</span>
         </div>
-        <p class="font-[family-name:var(--mono)] text-xs mt-1" style="color: var(--muted)">{e.degree} · {e.gpa}</p>
-        <p class="text-[0.95rem] leading-relaxed mt-2.5" style="color: var(--fg)">{e.summary}</p>
-        <ul class="list-none p-0 mt-2.5 m-0 space-y-1.5">
+        <p class="font-[family-name:var(--mono)] text-xs mt-1 pl-[52px]" style="color: var(--muted)">{e.degree} · {e.gpa}</p>
+        <p class="text-[0.95rem] leading-relaxed mt-2 pl-[52px]" style="color: var(--fg)">{e.summary}</p>
+      </summary>
+      <div class="pb-5 pl-[52px]">
+        <ul class="list-none p-0 m-0 space-y-1.5">
           {e.notes.map((n) => (
             <li class="text-sm leading-relaxed flex gap-2" style="color: var(--fg)">
               <span aria-hidden="true" style="color: var(--accent)">–</span><span>{n}</span>
@@ -60,7 +65,7 @@ const { roles, education } = getContent(lang);
           ))}
         </ul>
       </div>
-    </div>
+    </details>
   ))}
 </div>
 
@@ -68,7 +73,7 @@ const { roles, education } = getContent(lang);
   const btn = document.querySelector<HTMLButtonElement>('[data-roles-toggle]');
   btn?.addEventListener('click', () => {
     const open = btn.getAttribute('aria-expanded') !== 'true';
-    document.querySelectorAll('details.role').forEach((d) => ((d as HTMLDetailsElement).open = open));
+    document.querySelectorAll('details.role:not(.edu)').forEach((d) => ((d as HTMLDetailsElement).open = open));
     btn.setAttribute('aria-expanded', String(open));
   });
 </script>

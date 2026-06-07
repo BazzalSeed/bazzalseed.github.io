@@ -9,10 +9,13 @@ const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale 
 const { roles, education } = getContent(lang);
 ---
 <div>
-  <button type="button" data-roles-toggle aria-expanded="false"
-    class="font-[family-name:var(--mono)] text-xs mb-3 bg-transparent border-0 p-0 hover:opacity-70" style="color: var(--muted)">
-    <span class="ra-closed">{t(lang, 'roles.expandAll')}</span><span class="ra-open">{t(lang, 'roles.collapseAll')}</span>
-  </button>
+  <div class="flex items-center gap-2 mb-3">
+    <button type="button" data-roles-toggle aria-expanded="false"
+      class="ra-toggle font-[family-name:var(--mono)] text-xs bg-transparent border-0 p-0 cursor-pointer hover:opacity-70" style="color: var(--muted)">
+      <span class="ra-closed">{t(lang, 'roles.expandAll')}</span><span class="ra-open">{t(lang, 'roles.collapseAll')}</span>
+    </button>
+    <span class="ra-hint font-[family-name:var(--mono)] text-xs" style="color: var(--muted)">{t(lang, 'roles.hint')}</span>
+  </div>
   {roles.map((r) => (
     <details open={r.current} class="role">
       <summary class="cursor-pointer py-4 select-none">
@@ -27,7 +30,7 @@ const { roles, education } = getContent(lang);
               ? (<>{r.period.split(' — ')[0]} — <span style="color: var(--accent)">{r.period.split(' — ')[1]}</span></>)
               : r.period}
           </span>
-          <span class="chev font-[family-name:var(--mono)] text-sm ml-1" style="color: var(--muted)" aria-hidden="true">›</span>
+          <svg class="chev ml-1 shrink-0" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent)" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
         </div>
         <p class="text-[0.95rem] leading-relaxed mt-2 pl-[52px]" style="color: var(--fg)">{r.summary}</p>
       </summary>
@@ -44,14 +47,21 @@ const { roles, education } = getContent(lang);
   ))}
 
   <SectionLabel name="education" title={t(lang, 'section.education')} class="mt-12 mb-4" />
-  {education.map((e, i) => (
-    <details open={i === 0} class="role edu">
+  <div class="flex items-center gap-2 mb-3">
+    <button type="button" data-edu-toggle aria-expanded="false"
+      class="ra-toggle font-[family-name:var(--mono)] text-xs bg-transparent border-0 p-0 cursor-pointer hover:opacity-70" style="color: var(--muted)">
+      <span class="ra-closed">{t(lang, 'roles.expandAll')}</span><span class="ra-open">{t(lang, 'roles.collapseAll')}</span>
+    </button>
+    <span class="ra-hint font-[family-name:var(--mono)] text-xs" style="color: var(--muted)">{t(lang, 'roles.hint')}</span>
+  </div>
+  {education.map((e) => (
+    <details class="role edu">
       <summary class="cursor-pointer py-4 select-none">
         <div class="flex items-center gap-3">
           <EduLogo logo={e.logo} class="shrink-0" />
           <span class="role-title text-base font-semibold flex-1 min-w-0">{e.school}</span>
           <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap" style="color: var(--muted)">{e.period}</span>
-          <span class="chev font-[family-name:var(--mono)] text-sm ml-1" style="color: var(--muted)" aria-hidden="true">›</span>
+          <svg class="chev ml-1 shrink-0" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent)" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
         </div>
         <p class="font-[family-name:var(--mono)] text-xs mt-1 pl-[52px]" style="color: var(--muted)">{e.degree} · {e.gpa}</p>
         <p class="text-[0.95rem] leading-relaxed mt-2 pl-[52px]" style="color: var(--fg)">{e.summary}</p>
@@ -70,10 +80,13 @@ const { roles, education } = getContent(lang);
 </div>
 
 <script>
-  const btn = document.querySelector<HTMLButtonElement>('[data-roles-toggle]');
-  btn?.addEventListener('click', () => {
-    const open = btn.getAttribute('aria-expanded') !== 'true';
-    document.querySelectorAll('details.role:not(.edu)').forEach((d) => ((d as HTMLDetailsElement).open = open));
-    btn.setAttribute('aria-expanded', String(open));
-  });
+  const wire = (btn: HTMLButtonElement | null, selector: string) => {
+    btn?.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      document.querySelectorAll(selector).forEach((d) => ((d as HTMLDetailsElement).open = open));
+      btn.setAttribute('aria-expanded', String(open));
+    });
+  };
+  wire(document.querySelector<HTMLButtonElement>('[data-roles-toggle]'), 'details.role:not(.edu)');
+  wire(document.querySelector<HTMLButtonElement>('[data-edu-toggle]'), 'details.role.edu');
 </script>

@@ -116,7 +116,7 @@ summary::-webkit-details-marker { display: none; }
 [data-writing][data-expanded] .more-open { display: inline; }
 [data-writing][data-expanded] .more-closed { display: none; }
 .chev { display: inline-block; transition: transform 0.2s ease, color 0.15s ease; }
-details[open] .chev { transform: rotate(90deg); }
+details[open] .chev { transform: rotate(180deg); }
 @media (prefers-reduced-motion: reduce) { .chev { transition: none; } }
 
 /* Borderless brand logos — theme-aware so dark marks stay visible on dark bg */
@@ -143,9 +143,10 @@ details.role > summary:hover .chev { color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .lnk { transition: none; } }
 
 /* Experience expand/collapse-all control */
-[data-roles-toggle] .ra-open { display: none; }
-[data-roles-toggle][aria-expanded="true"] .ra-open { display: inline; }
-[data-roles-toggle][aria-expanded="true"] .ra-closed { display: none; }
+.ra-toggle .ra-open { display: none; }
+.ra-toggle[aria-expanded="true"] .ra-open { display: inline; }
+.ra-toggle[aria-expanded="true"] .ra-closed { display: none; }
+.ra-toggle[aria-expanded="true"] + .ra-hint { display: none; } /* hint only while collapsed */
 
 /* Theme toggle: show the icon of where a click takes you (like the language
    toggle showing the target language). In light mode show the moon, in dark

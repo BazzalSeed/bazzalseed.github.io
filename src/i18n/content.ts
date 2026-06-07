@@ -94,14 +94,14 @@ const zh: SiteContent = {
     { title: '第一性原理思维', desc: '我的技术之路始于物理学。这段训练塑造了我解决复杂问题的方式：回到第一性原理，用数据验证假设，通过持续迭代寻找更优解。无论是工程、投资还是领导力，我都相信清晰的思考会在长期产生复利。' },
   ],
   roles: [
-    { title: '高级首席工程师', org: 'DoorDash', logo: 'doordash', period: '2026年1月 — 至今', current: true,
+    { title: '高级首席工程师（E7）', org: 'DoorDash', logo: 'doordash', period: '2026年1月 — 至今', current: true,
       summary: '我带领 DoorDash Storage 团队，并负责整体技术方向——这是支撑公司核心业务运行的数据系统底座。',
       notes: [
         '带领并培养约 40 人的工程团队，指导 Staff 与 Senior 工程师成长为下一批技术领导者。',
         '制定 DoorDash 下一代存储平台的技术愿景与路线图，涵盖 Event Bus、Chronos 与自助化数据库平台。',
         '负责全公司产品团队依赖的在线数据存储平台，为每天数百万订单背后的可靠性、性能与长期架构负责。',
       ] },
-    { title: '首席工程师', org: 'DoorDash', logo: 'doordash', period: '2022年7月 — 2025年12月',
+    { title: '首席工程师（E6）', org: 'DoorDash', logo: 'doordash', period: '2022年7月 — 2025年12月',
       summary: '在 DoorDash 全球化扩张过程中，推动核心存储系统变得更快、更稳定、更高效。',
       notes: [
         '构建并规模化 Event Bus：基于 Kafka 的平台抽象，让业务团队无需直接操作 Kafka 即可发布与消费事件。',

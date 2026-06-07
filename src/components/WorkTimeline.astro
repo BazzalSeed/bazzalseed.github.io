@@ -63,7 +63,7 @@ const { roles, education } = getContent(lang);
           <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap" style="color: var(--muted)">{e.period}</span>
           <svg class="chev ml-1 shrink-0" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent)" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
         </div>
-        <p class="font-[family-name:var(--mono)] text-xs mt-1 pl-[52px]" style="color: var(--muted)">{e.degree} · {e.gpa}</p>
+        <p class="font-[family-name:var(--mono)] text-xs mt-1 pl-[52px]" style="color: var(--muted)">{e.degree} · {e.gpa}{e.honors && (<> · <span style="color: var(--accent)">{e.honors}</span></>)}</p>
         <p class="text-[0.95rem] leading-relaxed mt-2 pl-[52px]" style="color: var(--fg)">{e.summary}</p>
       </summary>
       <div class="pb-5 pl-[52px]">

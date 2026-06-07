@@ -2,7 +2,7 @@ import type { Locale } from './config';
 
 export type Slide = { title: string; desc: string };
 export type Role = { title: string; org: string; logo: string; period: string; current?: boolean; summary: string; notes: string[] };
-export type Education = { school: string; degree: string; gpa: string; logo: string; period: string; summary: string; notes: string[] };
+export type Education = { school: string; degree: string; gpa: string; logo: string; period: string; honors?: string; summary: string; notes: string[] };
 
 export type SiteContent = {
   headline: string;
@@ -66,16 +66,17 @@ const en: SiteContent = {
   ],
   education: [
     { school: 'Washington University in St. Louis', degree: 'B.S. Computer Science', gpa: 'GPA 3.97', logo: 'wustl', period: '2014 — 2016',
+      honors: 'Summa Cum Laude · Full scholarship',
       summary: 'Computer science with a focus on algorithms and systems — the groundwork for a career in infrastructure.',
       notes: [
-        'Graduated Summa Cum Laude — ranked 9 / 500',
-        'Brown Fellowship — full scholarship',
+        'Ranked 9 / 500',
+        'Brown Fellowship recipient',
         'Teaching assistant — Advanced Algorithms, Web Development, iOS Development',
       ] },
     { school: 'Denison University', degree: 'B.A. Physics', gpa: 'Major GPA 3.97', logo: 'denison', period: '2011 — 2014',
+      honors: 'Summa Cum Laude',
       summary: 'A physics foundation that still shapes how I reason about hard problems — rigor, measurement, first principles.',
       notes: [
-        'Graduated Summa Cum Laude',
         'Recognized for outstanding contribution to the Physics Department',
         'Co-authored a paper in Physical Review A; researched laser cooling of negative ions at Lawrence Berkeley National Lab',
       ] },
@@ -137,16 +138,17 @@ const zh: SiteContent = {
   ],
   education: [
     { school: '圣路易斯华盛顿大学', degree: '计算机科学学士', gpa: 'GPA 3.97', logo: 'wustl', period: '2014 — 2016',
+      honors: '最高荣誉毕业 · 全额奖学金',
       summary: '主修计算机科学，专注算法与系统——这也是我深耕 AI Infra 与分布式系统的起点。',
       notes: [
-        '以最高荣誉毕业（Summa Cum Laude），年级排名 9 / 500',
-        'Brown Fellowship 全额奖学金',
+        '年级排名 9 / 500',
+        '获 Brown Fellowship 奖学金',
         '担任高级算法、Web 开发与 iOS 开发课程助教',
       ] },
     { school: '丹尼森大学', degree: '物理学学士', gpa: '专业 GPA 3.97', logo: 'denison', period: '2011 — 2014',
+      honors: '最高荣誉毕业',
       summary: '物理学训练至今影响着我解决复杂问题的方式——严谨、量化、回到第一性原理。',
       notes: [
-        '以最高荣誉毕业（Summa Cum Laude）',
         '因对物理系的突出贡献获得认可',
         '在《Physical Review A》合著论文，并在劳伦斯伯克利国家实验室研究负离子激光冷却',
       ] },

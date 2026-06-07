@@ -131,8 +131,12 @@ details[open] .chev { transform: rotate(180deg); }
 .role-title { transition: color 0.15s ease; }
 details.role[open] .role-title,
 details.role[open] .chev { color: var(--accent); }
-details.role > summary:hover .role-title,
-details.role > summary:hover .chev { color: var(--accent); }
+/* Hover-highlight only on real hover pointers — on touch, :hover sticks after a
+   tap and would leave a collapsed row highlighted. (Open rows still highlight.) */
+@media (hover: hover) and (pointer: fine) {
+  details.role > summary:hover .role-title,
+  details.role > summary:hover .chev { color: var(--accent); }
+}
 @media (prefers-reduced-motion: reduce) { .role-title { transition: none; } }
 
 /* Unified hover language: interactive text links highlight in the accent color

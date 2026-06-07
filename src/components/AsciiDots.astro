@@ -3,39 +3,114 @@ import asciiArt from '../data/ascii-name.txt?raw';
 interface Props { name: string }
 const { name } = Astro.props;
 ---
-<!-- Hero wordmark: crisp ANSI-Shadow art that flickers on like a neon/terminal sign. Real name kept for a11y/SEO. -->
+<!-- Hero wordmark: ANSI-Shadow art. Glitches on, then a theme-aware light sweeps
+     through it; tilts in 3D toward the cursor (desktop) / gently floats (mobile).
+     Real name kept for a11y/SEO. -->
 <h1 class="sr-only">{name}</h1>
-<pre
-  data-name
-  aria-hidden="true"
-  title="click to replay"
-  class="m-0 w-fit font-[family-name:var(--mono)] font-bold leading-[1.05] overflow-hidden cursor-pointer select-none text-[clamp(0.4rem,2.05vw,0.82rem)]"
-  style="color: var(--accent)"
->{asciiArt}</pre>
+<div class="hero-stage" data-hero>
+  <div class="hero-tilt">
+    <div class="hero-wrap">
+      <pre
+        data-name
+        aria-hidden="true"
+        title="click to replay"
+        class="hero-pre m-0 w-fit font-[family-name:var(--mono)] font-bold leading-[1.05] overflow-hidden cursor-pointer select-none text-[clamp(0.4rem,2.05vw,0.82rem)]"
+        style="color: var(--accent)"
+      >{asciiArt}</pre>
+      <pre
+        aria-hidden="true"
+        class="hero-shine m-0 font-[family-name:var(--mono)] font-bold leading-[1.05] overflow-hidden select-none text-[clamp(0.4rem,2.05vw,0.82rem)]"
+      >{asciiArt}</pre>
+    </div>
+  </div>
+</div>
 
 <style>
-  [data-name].play { animation: ascii-flicker 0.9s ease-out both; }
-  /* subtle neon-sign blink: comes on with two gentle stutters, then steady */
-  @keyframes ascii-flicker {
-    0%   { opacity: 0; }
-    14%  { opacity: 1; }
-    20%  { opacity: 0.6; }
-    28%  { opacity: 1; }
-    38%  { opacity: 0.82; }
-    46%  { opacity: 1; }
-    100% { opacity: 1; }
+  .hero-stage { perspective: 800px; width: fit-content; }
+  .hero-tilt {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    transform-style: preserve-3d;
+    will-change: transform;
   }
-  @media (prefers-reduced-motion: reduce) { [data-name].play { animation: none; } }
+  .hero-wrap { position: relative; width: fit-content; }
+  .hero-shine { position: absolute; top: 0; left: 0; pointer-events: none; opacity: 0; }
+  /* Theme-aware light: a white glint (screen) pops on dark; a deeper saturated
+     pulse (multiply) reads better on the light cream background. */
+  [data-theme="dark"] .hero-shine { color: #ffffff; mix-blend-mode: screen; }
+  [data-theme="light"] .hero-shine { color: color-mix(in srgb, var(--accent), #000 30%); mix-blend-mode: multiply; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Entrance: chromatic glitch that snaps clean. */
+    .hero-pre.play { animation: ascii-glitch 0.9s steps(1, end) both; }
+    @keyframes ascii-glitch {
+      0%   { opacity: 0; transform: translateX(0); text-shadow: none; }
+      6%   { opacity: 1; transform: translateX(-3px); text-shadow: 3px 0 #ff2d55, -3px 0 #00e0ff; }
+      12%  { transform: translateX(4px); text-shadow: -4px 0 #ff2d55, 4px 0 #00e0ff; clip-path: inset(20% 0 50% 0); }
+      18%  { transform: translateX(-2px); text-shadow: 3px 0 #ff2d55, -3px 0 #00e0ff; clip-path: inset(60% 0 10% 0); }
+      26%  { transform: translateX(3px); text-shadow: -3px 0 #ff2d55, 3px 0 #00e0ff; clip-path: inset(0 0 0 0); }
+      34%  { transform: translateX(-1px); text-shadow: 1px 0 #ff2d55, -1px 0 #00e0ff; }
+      48%  { transform: translateX(0); text-shadow: none; }
+      100% { opacity: 1; transform: translateX(0); text-shadow: none; }
+    }
+    /* Settled: a light sweeps through (clawdia-style — a copy revealed by a
+       moving mask band, theme-blended). */
+    .hero-stage.settled .hero-shine {
+      opacity: 1;
+      -webkit-mask-image: linear-gradient(100deg, transparent 38%, #000 50%, transparent 62%);
+      mask-image: linear-gradient(100deg, transparent 38%, #000 50%, transparent 62%);
+      -webkit-mask-size: 230% 100%;
+      mask-size: 230% 100%;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      animation: ascii-shine 3s linear infinite;
+    }
+    @keyframes ascii-shine {
+      0%   { -webkit-mask-position: 115% 0; mask-position: 115% 0; }
+      100% { -webkit-mask-position: -115% 0; mask-position: -115% 0; }
+    }
+  }
+
+  /* Touch devices can't hover — give the hero a gentle continuous 3D float. */
+  @media (hover: none) and (prefers-reduced-motion: no-preference) {
+    .hero-tilt { animation: ascii-float 7s ease-in-out infinite; }
+  }
+  @keyframes ascii-float {
+    0%, 100% { transform: rotateX(6deg) rotateY(-9deg); }
+    25%      { transform: rotateX(-5deg) rotateY(7deg); }
+    50%      { transform: rotateX(6deg) rotateY(10deg); }
+    75%      { transform: rotateX(-6deg) rotateY(-6deg); }
+  }
 </style>
 
 <script>
-  const el = document.querySelector<HTMLElement>('[data-name]');
-  if (el && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    el.classList.add('play');
-    el.addEventListener('click', () => {
-      el.classList.remove('play');
-      void el.offsetWidth; // reflow to restart
-      el.classList.add('play');
-    });
+  const stage = document.querySelector<HTMLElement>('[data-hero]');
+  const pre = stage?.querySelector<HTMLElement>('.hero-pre');
+  const tilt = stage?.querySelector<HTMLElement>('.hero-tilt');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (stage && pre && !reduce) {
+    let settleTimer = 0;
+    const play = () => {
+      pre.classList.remove('play');
+      stage.classList.remove('settled');
+      void pre.offsetWidth; // reflow to restart the glitch
+      pre.classList.add('play');
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(() => stage.classList.add('settled'), 950);
+    };
+    play();
+    pre.addEventListener('click', play);
+
+    // 3D tilt toward the cursor — only where a real hover pointer exists.
+    if (tilt && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      stage.addEventListener('mousemove', (e) => {
+        const r = stage.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        tilt.style.transform =
+          `rotateX(${(-py * 12).toFixed(2)}deg) rotateY(${(px * 16).toFixed(2)}deg) scale(1.03)`;
+      });
+      stage.addEventListener('mouseleave', () => { tilt.style.transform = ''; });
+    }
   }
 </script>

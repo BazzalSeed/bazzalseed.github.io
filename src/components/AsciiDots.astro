@@ -70,15 +70,17 @@ const { name } = Astro.props;
     }
   }
 
-  /* Touch devices can't hover — give the hero a gentle continuous 3D float. */
+  /* Touch devices can't hover — rock the hero a couple of times after the
+     entrance, then settle flat. (The light sweep keeps looping regardless.) */
   @media (hover: none) and (prefers-reduced-motion: no-preference) {
-    .hero-tilt { animation: ascii-float 7s ease-in-out infinite; }
+    .hero-tilt { animation: ascii-float 4s ease-in-out 0.9s 2 both; }
   }
   @keyframes ascii-float {
-    0%, 100% { transform: rotateX(6deg) rotateY(-9deg); }
-    25%      { transform: rotateX(-5deg) rotateY(7deg); }
-    50%      { transform: rotateX(6deg) rotateY(10deg); }
-    75%      { transform: rotateX(-6deg) rotateY(-6deg); }
+    0%   { transform: rotateX(0deg) rotateY(0deg); }
+    25%  { transform: rotateX(5deg) rotateY(-10deg); }
+    50%  { transform: rotateX(0deg) rotateY(0deg); }
+    75%  { transform: rotateX(-4deg) rotateY(9deg); }
+    100% { transform: rotateX(0deg) rotateY(0deg); }
   }
 </style>
 

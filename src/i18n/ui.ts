@@ -13,7 +13,7 @@ const UI: Record<Locale, Dict> = {
     'form.error': 'that failed — email me directly?', 'contact.direct': 'or email me directly:',
     'podcast.break': 'on a break',
     'roles.expandAll': 'expand all ↓', 'roles.collapseAll': 'collapse all ↑', 'roles.now': 'now',
-    'roles.hint': 'click any row to show more',
+    'roles.hint': 'or click a row',
   },
   zh: {
     'nav.work': '经历', 'nav.writing': '文章', 'nav.podcast': '播客', 'nav.contact': '联系',
@@ -25,7 +25,7 @@ const UI: Record<Locale, Dict> = {
     'form.error': '发送失败 — 直接发邮件给我？', 'contact.direct': '或直接发邮件：',
     'podcast.break': '暂停更新',
     'roles.expandAll': '展开全部 ↓', 'roles.collapseAll': '收起全部 ↑', 'roles.now': '现在',
-    'roles.hint': '点击任一行展开更多',
+    'roles.hint': '或点击任一行展开',
   },
 };
 

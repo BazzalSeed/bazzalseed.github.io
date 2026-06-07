@@ -17,7 +17,7 @@ const { roles, education } = getContent(lang);
     <span class="ra-hint font-[family-name:var(--mono)] text-[0.68rem]" style="color: var(--muted); opacity: 0.7">{t(lang, 'roles.hint')}</span>
   </div>
   {roles.map((r) => (
-    <details open={r.current} class="role">
+    <details class="role">
       <summary class="cursor-pointer py-4 select-none">
         <div class="flex items-center gap-3">
           <CompanyLogo company={r.logo} />

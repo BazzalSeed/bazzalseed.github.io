@@ -61,6 +61,7 @@ const first = BIO_SLIDES[0];
     let startedAt = 0;
     let paused = false;
     let userPaused = false; // sticky pause from the play/pause button
+    let held = false; // pointer is currently over (or focus within) the section
 
     const paint = (n: number) => {
       const s = BIO_SLIDES[n];
@@ -111,15 +112,17 @@ const first = BIO_SLIDES[0];
     const go = (n: number) => {
       i = (n + len) % len;
       paint(i);
-      if (userPaused) {
-        // navigate only — stay paused, reset progress to empty
+      const d = durationFor(BIO_SLIDES[i].desc);
+      if (userPaused || held) {
+        // navigated while paused or hovered — show the slide but don't auto-advance;
+        // reset progress to empty (it resumes on mouseleave / play).
+        paused = true;
         window.clearTimeout(timer);
-        remaining = durationFor(BIO_SLIDES[i].desc);
+        remaining = d;
         if (fill && !reduce) { fill.style.transition = 'none'; fill.style.height = '0%'; void fill.offsetWidth; }
         return;
       }
       paused = false;
-      const d = durationFor(BIO_SLIDES[i].desc);
       arm(d);
       fillTo(d);
     };
@@ -143,10 +146,10 @@ const first = BIO_SLIDES[0];
     // Hover-pause only on hover-capable (desktop) devices; the play/pause button
     // covers touch. A sticky user-pause is never auto-resumed by hover.
     if (matchMedia('(hover: hover)').matches) {
-      root.addEventListener('mouseenter', () => { if (!userPaused) pause(); });
-      root.addEventListener('mouseleave', () => { if (!userPaused) resume(); });
-      root.addEventListener('focusin', () => { if (!userPaused) pause(); });
-      root.addEventListener('focusout', () => { if (!userPaused) resume(); });
+      root.addEventListener('mouseenter', () => { held = true; if (!userPaused) pause(); });
+      root.addEventListener('mouseleave', () => { held = false; if (!userPaused) resume(); });
+      root.addEventListener('focusin', () => { held = true; if (!userPaused) pause(); });
+      root.addEventListener('focusout', () => { held = false; if (!userPaused) resume(); });
     }
     dots.forEach((d, idx) => d.addEventListener('click', () => go(idx)));
     prevBtn?.addEventListener('click', () => go(i - 1));

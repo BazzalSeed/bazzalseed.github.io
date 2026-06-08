@@ -69,7 +69,7 @@ const en: SiteContent = {
       honors: 'Summa Cum Laude · Full scholarship',
       summary: 'Computer science with a focus on algorithms and systems — the groundwork for a career in infrastructure.',
       notes: [
-        'Ranked 9 / 500',
+        'Ranked 7 / 623 by graduation GPA',
         'Brown Fellowship recipient',
         'Teaching assistant — Advanced Algorithms, Web Development, iOS Development',
       ] },
@@ -141,7 +141,7 @@ const zh: SiteContent = {
       honors: '最高荣誉毕业 · 全额奖学金',
       summary: '主修计算机科学，专注算法与系统——这也是我深耕 AI Infra 与分布式系统的起点。',
       notes: [
-        '年级排名 9 / 500',
+        '毕业 GPA 年级排名 7 / 623',
         '获 Brown Fellowship 奖学金',
         '担任高级算法、Web 开发与 iOS 开发课程助教',
       ] },

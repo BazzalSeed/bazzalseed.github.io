@@ -14,13 +14,13 @@ import profile from '../assets/profile.png';
 const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale as Locale) : DEFAULT_LOCALE;
 const content = getContent(lang);
 ---
-<section class="mt-14 2xl:mt-0">
+<section class="mt-14 min-[1440px]:mt-0">
   <Image
     src={profile}
     alt="Illustrated portrait of Seed Zeng"
     width={192}
     height={192}
-    class="w-24 h-24 rounded-full object-cover mb-5 border border-[color:var(--rule)] 2xl:hidden"
+    class="w-24 h-24 rounded-full object-cover mb-5 border border-[color:var(--rule)] min-[1440px]:hidden"
   />
   <AsciiDots name={SITE.name} />
   <p class="font-[family-name:var(--mono)] text-[0.7rem] mt-1" aria-hidden="true">

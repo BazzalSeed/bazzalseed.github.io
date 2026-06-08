@@ -4,6 +4,7 @@ import SocialLinks from './SocialLinks.astro';
 const year = new Date().getFullYear();
 ---
 <footer class="mt-24 pt-6 border-t border-[color:var(--rule)] font-[family-name:var(--mono)] text-sm flex flex-wrap items-center justify-between gap-3" style="color: var(--muted)">
-  <SocialLinks />
+  <!-- Socials live in the left rail when it's shown; don't duplicate them here. -->
+  <SocialLinks class="min-[1440px]:hidden" />
   <span>© {year} {SITE.name}</span>
 </footer>

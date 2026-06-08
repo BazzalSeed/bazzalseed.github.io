@@ -42,7 +42,7 @@ const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale 
     </script>
   </head>
   <body>
-    <header data-header class="sticky top-0 z-50 2xl:hidden">
+    <header data-header class="sticky top-0 z-50 min-[1440px]:hidden">
       <div class="mx-auto max-w-2xl px-6">
         <Nav />
       </div>
@@ -56,14 +56,14 @@ const lang: Locale = isLocale(Astro.currentLocale ?? '') ? (Astro.currentLocale 
         window.addEventListener('scroll', sync, { passive: true });
       })();
     </script>
-    <div class="mx-auto px-6 max-w-2xl 2xl:max-w-none 2xl:w-fit 2xl:grid 2xl:grid-cols-[200px_672px] 2xl:gap-20">
+    <div class="mx-auto px-6 max-w-2xl min-[1440px]:max-w-none min-[1440px]:w-fit min-[1440px]:grid min-[1440px]:grid-cols-[200px_672px] min-[1440px]:gap-20">
       <!-- left rail: ultra-wide only -->
-      <aside class="hidden 2xl:block">
-        <div class="2xl:sticky 2xl:top-0 2xl:max-h-screen 2xl:overflow-y-auto py-12">
+      <aside class="hidden min-[1440px]:block">
+        <div class="min-[1440px]:sticky min-[1440px]:top-0 min-[1440px]:max-h-screen min-[1440px]:overflow-y-auto py-12">
           <Sidebar />
         </div>
       </aside>
-      <div class="pb-12 2xl:py-12">
+      <div class="pb-12 min-[1440px]:py-12">
         <main>
           <slot />
         </main>

@@ -78,13 +78,14 @@ const { name } = Astro.props;
   /* Touch devices can't hover — rock the hero a couple of times after the
      entrance, then settle flat. (The light sweep keeps looping regardless.) */
   @media (hover: none) and (prefers-reduced-motion: no-preference) {
-    .hero-tilt { animation: ascii-float 4.5s ease-in-out 0.9s 1 both; }
+    .hero-stage { perspective: 560px; } /* stronger 3D for the mobile showcase */
+    .hero-tilt { animation: ascii-float 5s ease-in-out 0.8s 1 both; }
   }
   @keyframes ascii-float {
     0%   { transform: rotateX(0deg) rotateY(0deg); }
-    25%  { transform: rotateX(5deg) rotateY(-10deg); }
+    24%  { transform: rotateX(10deg) rotateY(-22deg); }
     50%  { transform: rotateX(0deg) rotateY(0deg); }
-    75%  { transform: rotateX(-4deg) rotateY(9deg); }
+    76%  { transform: rotateX(-9deg) rotateY(19deg); }
     100% { transform: rotateX(0deg) rotateY(0deg); }
   }
 </style>

@@ -7,16 +7,18 @@ const href = entryHref(entry);
 const year = entry.data.date.getFullYear();
 const external = entry.data.external;
 ---
-<li class={`flex items-baseline justify-between gap-3 py-2 border-b border-[color:var(--rule)] ${cls}`}>
+<li class={`border-b border-[color:var(--rule)] ${cls}`}>
   <a
     href={href}
-    class="lnk"
+    class="lnk flex items-baseline justify-between gap-3 py-2"
     {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
   >
-    <span class="font-[family-name:var(--mono)] text-xs opacity-60 mr-3">{year}</span>{entry.data.title}
+    <span class="min-w-0">
+      <span class="font-[family-name:var(--mono)] text-xs opacity-60 mr-3">{year}</span>{entry.data.title}
+    </span>
+    <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap shrink-0"
+          style={`color: var(${external ? '--link' : '--post'})`}>
+      {external ? `${entry.data.source ?? 'link'} ↗` : '● post'}
+    </span>
   </a>
-  <span class="font-[family-name:var(--mono)] text-xs whitespace-nowrap"
-        style={`color: var(${external ? '--link' : '--post'})`}>
-    {external ? `${entry.data.source ?? 'link'} ↗` : '● post'}
-  </span>
 </li>

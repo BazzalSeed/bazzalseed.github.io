@@ -50,18 +50,39 @@ const content = getContent(lang);
     <p class="text-[0.95rem] leading-relaxed max-w-prose mt-3 mb-5" style="color: var(--muted)">
       {content.podcastDesc}
     </p>
+    <!-- Theme-aware Podbean player: src (skin/buttons/font) is set per theme by
+         the script below, lazy-loaded on scroll, and re-swapped on theme change. -->
     <iframe
+      data-pb-player
       title="Venture Vibes podcast"
-      loading="lazy"
-      src="https://www.podbean.com/player-v2/?i=5vxnc-b09f80-pbblog-playlist&share=1&download=1&rtl=1&fonts=Arial&skin=f6f6f6&font-color=auto&order=episodic&limit=10&filter=all&ss=a713390a017602015775e868a2cf26b0&btn-skin=3267a3&size=300"
+      data-src-light="https://www.podbean.com/player-v2/?i=5vxnc-b09f80-pbblog-playlist&share=1&download=1&rtl=1&fonts=Arial&skin=faf8f4&font-color=black&logo_link=podcast_page&order=episodic&limit=10&filter=all&ss=a713390a017602015775e868a2cf26b0&btn-skin=b04a2f&size=300"
+      data-src-dark="https://www.podbean.com/player-v2/?i=5vxnc-b09f80-pbblog-playlist&share=1&download=1&rtl=1&fonts=Arial&skin=0d1117&font-color=white&logo_link=podcast_page&order=episodic&limit=10&filter=all&ss=a713390a017602015775e868a2cf26b0&btn-skin=3fb950&size=300"
       height="300"
       width="100%"
+      scrolling="no"
       allowfullscreen
-      class="rounded-lg block"
-      style="border:1px solid var(--rule); min-width: min(100%, 430px);"
+      class="rounded-lg block overflow-hidden"
+      style="border: none; min-width: min(100%, 430px); height: 300px;"
     ></iframe>
   </div>
 </section>
+
+<script>
+  const pb = document.querySelector<HTMLIFrameElement>('[data-pb-player]');
+  if (pb) {
+    const srcFor = () =>
+      document.documentElement.dataset.theme === 'dark' ? pb.dataset.srcDark! : pb.dataset.srcLight!;
+    let loaded = false;
+    // Lazy-load the theme-matched player when it nears the viewport.
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) { pb.src = srcFor(); loaded = true; io.disconnect(); }
+    }, { rootMargin: '400px' });
+    io.observe(pb);
+    // Once loaded, swap to the matching variant if the theme changes.
+    new MutationObserver(() => { if (loaded) pb.src = srcFor(); })
+      .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  }
+</script>
 
 <section id="contact" class="mt-20 scroll-mt-16">
   <SectionLabel name="contact" title={t(lang, 'section.contact')} class="mb-5" />
